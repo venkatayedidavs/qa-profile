@@ -1,0 +1,8 @@
+# Keep the repository limited to the public GitHub Pages site and its deployer.
+*
+!.gitignore
+!pages/
+!pages/*.html
+!.github/
+!.github/workflows/
+!.github/workflows/pages.yml

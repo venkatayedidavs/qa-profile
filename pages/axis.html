@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>Akhila Gopisetti | Resume</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2528;
+      --muted: #566168;
+      --rule: #d4dcde;
+      --banner: #f3f6f5;
+      --accent: #176b67;
+      --paper: #fff;
+    }
+
+    * { box-sizing: border-box; letter-spacing: 0; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #e8ebed;
+      font: 400 10.2pt/1.4 Arial, Helvetica, sans-serif;
+    }
+
+    .resume {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 34mm;
+      column-gap: 8mm;
+      align-content: start;
+      width: 210mm;
+      max-width: 100%;
+      min-height: 297mm;
+      margin: 28px auto;
+      padding: 12mm 14.5mm 16mm;
+      background: var(--paper);
+      overflow-wrap: anywhere;
+      isolation: isolate;
+    }
+
+    .resume::before {
+      content: "";
+      grid-area: 1 / 1 / 3 / -1;
+      margin: -12mm -14.5mm 0;
+      border-top: 4px solid var(--accent);
+      background: var(--banner);
+      z-index: -1;
+    }
+
+    .identity { display: contents; }
+    .identity-copy {
+      grid-column: 1;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      min-height: 31mm;
+      padding: 3mm 0 1mm;
+    }
+
+    .photo-frame {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: center;
+      justify-self: end;
+      width: 34mm;
+      height: 42mm;
+      margin: 0;
+      padding: 1mm;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(31, 37, 40, 0.08);
+    }
+    .photo-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      border-radius: 2px;
+    }
+
+    h1 {
+      max-width: 140mm;
+      margin: 0;
+      font-size: 28pt;
+      font-weight: 700;
+      line-height: 1.04;
+      text-transform: uppercase;
+    }
+
+    .headline { margin: 2.5mm 0 0; font-size: 11pt; font-weight: 600; color: var(--accent); }
+    .resume > * { min-width: 0; }
+    .resume > p, .resume > ul, .resume > ol, .resume > hr { grid-column: 1 / -1; }
+
+    .resume > p:first-of-type {
+      grid-area: 2 / 1;
+      max-width: none;
+      padding: 2mm 0 5mm;
+      margin: 0;
+      border-top: 0;
+      font-size: 9.2pt;
+      line-height: 1.55;
+      text-align: left;
+      color: var(--muted);
+    }
+
+    h2 {
+      grid-column: 1 / -1;
+      margin: 6mm 0 3mm;
+      padding-bottom: 1mm;
+      border-bottom: 1px solid var(--rule);
+      font-size: 10.8pt;
+      font-weight: 600;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    h3 { grid-column: 1; margin: 3mm 0 1mm; font-size: 10.4pt; font-weight: 600; line-height: 1.35; }
+
+    .resume > h3 + p {
+      grid-column: 1;
+      justify-self: start;
+      margin: 0 0 1mm;
+      font-size: 9.4pt;
+      font-weight: 600;
+      text-align: left;
+      color: var(--muted);
+      break-after: avoid;
+    }
+
+    .experience-entry {
+      grid-column: 1 / -1;
+      break-inside: avoid;
+    }
+
+    .experience-heading {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) max-content;
+      column-gap: 4mm;
+      align-items: baseline;
+      width: 100%;
+      margin: 3mm 0 1mm;
+      break-inside: avoid;
+    }
+
+    .experience-heading h3 {
+      grid-column: 1;
+      margin: 0;
+    }
+
+    .experience-heading p {
+      grid-column: 2;
+      justify-self: end;
+      margin: 0;
+      font-size: 9.4pt;
+      font-weight: 600;
+      text-align: right;
+      color: var(--muted);
+    }
+
+    h1, h2, h3 { break-after: avoid; }
+    h2 + h3, h2 + .experience-entry .experience-heading,
+    .resume > h2 + h3 + p { margin-top: 0; }
+    p { margin: 0 0 2mm; text-align: justify; }
+    .list-section { grid-column: 1 / -1; }
+    .list-section > p { break-after: avoid; }
+    ul, ol { margin: 0 0 3mm; padding-left: 5.5mm; }
+    li { margin: 0.5mm 0; padding-left: 0.5mm; break-inside: avoid; text-align: justify; }
+    li p { margin: 0; }
+    strong { font-weight: 600; }
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 2px; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    hr { width: 100%; border: 0; border-top: 1px solid var(--rule); }
+
+    @page { size: A4; margin: 12mm 14.5mm 16mm; }
+
+    @media screen and (max-width: 620px) {
+      .resume {
+        grid-template-columns: minmax(0, 1fr) 25mm;
+        column-gap: 5mm;
+        min-height: 100vh;
+        margin: 0;
+        padding: 24px 22px;
+      }
+      .resume::before { grid-area: 1 / 1 / 3 / -1; margin: -24px -22px 0; }
+      .identity-copy { grid-column: 1; grid-row: 1; min-height: 0; padding: 8px 0 3mm; }
+      .photo-frame { grid-column: 2; grid-row: 1 / 3; width: 25mm; height: 31mm; }
+      h1 { max-width: none; font-size: 20pt; }
+      .headline { font-size: 10pt; }
+      .resume > p:first-of-type { grid-area: 2 / 1; max-width: 100%; padding: 3mm 0 5mm; margin: 0; text-align: left; }
+      h3, .resume > h3 + p { grid-column: 1; }
+      .resume > h3 + p { justify-self: start; margin-top: 0; text-align: left; color: var(--muted); }
+      .experience-heading { grid-template-columns: minmax(0, 1fr); row-gap: 1mm; }
+      .experience-heading h3, .experience-heading p { grid-column: 1; }
+      .experience-heading p { justify-self: start; text-align: left; }
+    }
+
+    @media print {
+      body { background: var(--paper); }
+      .resume { width: auto; max-width: none; min-height: 0; margin: 0; padding: 0; }
+      .resume::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <main class="resume">
+    <header class="identity">
+      <div class="identity-copy">
+        <h1>Akhila Gopisetti</h1>
+        <p class="headline">Senior QA Engineer | Senior Software Test Engineer</p>
+      </div>
+    </header>
+
+<p>Email: gopisetti.akhila@gmail.com<br> Phone: +46 72 764 57 68 | <a href="https://www.linkedin.com/in/akhilagopisetti/">linkedin.com/in/akhilagopisetti</a> | Helsingborg, Sweden</p>
+
+<h2>Profile</h2>
+
+<p>Senior Software Test Engineer with more than nine years of experience in manual and automated quality assurance across banking, healthcare, and travel. Experienced across the software delivery and testing life cycles, from gathering requirements with product managers through test preparation, test planning, test case design, test execution, defect management, and release validation.</p>
+
+<p>Hands-on experience with automated software testing in CI/CD pipelines, including UI and API automation frameworks. Experienced in complex delivery environments and close collaboration with developers and stakeholders. Also experienced in AI-assisted testing using GitHub Copilot and Claude Code.</p>
+
+<h2>Core Skills</h2>
+<ul><li>
+<p><strong>Quality assurance:</strong> Manual, exploratory, functional, acceptance,  regression, integration, end-to-end, cross-browser, and performance testing;  web, mobile, and Android application testing; STLC; test planning, test case  design, test execution, test reporting, and defect management</p>
+</li><li>
+<p><strong>UI automation:</strong> Playwright, Selenium WebDriver, Cypress, TypeScript,  JavaScript, Page Object Model, BDD, TDD, and Sauce Labs</p>
+</li><li>
+<p><strong>API, services, and databases:</strong> REST API testing, SOAP web services,  RestAssured, Karate, Postman, Bruno, SoapUI, OpenAPI specifications,  microservices testing, database testing, Java, and TestNG</p>
+</li><li>
+<p><strong>Continuous delivery and cloud:</strong> Testing in continuous delivery pipelines;  GitHub Actions, Jenkins, Git, JIRA, AWS, and AWS Certified Cloud Practitioner</p>
+</li><li>
+<p><strong>AI-assisted QA:</strong> GitHub Copilot and Claude Code for test-case generation  and test automation; agent skills and custom agents</p>
+</li></ul>
+
+<h2>Professional Experience</h2>
+
+<section class="experience-entry">
+<div class="experience-heading">
+<h3>QA Engineer (Senior) | Resurs Bank | Helsingborg, Sweden</h3>
+
+<p>2023 - Present</p>
+</div>
+<div class="list-section">
+<p>Customer Identity Platform, AML/KYC, and digital onboarding across the Nordic markets.</p>
+<ul><li>
+<p><strong>End-to-end QA delivery:</strong> Led QA activities from requirements gathering with  product managers, developers, compliance teams, and other stakeholders through  test-case design, test-data preparation, manual and automated test execution,  defect management, and release validation, using Jira and Xray for test-case  and defect management.</p>
+</li><li>
+<p><strong>API automation:</strong> Created an API automation framework using Bruno and  RestAssured for AML screening, sanctions screening, and KYC microservices,  reducing the regression check for an API change from around two days of  manual testing to under four hours.</p>
+</li><li>
+<p><strong>UI automation:</strong> Created a TypeScript and Playwright UI automation  framework for regression and accessibility testing across  customer-onboarding and related application flows, reducing a full regression  cycle from around three days of manual execution to about two hours.</p>
+</li><li>
+<p><strong>Performance testing:</strong> Delivered the k6 performance-testing framework that a  business-critical release depended on, adopting an unfamiliar tool and putting  it into production use within the project timeline.</p>
+</li><li>
+<p><strong>Testing in CI/CD:</strong> Integrated API and UI automation into CI/CD pipelines,  including GitHub Actions, with automated test coverage reporting whenever code  changes are introduced.</p>
+</li><li>
+<p><strong>AI-assisted testing:</strong> Used GitHub Copilot and Claude Code for test-case  generation and test automation, building custom agents and agent skills to  standardise repeatable QA and delivery workflows, with human-in-the-loop  review of generated output.</p>
+</li><li>
+<p><strong>QA coverage across customer flows:</strong> Owned QA coverage for Nordic  customer-onboarding, digital-identity, screening, risk, and master-data  flows, covering KYC, AML/sanctions, PEP/RCA, Enhanced Due Diligence,  eID/BankID, document handling, customer risk scoring, and legal-entity and  business-registry integrations.</p>
+</li></ul>
+</div>
+</section>
+
+<section class="experience-entry">
+<div class="experience-heading">
+<h3>Freelance QA Engineer | Remote, Sweden</h3>
+
+<p>Jan 2023 - Sep 2023</p>
+</div>
+<div class="list-section">
+<p>Independent testing engagements for client web and mobile applications.</p>
+<ul><li>
+<p><strong>Mobile and cross-platform testing:</strong> Tested Android and mobile web  applications, covering functional, compatibility, and regression scenarios.</p>
+</li><li>
+<p><strong>UI automation:</strong> Built Cypress automated test suites for client web  applications.</p>
+</li><li>
+<p><strong>API automation:</strong> Developed Karate API test suites for client services.</p>
+</li></ul>
+</div>
+</section>
+
+<section class="experience-entry">
+<div class="experience-heading">
+<h3>Senior Software Test Engineer | Cloud Taru (Model N) | India</h3>
+
+<p>May 2021 - Nov 2022</p>
+</div>
+<div class="list-section">
+<p>Project: <strong>AstraZeneca</strong></p>
+<ul><li>
+<p><strong>Quality assurance and test coverage:</strong> Prepared and maintained detailed test  cases for functional coverage across the upgrade scope and coordinated  testing as Test Lead for a module in an Agile team.</p>
+</li><li>
+<p><strong>UI automation and pipeline execution:</strong> Developed and maintained Selenium  WebDriver automation with Java and integrated parallel test execution into  Jenkins CI/CD pipelines to support repeatable regression coverage.</p>
+</li><li>
+<p><strong>API testing and defect resolution:</strong> Developed Postman and SoapUI API tests,  integrated them into the CI/CD pipeline, and managed defects in JIRA through  resolution across manual, automated, and regression testing.</p>
+</li><li>
+<p><strong>Agile delivery and collaboration:</strong> Worked with developers, stakeholders,  and other team members to coordinate testing and support the timely delivery  of quality software products, using Git for version control and centralised  test-script management.</p>
+</li><li>
+<p><strong>Quality metrics matrix and improvement:</strong> Maintained test metrics and  reports in a quality matrix to communicate test progress, quality risks, and  release readiness, while improving test processes and following  software-testing standards and applicable regulations.</p>
+</li></ul>
+</div>
+</section>
+
+<section class="experience-entry">
+<div class="experience-heading">
+<h3>Software Test Engineer | Cloud Taru (Model N) | India</h3>
+
+<p>Jan 2020 - Apr 2021</p>
+</div>
+<div class="list-section">
+<p>Project: <strong>CSL Behring</strong></p>
+<ul><li>
+<p><strong>Quality assurance and test coverage:</strong> Authored and peer-reviewed test cases  and executed manual and automated testing in an Agile environment to support  functional coverage and reliable delivery.</p>
+</li><li>
+<p><strong>Cross-browser UI automation:</strong> Created maintainable Selenium WebDriver and  Page Object Model tests using Java and TestNG, ran them in parallel across  Chrome, Firefox, and Safari, and enhanced the internal Model N web-testing  framework with reusable workflows.</p>
+</li><li>
+<p><strong>API testing and test design:</strong> Developed REST and SOAP API tests with  Postman and SoapUI and applied TDD and BDD practices to support structured,  maintainable automation.</p>
+</li><li>
+<p><strong>Defect management and quality reporting:</strong> Managed defects in JIRA through  resolution and maintained test metrics and reports to communicate quality  status and support Agile delivery and continuous improvement.</p>
+</li></ul>
+</div>
+</section>
+
+<section class="experience-entry">
+<div class="experience-heading">
+<h3>Test Analyst | Bookwow | Hyderabad, India</h3>
+
+<p>Dec 2017 - Dec 2019</p>
+</div>
+<div class="list-section">
+<p>Ticketing platform for flights and hotels.</p>
+<ul><li>
+<p><strong>Test planning and coverage:</strong> Identified test scenarios from requirements  and customer journeys, developed test plans, and designed test cases covering  flight and hotel booking functionality.</p>
+</li><li>
+<p><strong>Manual and compatibility testing:</strong> Executed manual, compatibility, and  regression testing for web functionality across supported browsers and  platforms.</p>
+</li><li>
+<p><strong>Selenium automation:</strong> Wrote and maintained Selenium automated test  scripts, expanded automation coverage for repeatable customer journeys, and  analysed failures and compatibility issues.</p>
+</li><li>
+<p><strong>Defects, reporting, and ownership:</strong> Reported and tracked defects in JIRA,  retested fixes with developers, maintained test reports and evidence for  future releases, and led day-to-day testing initiatives.</p>
+</li></ul>
+</div>
+</section>
+
+<section class="experience-entry">
+<div class="experience-heading">
+<h3>Junior Test Analyst | Creotech Solutions | Hyderabad, India</h3>
+
+<p>Jun 2017 - Dec 2017</p>
+</div>
+<div class="list-section">
+<p>Center of Excellence team supporting manual testing and test management.</p>
+<ul><li>
+<p><strong>Test analysis and planning:</strong> Reviewed requirements for testability,  identified test scenarios, and designed and executed manual test cases,  test plans, and test scripts.</p>
+</li><li>
+<p><strong>Manual and regression testing:</strong> Performed functional and regression  testing after fixes to confirm that changes worked as expected and that  resolved issues had not been reintroduced.</p>
+</li><li>
+<p><strong>Defect management and reporting:</strong> Reported and tracked defects in JIRA  through resolution, maintained test reports, evidence, and metrics, and  communicated test status, issues, and risks to the team and stakeholders.</p>
+</li></ul>
+</div>
+</section>
+
+<h2>Education</h2>
+
+<h3>Bachelor of Technology in Information Technology</h3>
+
+<p>2015 | JNTU Kakinada affiliated college</p>
+
+<h3>Certifications</h3>
+<ul><li>
+<p>AWS Certified Cloud Practitioner</p>
+</li><li>
+<p>Anthropic Introduction to Agent Skills</p>
+</li><li>
+<p>Anthropic AI Fluency Framework</p>
+</li></ul>
+
+<h2>Additional Information</h2>
+<ul><li>
+<p><strong>Languages:</strong> English - professional working proficiency; Swedish -  currently learning through SFI, level D</p>
+</li><li>
+<p><strong>Work authorization:</strong> Permanent resident of Sweden; no employer-sponsored  work permit required</p>
+</li></ul>
+
+  </main>
+</body>
+</html>
