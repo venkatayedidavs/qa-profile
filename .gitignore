@@ -1,8 +1,12 @@
-# Keep the repository limited to the public GitHub Pages site and its deployer.
+# Keep the repository limited to the GitHub Pages site, its deployer, and the
+# learning notes. Everything else stays local.
 *
 !.gitignore
 !pages/
 !pages/*.html
+!learn/
+!learn/*.html
+!learn/*.md
 !.github/
 !.github/workflows/
 !.github/workflows/pages.yml

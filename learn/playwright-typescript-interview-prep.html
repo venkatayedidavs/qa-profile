@@ -1,0 +1,1727 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Playwright and TypeScript learning plan, basics and interview question bank for an experienced QA engineer.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>Playwright + TypeScript | Basics and Interview Preparation</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172326;
+      --muted: #536266;
+      --line: #cbd8d5;
+      --paper: rgba(255, 255, 255, 0.9);
+      --teal: #176b67;
+      --teal-dark: #0d4e4b;
+      --coral: #d46d55;
+      --wash: #e8f1ee;
+      --code: #0f3b39;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: linear-gradient(135deg, #e8f1ee 0%, #f8f0e8 100%);
+      font: 400 16px/1.62 "Avenir Next", "Trebuchet MS", sans-serif;
+    }
+
+    .shell {
+      width: min(1040px, 100%);
+      margin: 0 auto;
+      padding: 32px 22px 72px;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 40px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--teal-dark);
+    }
+
+    .mark::before {
+      display: block;
+      width: 10px;
+      height: 10px;
+      background: var(--coral);
+      content: "";
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      color: var(--teal-dark);
+      font: 700 clamp(2.1rem, 5.4vw, 3.5rem)/1.04 Georgia, "Times New Roman", serif;
+      letter-spacing: -0.02em;
+    }
+
+    .lede {
+      max-width: 72ch;
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--coral);
+      color: var(--teal-dark);
+      font: 700 1.6rem/1.2 Georgia, "Times New Roman", serif;
+    }
+
+    h3 {
+      margin: 28px 0 10px;
+      color: var(--teal);
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    h4 {
+      margin: 20px 0 8px;
+      color: var(--ink);
+      font-size: 0.96rem;
+      font-weight: 700;
+    }
+
+    p { margin: 0 0 12px; max-width: 78ch; }
+
+    ul, ol { margin: 0 0 14px; padding-left: 22px; max-width: 78ch; }
+
+    li { margin-bottom: 7px; }
+
+    a { color: var(--teal); }
+
+    a:hover { color: var(--coral); }
+
+    code {
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--wash);
+      color: var(--code);
+      font: 600 0.88em/1.4 "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 0 0 16px;
+      padding: 14px 16px;
+      border-left: 3px solid var(--teal);
+      border-radius: 4px;
+      background: #f3f8f6;
+      font: 400 0.84rem/1.55 "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    pre code { padding: 0; background: none; font-weight: 400; }
+
+    section {
+      margin-bottom: 30px;
+      padding: 26px 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    /* Contents */
+
+    .contents ol {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      columns: 2;
+      column-gap: 34px;
+    }
+
+    .contents li {
+      margin-bottom: 9px;
+      break-inside: avoid;
+    }
+
+    .contents a {
+      display: block;
+      padding-left: 30px;
+      text-indent: -30px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contents .num {
+      display: inline-block;
+      width: 26px;
+      color: var(--coral);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .contents .sub {
+      display: block;
+      padding-left: 26px;
+      text-indent: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 400;
+    }
+
+    /* Q&A disclosure blocks */
+
+    details {
+      margin-bottom: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--teal);
+      border-radius: 5px;
+      background: #fff;
+    }
+
+    details[open] { border-left-color: var(--coral); }
+
+    summary {
+      cursor: pointer;
+      color: var(--teal-dark);
+      font-weight: 700;
+      list-style-position: outside;
+    }
+
+    summary:hover { color: var(--coral); }
+
+    details > *:not(summary) { margin-top: 10px; }
+
+    details p:last-child, details ul:last-child { margin-bottom: 0; }
+
+    .probe {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .probe strong { color: var(--teal-dark); }
+
+    .hint {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-style: italic;
+    }
+
+    /* Callouts */
+
+    .callout {
+      margin: 0 0 16px;
+      padding: 14px 18px;
+      border-left: 3px solid var(--coral);
+      border-radius: 4px;
+      background: #fdf3ef;
+    }
+
+    .callout p:last-child { margin-bottom: 0; }
+
+    .callout strong { color: var(--teal-dark); }
+
+    .avoid {
+      border-left-color: #b4342c;
+      background: #fbefee;
+    }
+
+    /* Layer diagram */
+
+    .layers { margin: 0 0 18px; }
+
+    .layer {
+      position: relative;
+      margin-bottom: 26px;
+      padding: 11px 16px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: #fff;
+      font-size: 0.92rem;
+    }
+
+    .layer b { color: var(--teal-dark); }
+
+    .layer::after {
+      position: absolute;
+      right: 0;
+      bottom: -21px;
+      left: 0;
+      color: var(--coral);
+      content: "\2193";
+      font-size: 1.05rem;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .layer:last-child { margin-bottom: 0; }
+
+    .layer:last-child::after { content: ""; }
+
+    /* Table */
+
+    table {
+      width: 100%;
+      margin: 0 0 16px;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    thead th {
+      border-bottom: 2px solid var(--teal);
+      color: var(--teal-dark);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(even) { background: #f4f9f7; }
+
+    /* Checklist */
+
+    .checklist { list-style: none; padding-left: 0; }
+
+    .checklist li {
+      padding-left: 28px;
+      text-indent: -28px;
+    }
+
+    .checklist li::before {
+      display: inline-block;
+      width: 20px;
+      color: var(--coral);
+      content: "\2610";
+      font-size: 1.1rem;
+      text-indent: 0;
+    }
+
+    .backlink {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .backlink:hover { color: var(--coral); }
+
+    footer {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      .contents ol { columns: 1; }
+      section { padding: 20px 18px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      section { border: none; padding: 0 0 18px; break-inside: auto; }
+      details { border: none; border-left: 2px solid #999; }
+      details > *:not(summary) { display: block; }
+      .backlink { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="topline">
+    <span class="mark">QA Profile &middot; Learning Plan</span>
+    <span>Compiled 15 September 2026</span>
+  </div>
+
+  <header>
+    <h1>Playwright + TypeScript</h1>
+    <p class="lede">Basics, interview question bank and a staged learning plan for a
+      QA engineer with around nine years in testing, strong test-process and API
+      experience, a Selenium WebDriver background, and newer hands-on Playwright
+      and TypeScript work.</p>
+    <p class="lede">Answers are collapsed by default. Read the question, answer it
+      out loud, then open the block and compare. Fluency, not coverage, is what
+      reads as experience in an interview.</p>
+    <p class="lede">A companion page holds the
+      <a href="playwright-typescript-interview-prep-plan.html">plan exactly as
+      written</a>, without the basics section or the collapsed answers.</p>
+  </header>
+
+  <!-- ============ CONTENTS ============ -->
+  <section class="contents" id="contents">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#basics"><span class="num">1</span>Playwright basics
+        <span class="sub">Architecture, locators, waiting, assertions, config, tooling &mdash; with self-check questions</span></a></li>
+      <li><a href="#interview"><span class="num">2</span>Interview question bank
+        <span class="sub">TypeScript, fundamentals, framework design, flakiness, CI, API, accessibility, process, scenarios</span></a></li>
+      <li><a href="#howto"><span class="num">3</span>How to use this plan
+        <span class="sub">Three working rules</span></a></li>
+      <li><a href="#standing"><span class="num">4</span>Where you stand today
+        <span class="sub">Strengths, claimed areas, gaps to close</span></a></li>
+      <li><a href="#model"><span class="num">5</span>The interviewer's mental model
+        <span class="sub">Five behaviours that signal real experience</span></a></li>
+      <li><a href="#tracks"><span class="num">6</span>Strategic approach
+        <span class="sub">Four parallel tracks</span></a></li>
+      <li><a href="#phases"><span class="num">7</span>Tactical plan
+        <span class="sub">Five phases with exit criteria</span></a></li>
+      <li><a href="#project"><span class="num">8</span>The proof project
+        <span class="sub">Framework to build and defend on a screen share</span></a></li>
+      <li><a href="#redflags"><span class="num">9</span>Answers that cost interviews
+        <span class="sub">Phrases to eliminate</span></a></li>
+      <li><a href="#gap"><span class="num">10</span>Handling the experience gap
+        <span class="sub">Honest framing that still lands</span></a></li>
+      <li><a href="#stories"><span class="num">11</span>Story bank
+        <span class="sub">Five prepared narratives</span></a></li>
+      <li><a href="#rubric"><span class="num">12</span>Self-assessment rubric
+        <span class="sub">Score before each mock interview</span></a></li>
+      <li><a href="#resources"><span class="num">13</span>Resources
+        <span class="sub">Official docs and practice targets</span></a></li>
+      <li><a href="#tracker"><span class="num">14</span>Progress tracker
+        <span class="sub">Ticklist of exit criteria</span></a></li>
+    </ol>
+  </section>
+
+  <!-- ============ 1. BASICS ============ -->
+  <section id="basics">
+    <h2>1. Playwright basics</h2>
+    <p>This section is the foundation everything else rests on. Work through it
+      first. Each topic gives the content, then self-check questions whose answers
+      an interviewer would expect within a sentence or two.</p>
+
+    <h3>1.1 What Playwright is and how it drives a browser</h3>
+    <p>Playwright is a browser automation and test-running framework from Microsoft.
+      It ships two things that are easy to confuse: the <strong>Playwright
+      library</strong> for driving browsers, and <strong>Playwright Test</strong>
+      (<code>@playwright/test</code>), the test runner with fixtures, parallelism,
+      reporters and assertions. In interviews, "Playwright" almost always means the
+      test runner.</p>
+    <p>It drives Chromium, Firefox and WebKit from a Node.js process over a single
+      persistent connection, using each browser's own automation protocol. Two
+      consequences matter and both come up in interviews: it can create many cheap
+      isolated browser contexts, and it can observe and intercept network traffic
+      below the page, which an in-browser runner cannot do as easily.</p>
+
+    <details>
+      <summary>What is the difference between the Playwright library and Playwright Test?</summary>
+      <p>The library automates browsers and can be embedded in any Node.js program,
+        for example a scraping or monitoring script. Playwright Test adds the test
+        runner: fixtures, parallel workers, projects, retries, web-first
+        assertions, reporters, traces and the CLI. Installing
+        <code>@playwright/test</code> gives you both; you do not install
+        <code>playwright</code> alongside it.</p>
+    </details>
+
+    <details>
+      <summary>Which browsers does Playwright support, and does it use the real browsers?</summary>
+      <p>Chromium, Firefox and WebKit, downloaded as Playwright-managed builds so
+        versions are pinned and reproducible. It can also run against installed
+        branded channels such as Google Chrome and Microsoft Edge via the
+        <code>channel</code> option, which is what you use when a stakeholder
+        insists on testing "real Chrome". WebKit is the practical way to get Safari
+        engine coverage on Linux CI.</p>
+    </details>
+
+    <h3>1.2 Setting up a project</h3>
+    <pre><code>npm init playwright@latest        # scaffolds config, example test, CI workflow
+npx playwright install            # download browsers
+npx playwright install chromium --with-deps   # CI: only what you need</code></pre>
+    <p>Scaffolding produces <code>playwright.config.ts</code>, a <code>tests/</code>
+      folder and optionally a GitHub Actions workflow. TypeScript works with no
+      build step: name a file <code>.spec.ts</code> and the runner transpiles it.
+      That is a genuine differentiator worth mentioning, because it removes the
+      Babel or ts-node plumbing older stacks needed.</p>
+
+    <details>
+      <summary>Do you need to compile TypeScript before running Playwright tests?</summary>
+      <p>No. The runner transpiles test files on the fly and respects
+        <code>tsconfig.json</code> for <code>baseUrl</code> and <code>paths</code>
+        aliases. It does <em>not</em> type-check as it runs, which is why a mature
+        pipeline adds <code>tsc --noEmit</code> as a separate gate.</p>
+    </details>
+
+    <h3>1.3 Anatomy of a test</h3>
+    <pre><code>import { test, expect } from '@playwright/test';
+
+test('customer can sign in', async ({ page }) =&gt; {
+  await page.goto('/login');
+  await page.getByLabel('User name').fill('anna');
+  await page.getByLabel('Password').fill('secret');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await expect(page.getByText('Welcome, Anna')).toBeVisible();
+});</code></pre>
+    <p>The destructured <code>{ page }</code> is a <strong>fixture</strong>. Asking
+      for it tells the runner to create an isolated browser context and a page for
+      this test, and to tear both down afterwards. Almost everything is
+      asynchronous, so almost everything is awaited.</p>
+
+    <details>
+      <summary>Why is <code>page</code> passed as an argument instead of being a global?</summary>
+      <p>Because it is a fixture created per test. That is what guarantees
+        isolation: every test gets a fresh context with its own cookies, storage
+        and permissions, which is what makes safe parallel execution possible.
+        Globals would force shared state and serial runs.</p>
+    </details>
+
+    <h3>1.4 Browser, context and page</h3>
+    <ul>
+      <li><strong>Browser</strong> &mdash; one launched browser process, shared
+        across tests in a worker to save start-up cost.</li>
+      <li><strong>BrowserContext</strong> &mdash; an isolated profile, effectively a
+        fresh incognito session. Own cookies, local storage, permissions,
+        geolocation. Cheap to create.</li>
+      <li><strong>Page</strong> &mdash; a tab inside a context. A context can hold
+        several pages, which is how you test multi-tab and multi-user flows.</li>
+    </ul>
+
+    <details>
+      <summary>How would you test two users interacting, for example an approver and a requester?</summary>
+      <p>Create two contexts from the same browser, each with its own storage state
+        or login, and a page in each. They are fully isolated from one another, so
+        one can submit and the other can approve inside a single test without any
+        cookie bleed.</p>
+    </details>
+
+    <h3>1.5 Locators</h3>
+    <p>A locator is a <em>lazy description</em> of how to find elements. It is
+      re-resolved immediately before every action, so a re-render between two lines
+      of your test does not produce a stale element error. This is the single
+      biggest day-to-day difference from Selenium's <code>WebElement</code>.</p>
+    <p>Recommended priority, highest first:</p>
+    <ol>
+      <li><code>getByRole('button', { name: 'Sign in' })</code> &mdash; matches how
+        users and assistive technology perceive the page.</li>
+      <li><code>getByLabel()</code> for form controls.</li>
+      <li><code>getByPlaceholder()</code>, <code>getByAltText()</code>,
+        <code>getByTitle()</code>.</li>
+      <li><code>getByTestId()</code> &mdash; an explicit contract with developers;
+        the attribute is configurable via <code>testIdAttribute</code>.</li>
+      <li><code>page.locator('css')</code> or XPath &mdash; last resort, because
+        both couple tests to DOM structure.</li>
+    </ol>
+    <pre><code>// chaining and filtering instead of brittle CSS chains
+const row = page.getByRole('listitem').filter({ hasText: 'Product 2' });
+await row.getByRole('button', { name: 'Add to cart' }).click();
+
+// alternatives and combinations
+page.getByRole('button').and(page.getByTitle('Subscribe'));
+newEmailButton.or(securityDialog).first();
+page.locator('button').visible();</code></pre>
+
+    <details>
+      <summary>What is strict mode?</summary>
+      <p>Locators are strict by default: if an action targets a locator that
+        matches more than one element, Playwright throws instead of silently
+        acting on the first. Multi-element operations such as <code>count()</code>
+        are fine. Resolve a violation by narrowing with role plus accessible name,
+        chaining inside a container, or <code>filter()</code>. Reaching for
+        <code>first()</code> or <code>nth()</code> is an admission that the locator
+        does not express intent.</p>
+    </details>
+
+    <details>
+      <summary>Why prefer role locators over CSS?</summary>
+      <p>They survive styling and markup refactors, they read like the user's
+        experience rather than the implementation, and they give early feedback on
+        accessibility because a missing accessible name breaks the locator. They do
+        not replace an accessibility audit, but they surface obvious gaps
+        continuously.</p>
+    </details>
+
+    <details>
+      <summary>Does Playwright handle shadow DOM and iframes?</summary>
+      <p>Locators pierce open shadow roots by default; the exceptions are XPath,
+        which does not pierce, and closed shadow roots, which are unsupported. For
+        iframes use <code>frameLocator()</code>, which waits for the frame and then
+        scopes the search inside it.</p>
+    </details>
+
+    <h3>1.6 Actions</h3>
+    <pre><code>await locator.click();            await locator.dblclick();
+await locator.fill('text');       await locator.clear();
+await locator.check();            await locator.setChecked(true);
+await locator.selectOption('Red');
+await locator.setInputFiles('invoice.pdf');
+await locator.hover();            await locator.dragTo(target);
+await page.keyboard.press('ControlOrMeta+S');</code></pre>
+    <p><code>fill()</code> sets the value in one operation and is the default
+      choice. <code>pressSequentially()</code> types character by character and is
+      only for inputs with special key handling, such as autocomplete widgets that
+      react to each keystroke.</p>
+
+    <details>
+      <summary>When would you use <code>pressSequentially()</code> instead of <code>fill()</code>?</summary>
+      <p>Only when the application reacts to individual key events &mdash;
+        typeahead search, input masks, character counters driven by
+        <code>keydown</code>. Otherwise <code>fill()</code> is faster and less
+        flaky. The old <code>type()</code> method is deprecated.</p>
+    </details>
+
+    <h3>1.7 Auto-waiting and actionability</h3>
+    <p>Playwright performs actionability checks before acting and retries until they
+      pass or the action times out. Knowing this list by name is a strong signal in
+      interviews.</p>
+    <ul>
+      <li><strong>Attached</strong> &mdash; present in the DOM.</li>
+      <li><strong>Visible</strong> &mdash; non-empty bounding box, not
+        <code>visibility: hidden</code>.</li>
+      <li><strong>Stable</strong> &mdash; has stopped moving between animation
+        frames.</li>
+      <li><strong>Receives events</strong> &mdash; nothing else overlays the
+        hit point.</li>
+      <li><strong>Enabled</strong> &mdash; not disabled.</li>
+      <li><strong>Editable</strong> &mdash; additionally required for typing.</li>
+    </ul>
+    <p>Consequence: explicit sleeps are unnecessary and harmful.
+      <code>page.waitForTimeout()</code> exists for debugging only.</p>
+
+    <details>
+      <summary>Why does an action still fail even though the element is on screen?</summary>
+      <p>Usually because an actionability check other than visibility is failing:
+        an overlay, a cookie banner or a toast intercepting the click point, or an
+        animation still running so the element is not stable. The timeout error
+        includes an actionability log naming the check that blocked, and the trace
+        shows the DOM at that moment.</p>
+    </details>
+
+    <details>
+      <summary>What do you do about a cookie banner that appears unpredictably?</summary>
+      <p><code>page.addLocatorHandler()</code> registers a dismissal handler that
+        fires whenever the interstitial appears, with a <code>times</code> limit.
+        Better still, suppress it at source with a pre-set cookie or a route stub so
+        no test spends time on it.</p>
+    </details>
+
+    <h3>1.8 Assertions</h3>
+    <p>Assertions on a locator or page are <strong>web-first</strong>: they poll and
+      retry until the condition holds or the expect timeout expires. Assertions on
+      plain values evaluate once.</p>
+    <pre><code>await expect(page.getByText('Welcome')).toBeVisible();   // retries
+await expect(page.getByRole('listitem')).toHaveCount(3);
+await expect(page).toHaveURL(/dashboard/);
+await expect(response).toBeOK();
+
+expect(await locator.isVisible()).toBe(true);            // anti-pattern: no retry
+
+await expect.poll(async () =&gt; (await api.get('/status')).status()).toBe(200);
+await expect(async () =&gt; { /* several checks */ }).toPass();
+await expect.soft(locator).toHaveText('Success');        // does not stop the test</code></pre>
+
+    <details>
+      <summary>What is the difference between a web-first assertion and a plain one?</summary>
+      <p>A web-first assertion re-queries the element and re-evaluates the condition
+        until it passes or times out, which absorbs normal asynchronous rendering.
+        A plain assertion samples a single instant, so it turns ordinary latency
+        into a failure. The classic bug is putting <code>await</code> inside
+        <code>expect()</code> rather than in front of it.</p>
+    </details>
+
+    <details>
+      <summary>When are soft assertions appropriate?</summary>
+      <p>When you want a full picture from one run &mdash; validating many fields on
+        a summary page, or an accessibility sweep. Never for preconditions, because
+        continuing after a failed precondition produces a cascade of misleading
+        downstream failures.</p>
+    </details>
+
+    <h3>1.9 Organising tests: hooks, describe, tags</h3>
+    <pre><code>test.describe('onboarding', () =&gt; {
+  test.beforeEach(async ({ page }) =&gt; { await page.goto('/onboarding'); });
+
+  test('happy path', { tag: ['@smoke', '@kyc'] }, async ({ page }) =&gt; { /* ... */ });
+
+  test('sanctions hit', {
+    annotation: [{ type: 'issue', description: 'JIRA-1234' }],
+  }, async ({ page }) =&gt; { /* ... */ });
+});
+
+test.skip(condition, 'reason');
+test.fixme();
+test.slow();</code></pre>
+    <p>Tags drive selection with <code>--grep @smoke</code>, which is how you map a
+      Playwright suite onto the risk-based test selection you already run in Jira
+      and Xray.</p>
+
+    <details>
+      <summary>Hooks or fixtures?</summary>
+      <p>Hooks are fine for trivial shared navigation inside one file. Fixtures are
+        the real mechanism: they keep setup and teardown together, are reusable
+        across files, are created only when a test asks for them, compose with each
+        other and are type safe. Anything expensive belongs in a worker-scoped
+        fixture. Covered in depth in the interview bank.</p>
+    </details>
+
+    <h3>1.10 The configuration file</h3>
+    <pre><code>import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  workers: process.env.CI ? 2 : undefined,
+  retries: process.env.CI ? 2 : 0,
+  reporter: process.env.CI ? 'blob' : 'html',
+  use: {
+    baseURL: 'http://localhost:3000',
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    testIdAttribute: 'data-test',
+  },
+  projects: [
+    { name: 'setup', testMatch: /auth\.setup\.ts/ },
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] }, dependencies: ['setup'] },
+    { name: 'webkit',   use: { ...devices['Desktop Safari'] }, dependencies: ['setup'] },
+  ],
+  webServer: { command: 'npm run start', url: 'http://localhost:3000',
+               reuseExistingServer: !process.env.CI },
+});</code></pre>
+
+    <details>
+      <summary>What is a project in Playwright?</summary>
+      <p>A named run configuration with its own options. Projects are how you do a
+        browser matrix, a mobile viewport run, or a staging-versus-local split.
+        <code>dependencies</code> makes one project run before another, which is how
+        an authentication setup project feeds storage state to the browser projects.
+        <code>teardown</code> is its mirror image for cleanup.</p>
+    </details>
+
+    <details>
+      <summary>Which timeouts exist and which one bit you?</summary>
+      <p>Test timeout for the whole test, expect timeout for web-first assertions,
+        action timeout for individual clicks and fills, navigation timeout for page
+        loads, plus separate timeouts for fixtures and for
+        <code>webServer</code> startup. Raising the test timeout to hide a slow
+        assertion is a common mistake; the right move is usually to fix the wait or
+        to raise only the specific expect.</p>
+    </details>
+
+    <h3>1.11 Running tests from the CLI</h3>
+    <pre><code>npx playwright test                       # everything
+npx playwright test login.spec.ts:12      # one test by line
+npx playwright test --project=chromium
+npx playwright test --grep @smoke
+npx playwright test --headed --workers=1
+npx playwright test --ui                  # UI mode with watch
+npx playwright test --debug               # Inspector, step through
+npx playwright test --trace on
+npx playwright test --last-failed
+npx playwright test --shard=1/4
+npx playwright show-report
+npx playwright show-trace trace.zip
+npx playwright codegen https://example.com</code></pre>
+
+    <h3>1.12 Debugging tooling</h3>
+    <ul>
+      <li><strong>UI mode</strong> (<code>--ui</code>) &mdash; the authoring
+        environment: watch mode, time-travel through actions, live locator
+        editing, filter by tag.</li>
+      <li><strong>Trace viewer</strong> &mdash; the CI post-mortem tool. Timeline,
+        DOM snapshot before and after every action, network panel, console, source
+        and attachments. Traces open at
+        <a href="https://trace.playwright.dev/">trace.playwright.dev</a>, which is a
+        local progressive web app, so nothing is uploaded.</li>
+      <li><strong>Inspector</strong> (<code>--debug</code>) &mdash; step through,
+        with actionability logs and live locator highlighting.</li>
+      <li><strong>Codegen</strong> and the <strong>VS Code extension</strong>
+        &mdash; use for picking locators and exploring, not for producing final
+        tests.</li>
+    </ul>
+
+    <details>
+      <summary>Why not record all your tests with codegen?</summary>
+      <p>Recordings capture a click path, not intent. They produce no page objects,
+        no fixtures, no data setup and no meaningful assertions, so they rot on the
+        first refactor. Codegen is excellent for discovering the locator Playwright
+        would choose and for exploring an unfamiliar page.</p>
+    </details>
+
+    <h3>1.13 Reporters and artifacts</h3>
+    <p><code>list</code> and <code>line</code> for local runs, <code>html</code> for
+      humans, <code>junit</code> for pipeline and test-management integration,
+      <code>blob</code> for sharded runs which are then combined with
+      <code>merge-reports</code> into one HTML report. Artifacts to configure
+      deliberately: traces, screenshots and video, each with modes such as
+      <code>on-first-retry</code>, <code>only-on-failure</code> and
+      <code>retain-on-failure</code>. Tracing everything is expensive, so do not.</p>
+
+    <h3>1.14 TypeScript you need on day one</h3>
+    <ul>
+      <li><code>async</code> / <code>await</code> and why a missing
+        <code>await</code> is a silent bug.</li>
+      <li>Type annotations, <code>interface</code> versus <code>type</code>, union
+        types for things like a customer risk category.</li>
+      <li>Generics, because <code>test.extend&lt;TestFixtures,
+        WorkerFixtures&gt;</code> uses them.</li>
+      <li>Optional chaining, nullish coalescing, <code>strictNullChecks</code>.</li>
+      <li><code>unknown</code> over <code>any</code> when parsing responses.</li>
+      <li>ESLint with <code>@typescript-eslint/no-floating-promises</code>, plus
+        <code>tsc --noEmit</code> in CI.</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>Basics checkpoint.</strong> Before moving to the interview bank you
+        should be able to, without notes: name the actionability checks; explain why
+        a locator is not a stale element; explain what a browser context isolates;
+        and say what <code>trace: 'on-first-retry'</code> does and why it is not
+        <code>'on'</code>.</p>
+    </div>
+
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 2. INTERVIEW QUESTIONS ============ -->
+  <section id="interview">
+    <h2>2. Interview question bank</h2>
+    <p class="hint">Each block gives the question, what is actually being tested, and
+      the spine of a strong answer. Target sixty to ninety seconds, then stop and
+      offer to go deeper.</p>
+
+    <h3>2.1 TypeScript</h3>
+
+    <details>
+      <summary>Why TypeScript for test automation rather than plain JavaScript?</summary>
+      <p class="probe"><strong>Tested:</strong> whether you chose the language or inherited it.</p>
+      <p>Compile-time feedback on page-object and fixture contracts, IDE
+        discoverability of a large API, safe refactoring across a big suite, and
+        typed test data that prevents invalid states being constructed. Name the
+        cost honestly: build configuration, and a learning curve for manual testers
+        joining the suite.</p>
+    </details>
+
+    <details>
+      <summary>What is the difference between <code>interface</code> and <code>type</code>?</summary>
+      <p>Interfaces are open to declaration merging and read naturally for object
+        shapes; type aliases express unions, intersections, mapped and conditional
+        types. The distinction matters less than consistency &mdash; say which
+        convention your team picked and why.</p>
+    </details>
+
+    <details>
+      <summary>Where have you used generics in a test framework?</summary>
+      <p>A typed API client where the response type is a parameter; typed data
+        builders; and <code>test.extend&lt;TestFixtures, WorkerFixtures&gt;</code>,
+        where the two parameters separate test-scoped from worker-scoped fixture
+        types so the runner knows which lifetime to give each.</p>
+    </details>
+
+    <details>
+      <summary>What goes wrong if you forget an <code>await</code>?</summary>
+      <p>The promise floats. The action or assertion never completes within the
+        test, so a test can pass while doing nothing, and the failure surfaces later
+        as an unhandled rejection attributed to an unrelated test. Prevention is
+        tooling, not discipline: the
+        <code>@typescript-eslint/no-floating-promises</code> rule plus
+        <code>tsc --noEmit</code> as a pipeline gate.</p>
+    </details>
+
+    <details>
+      <summary><code>unknown</code> versus <code>any</code>?</summary>
+      <p><code>any</code> disables checking and spreads through the codebase;
+        <code>unknown</code> forces you to narrow before use. Parse API responses
+        into <code>unknown</code> and narrow, or type the request call generically
+        so the response is typed at the call site.</p>
+    </details>
+
+    <p class="hint">Quick-fire: optional chaining and nullish coalescing;
+      <code>readonly</code> and <code>as const</code>; enum versus union of string
+      literals; <code>Partial</code>, <code>Pick</code>, <code>Omit</code>,
+      <code>Record</code>; why <code>Promise.all</code> on locator actions is
+      usually wrong; how <code>tsconfig</code> path aliases are resolved by the
+      runner.</p>
+
+    <h3>2.2 Playwright fundamentals</h3>
+
+    <details>
+      <summary>How does Playwright differ from Selenium WebDriver, and from Cypress?</summary>
+      <p class="probe"><strong>Tested:</strong> whether you understand the tools or repeat marketing lines.</p>
+      <p>Selenium speaks the W3C WebDriver protocol to a driver per browser.
+        Playwright drives browsers directly over a single persistent connection
+        using browser-specific protocols, which enables cheap contexts, network
+        interception below the page, and built-in auto-waiting. Cypress executes
+        inside the browser alongside the application, giving excellent debugging but
+        historically constraining multi-origin, multi-tab and cross-browser work.
+        Selenium's enduring strength is language and grid ecosystem breadth. Since
+        you have shipped in all three, close by saying which you would pick for
+        which context.</p>
+    </details>
+
+    <details>
+      <summary>Explain browser, context and page.</summary>
+      <p>One browser process, many contexts, each an isolated profile with its own
+        cookies, storage and permissions, each holding one or more pages. Contexts
+        are why isolation is cheap and why parallel workers do not leak state into
+        one another.</p>
+    </details>
+
+    <details>
+      <summary>What is a locator, and why is it better than an element reference?</summary>
+      <p>A locator is a lazy description re-resolved immediately before every
+        action, so a re-rendered DOM does not produce a stale element error. An
+        element handle points at one node at one moment in time and goes stale.</p>
+    </details>
+
+    <details>
+      <summary>What does Playwright wait for before it clicks?</summary>
+      <p>Actionability checks: attached, visible, stable meaning it has stopped
+        moving between animation frames, able to receive events meaning nothing
+        overlays the hit point, and enabled. Typing additionally requires editable.
+        If a check fails it retries until the action timeout, and the error log
+        names the blocking check.</p>
+    </details>
+
+    <details>
+      <summary>What is strict mode and how do you resolve a violation?</summary>
+      <p>Any action on a locator matching more than one element throws. Fix by
+        narrowing with role plus accessible name, chaining within a container, or
+        <code>filter()</code>. Using <code>first()</code> or <code>nth()</code>
+        admits the locator does not express intent; acceptable only for genuinely
+        ordinal lists.</p>
+    </details>
+
+    <details>
+      <summary>Locator strategy, in priority order, and why?</summary>
+      <p>Role with accessible name first, because it matches what users and
+        assistive technology perceive and doubles as a light accessibility check.
+        Then label, placeholder, alt text, title. Then test ids as an explicit
+        contract negotiated with developers. CSS last, XPath effectively never,
+        because both couple tests to DOM structure. Mention that the test id
+        attribute is configurable.</p>
+    </details>
+
+    <details>
+      <summary>Web-first assertions versus plain assertions?</summary>
+      <p><code>expect(locator).toBeVisible()</code> polls and retries until the
+        expect timeout; <code>expect(value)</code> evaluates once. The classic
+        anti-pattern is <code>expect(await locator.isVisible()).toBe(true)</code>,
+        which samples a single instant. For non-locator conditions use
+        <code>expect.poll</code> or <code>expect.toPass</code>.</p>
+    </details>
+
+    <p class="hint">Quick-fire: <code>toHaveText</code> versus
+      <code>toContainText</code>; asserting a list with an array argument;
+      <code>toHaveCount</code>; <code>toBeAttached</code> versus
+      <code>toBeVisible</code>; <code>toBeInViewport</code>;
+      <code>expect.configure</code> for a slower assertion timeout;
+      <code>locator.describe</code> for readable traces; shadow DOM support and the
+      XPath exception; <code>frameLocator</code> for iframes.</p>
+
+    <h3>2.3 Framework design</h3>
+
+    <details>
+      <summary>Walk me through the structure of your Playwright framework.</summary>
+      <p class="probe"><strong>Tested:</strong> whether the structure is reasoned or copied.</p>
+      <p>Specs express intent only; fixtures supply the environment and
+        collaborators; page and component objects hold interaction knowledge; an API
+        client arranges state; config holds the project matrix and timeouts. Finish
+        by naming one thing you would change today and why &mdash; that sentence is
+        what separates a builder from a user.</p>
+    </details>
+
+    <details>
+      <summary>Fixtures or <code>beforeEach</code> hooks?</summary>
+      <p>Fixtures keep setup and teardown in one place, are reusable across files,
+        are created only when a test asks for them, compose with each other, and are
+        type safe. Hooks are fine for trivial shared navigation. Worker fixtures
+        exist for anything expensive enough to create once per worker.</p>
+    </details>
+
+    <details>
+      <summary>Give an example of a worker-scoped fixture.</summary>
+      <p>A per-worker test account derived from the worker index, created in setup
+        and deleted in teardown, so parallel tests never fight over the same
+        customer record. Note that a worker fixture has its own timeout and that
+        workers are restarted after a failure to guarantee a clean environment.</p>
+    </details>
+
+    <details>
+      <summary>How do you handle authentication?</summary>
+      <p>A setup project logs in once, saves <code>storageState</code> to a file,
+        and is declared as a dependency of the browser projects, so every test
+        starts authenticated. Where tokens live in IndexedDB rather than cookies,
+        save that too. For tests that mutate account state, use a per-worker account
+        instead of one shared login. Keep a small number of tests that exercise the
+        real login UI, because storage state bypasses it.</p>
+    </details>
+
+    <details>
+      <summary>Do page objects contain assertions?</summary>
+      <p>State a position and the trade-off. Assertions in specs make failures read
+        as violated intent and keep page objects reusable; assertions inside page
+        objects reduce duplication for repeated compound checks. A common middle
+        ground is exposing locators and small query methods, asserting in the spec,
+        with a few named verification helpers for heavily repeated checks.</p>
+    </details>
+
+    <details>
+      <summary>How do you keep a large suite maintainable?</summary>
+      <p>A shared locator contract with developers; component objects for repeated
+        widgets; fixtures instead of inheritance; tags for selection; a naming
+        convention tied to requirements so coverage maps back to Jira and Xray; a
+        review rule that every new test declares its level and its data needs; and a
+        recurring pass on the slowest and flakiest tests.</p>
+    </details>
+
+    <details>
+      <summary>How do you decide what belongs in an end-to-end test at all?</summary>
+      <p>Risk, expressed as the classic test-shape argument. End-to-end tests cover
+        journeys that cross services and carry business or regulatory consequence,
+        such as onboarding with screening. Field validation, edge cases and
+        permutations belong at API or component level where they run in a fraction
+        of the time. This is where your test-management background is the
+        differentiator &mdash; do not answer it as a tool user.</p>
+    </details>
+
+    <p class="hint">Quick-fire: <code>test.use</code> for per-file options; option
+      fixtures with <code>option: true</code> for parameterised projects;
+      <code>mergeTests</code> and <code>mergeExpects</code>; <code>box: true</code>
+      to hide helper noise in reports; auto fixtures as global before and after
+      hooks; project <code>dependencies</code> and <code>teardown</code>;
+      <code>snapshotPathTemplate</code>.</p>
+
+    <h3>2.4 Reliability and flakiness</h3>
+
+    <details>
+      <summary>A test passes locally and fails on CI. Walk me through your process.</summary>
+      <p class="probe"><strong>Tested:</strong> forensic discipline. This is the single most predictive question in the set.</p>
+      <p>Reproduce from evidence, not from guesses. Open the trace from the failing
+        run, find the failing action, compare the DOM snapshot before and after,
+        check the network panel for a pending or failed call, check the console for
+        application errors. Then classify: environment difference, timing, data
+        collision, test pollution, or a genuine product defect. Fix the cause.
+        Retries are a safety net for infrastructure noise, never a fix, and a test
+        that keeps needing them should be quarantined and tracked as a defect.</p>
+    </details>
+
+    <details>
+      <summary>Name the categories of flakiness you have actually hit.</summary>
+      <p>DOM races on re-render; shared mutable test data; animations and
+        transitions; time-dependent logic such as session expiry and cut-off times;
+        unstubbed third-party calls and cookie banners; test ordering dependencies;
+        resource contention from too many workers on a small runner; expired
+        authentication state; latency differences between local and CI.</p>
+    </details>
+
+    <details>
+      <summary>How do you test time-dependent behaviour?</summary>
+      <p>The clock API. Install a fixed time, let the page load, then fast-forward
+        or pause at a specific instant and assert. This removes sleeps entirely from
+        session-timeout, cut-off-time and scheduled-task scenarios, which maps
+        directly onto banking flows.</p>
+    </details>
+
+    <details>
+      <summary>Two tests both edit the same customer. What do you do?</summary>
+      <p>First choice: give each test its own data, derived from the test id or
+        created per test through the API. If the resource is genuinely singular
+        &mdash; a global setting, an external sandbox &mdash; declare a named lock
+        so those tests never run concurrently while everything else stays parallel.
+        Serial mode is a last resort, because a failure skips the rest of the
+        group.</p>
+    </details>
+
+    <details>
+      <summary>How do you stop tests leaking state into each other?</summary>
+      <p>Each test already gets its own browser context, so cookies and storage are
+        isolated. The leaks that remain are outside the browser: backend records,
+        files written to a shared path, and module-level variables. Use per-test
+        identifiers, <code>testInfo.outputPath</code> for files, and never hold
+        state in module scope.</p>
+    </details>
+
+    <h3>2.5 CI, scale and reporting</h3>
+
+    <details>
+      <summary>How do you run Playwright in CI?</summary>
+      <p>Linux runners; install only the browsers actually needed, or use the
+        official Docker image; type-check and lint gates before tests; smoke suite
+        on every pull request; full regression sharded on a schedule; traces on
+        first retry; HTML report and traces published as artifacts; results fed back
+        into the test-management tool. Anchor this in the GitHub Actions and
+        Jenkins pipelines you have already run.</p>
+    </details>
+
+    <details>
+      <summary>Your suite takes too long. What do you do, in order?</summary>
+      <p>Measure first, using the report's slowest-test view rather than intuition.
+        Then: remove waits and sleeps; move coverage down the stack from UI to API;
+        arrange state through the API instead of the UI; enable full parallelism;
+        tune worker count against runner CPU; shard across machines; cut redundant
+        cross-browser runs to the risk-justified minimum; cache dependencies and
+        browsers; disable video and trace-everything modes.</p>
+    </details>
+
+    <details>
+      <summary>How do you get one report out of a sharded run?</summary>
+      <p>Each shard emits a blob report and uploads it as an artifact; a final job
+        merges them with <code>merge-reports</code> into a single HTML report. Worth
+        adding that the merged report can group by file and shows a timeline across
+        shards.</p>
+    </details>
+
+    <details>
+      <summary>Workers, shards and <code>fullyParallel</code> &mdash; explain the difference.</summary>
+      <p>Workers are parallel processes on one machine. <code>fullyParallel</code>
+        allows tests within a single file to spread across workers rather than
+        running in declaration order. Sharding splits the suite across separate
+        machines. They compose: shards multiply the available worker count.</p>
+    </details>
+
+    <details>
+      <summary>How do you report quality status to stakeholders?</summary>
+      <p>Lead with the nine years here. Automated pass rate is not quality. Talk
+        about coverage against requirements, risk areas, defect trends by severity,
+        flaky-test debt, and release readiness with explicit known risks. You
+        maintained a quality metrics matrix at Model N &mdash; use it as the
+        example.</p>
+    </details>
+
+    <h3>2.6 API, network and data</h3>
+
+    <details>
+      <summary>When do you test through the API instead of the UI?</summary>
+      <p>Whenever the assertion does not depend on rendering. Use the API to create
+        customers, seed screening results and reach the state under test, then use
+        the UI to assert what a user sees. Faster, less brittle, and it keeps
+        end-to-end tests focused on integration risk.</p>
+    </details>
+
+    <details>
+      <summary>Difference between the <code>request</code> fixture and <code>page.request</code>?</summary>
+      <p><code>page.request</code> shares the page context's cookies and storage
+        state, so it acts on behalf of the logged-in user. The standalone
+        <code>request</code> fixture is an isolated context, which is what you want
+        for pure API tests or for arranging state before a browser exists.</p>
+    </details>
+
+    <details>
+      <summary>How do you mock a third-party dependency?</summary>
+      <p>Route the URL pattern and fulfil with a controlled response. For a partial
+        change, fetch the real response inside the handler, modify the JSON and
+        fulfil with it. For a large surface, record a HAR once and replay it.
+        Rationale: you only test what you own, and an unstable external sandbox
+        causes failures that teach you nothing.</p>
+    </details>
+
+    <details>
+      <summary>You already have Bruno and RestAssured suites. Why put API calls in Playwright too?</summary>
+      <p>Different purposes. The dedicated API suites own contract and behaviour
+        coverage. Playwright's request context exists to arrange and verify state
+        around UI journeys. Duplicating full API coverage inside the UI suite would
+        be waste. This answer shows judgement rather than tool enthusiasm, which is
+        exactly what a senior interviewer is listening for.</p>
+    </details>
+
+    <details>
+      <summary>How do you manage test data for a regulated domain?</summary>
+      <p>Synthetic data only, never production personal data; typed builders
+        producing valid-by-construction records; per-test or per-worker uniqueness;
+        cleanup in fixture teardown; secrets from the CI secret store and never from
+        the repository; and specific scenario fixtures for screening outcomes such
+        as a sanctions hit or a PEP match.</p>
+    </details>
+
+    <h3>2.7 Accessibility, visual and emulation</h3>
+
+    <details>
+      <summary>Your resume mentions accessibility testing. How do you actually do it?</summary>
+      <p class="probe"><strong>Tested:</strong> whether the claim holds. Answer precisely and stay inside your evidence.</p>
+      <p>Automated scanning with axe-core through the Playwright integration, run
+        per key page or state, with violations attached to the test report. Be clear
+        that automated scanning catches only a portion of issues and that keyboard
+        navigation, focus order and screen-reader checks remain manual. Role-based
+        locators and accessible-name assertions give continuous low-level feedback;
+        aria snapshots assert the accessibility tree structure. Note that the old
+        built-in accessibility API was removed, so axe is the current route
+        &mdash; referencing <code>page.accessibility</code> dates you.</p>
+    </details>
+
+    <details>
+      <summary>How do visual comparisons work and when are they worth it?</summary>
+      <p><code>toHaveScreenshot</code> captures, waits for stabilisation, and
+        compares against a golden image with a configurable pixel tolerance, masking
+        dynamic regions. Worth it for design systems and high-value layouts;
+        expensive elsewhere, because goldens must be generated on the same OS and
+        browser as CI, which usually means generating them inside the Docker image
+        or in a CI job.</p>
+    </details>
+
+    <details>
+      <summary>What can you emulate?</summary>
+      <p>Viewport and device descriptors, locale and timezone, geolocation,
+        permissions, colour scheme, reduced motion, forced colours and contrast, and
+        offline state. Locale and timezone matter for the Nordic markets; reduced
+        motion and forced colours extend accessibility coverage.</p>
+    </details>
+
+    <h3>2.8 Process, leadership and collaboration</h3>
+
+    <details>
+      <summary>How do you decide what to automate?</summary>
+      <p>Risk and repetition. Regulatory and money-path flows first, then
+        high-frequency regression, then stable high-value journeys. Do not automate
+        unstable features, one-off exploratory findings, or anything where
+        maintenance cost exceeds the manual cost.</p>
+    </details>
+
+    <details>
+      <summary>How do you introduce Playwright into a team that uses something else?</summary>
+      <p>Start with a thin vertical slice on a single high-value journey; prove it
+        in the pipeline; measure run time and failure-signal quality against the
+        incumbent; keep both suites running during migration; migrate by risk order
+        rather than alphabetically; and invest early in developer onboarding so the
+        suite does not become one person's property.</p>
+    </details>
+
+    <details>
+      <summary>A developer says your test is flaky and the feature is fine. How do you respond?</summary>
+      <p>Be evidence-led rather than defensive. Open the trace together. It is often
+        a real race condition users would hit occasionally, which turns the
+        conversation into a shared defect rather than a test problem. If it is the
+        test, fix it and say so plainly.</p>
+    </details>
+
+    <details>
+      <summary>How do you work with developers on testability?</summary>
+      <p>Negotiate stable test ids and accessible names as a contract; ask for
+        seeding endpoints and feature flags; get deterministic hooks for time and
+        randomness; review pull requests for testability, not only for test code.
+        Cite the on-call work &mdash; reading logs alongside developers is the same
+        collaboration muscle.</p>
+    </details>
+
+    <details>
+      <summary>Tell me about a time you found a critical defect late.</summary>
+      <p>Use a real situation, state the impact plainly, then focus on what changed
+        in the process afterwards. Avoid blame, and avoid numbers you cannot
+        support.</p>
+    </details>
+
+    <h3>2.9 Scenario and whiteboard</h3>
+    <p>Expect at least one of these. Practise them out loud.</p>
+    <ul>
+      <li>Design an automation strategy for a customer-onboarding flow with identity
+        verification, document upload and an external screening call.</li>
+      <li>You inherit a suite with four hundred tests, a forty per cent flake rate
+        and a ninety-minute run. What do you do first?</li>
+      <li>The team wants to run end-to-end tests against production. Argue both
+        sides, then propose a safe subset.</li>
+      <li>Design tests for a file upload with a progress bar and an asynchronous
+        virus-scan result.</li>
+      <li>A page shows data from three services; one is slow and sometimes times
+        out. Make the test deterministic without hiding the real risk.</li>
+    </ul>
+
+    <h3>2.10 Live coding drills</h3>
+    <p>Commonly asked on a screen share. Practise each until you can do it without
+      documentation.</p>
+    <ul>
+      <li>A login test using role-based locators and web-first assertions, including
+        a negative case.</li>
+      <li>Convert a test that uses <code>waitForTimeout</code> into one with no
+        explicit waits.</li>
+      <li>A fixture providing a logged-in page, and an explanation of its
+        teardown.</li>
+      <li>A worker-scoped fixture that creates and deletes a test account.</li>
+      <li>Intercept an endpoint and return fixed JSON, then assert the empty state
+        and the error state of the same component.</li>
+      <li>Assert on a dynamic table: row count, one row selected by its text, and a
+        button inside that row.</li>
+      <li>A custom matcher with <code>expect.extend</code>.</li>
+      <li>A <code>playwright.config.ts</code> for a three-browser matrix with an
+        auth setup project &mdash; justifying every option you set.</li>
+    </ul>
+
+    <h3>2.11 Questions to ask them</h3>
+    <ul>
+      <li>What does the current suite's run time and flake rate look like, and who
+        owns it?</li>
+      <li>How do developers and testers split responsibility for end-to-end
+        tests?</li>
+      <li>Is there a test id contract with the front-end team, or is it ad hoc?</li>
+      <li>How do test results feed release decisions?</li>
+      <li>What is the hardest thing to test in this product right now?</li>
+    </ul>
+
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 3. HOW TO USE ============ -->
+  <section id="howto">
+    <h2>3. How to use this plan</h2>
+    <p>The goal is not to memorise answers. It is to make the resume claim true at
+      depth: build a real framework, hit real failures, and be able to explain every
+      decision out loud with a trade-off attached.</p>
+    <ol>
+      <li>Never state an experience you did not have. Convert every gap into either
+        "I have not used that; here is the closest thing I have done and how I would
+        approach it", or into real practice in the proof project before the
+        interview.</li>
+      <li>Learn every topic twice: once by reading, once by breaking something and
+        fixing it. Only the second pass survives follow-up questions.</li>
+      <li>Record a one-paragraph answer out loud for every question you cannot
+        answer fluently, then re-listen and cut the filler.</li>
+    </ol>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 4. WHERE YOU STAND ============ -->
+  <section id="standing">
+    <h2>4. Where you stand today</h2>
+    <p class="hint">Taken from the approved base resume and evidence file, not from
+      assumption.</p>
+
+    <h3>Strong and interview-ready</h3>
+    <ul>
+      <li>End-to-end QA ownership: requirements through test design, test data,
+        manual execution, defect management and release validation.</li>
+      <li>Test management tooling: Jira, Xray, TestRail, Confluence.</li>
+      <li>API breadth: REST, SOAP, Bruno, RestAssured, Postman, SoapUI, Karate,
+        OpenAPI, microservices.</li>
+      <li>Selenium WebDriver with Java, TestNG, Page Object Model, parallel
+        execution, Jenkins, cross-browser on Chrome, Firefox and Safari.</li>
+      <li>CI/CD execution with GitHub Actions and Jenkins, plus k6 performance
+        testing.</li>
+      <li>Regulated-domain testing: AML/KYC, sanctions, PEP/RCA, eID and BankID.</li>
+      <li>On-call incident investigation, log reading and defect narrowing.</li>
+    </ul>
+
+    <h3>Claimed on the resume, therefore fair game for deep questioning</h3>
+    <ul>
+      <li>A TypeScript and Playwright framework for regression and accessibility
+        testing across customer-onboarding flows.</li>
+      <li>Playwright running in CI/CD pipelines with coverage reporting.</li>
+      <li>Cypress suites during the freelance period.</li>
+      <li>AI-assisted QA with GitHub Copilot and Claude Code, custom agents and
+        skills.</li>
+    </ul>
+
+    <h3>Likely weak points to close before interviews</h3>
+    <ul>
+      <li>TypeScript as a language rather than "JavaScript with types": generics,
+        unions, narrowing, structural typing.</li>
+      <li>Fixtures as an architecture, not a <code>beforeEach</code>
+        replacement.</li>
+      <li>Deliberate flakiness diagnosis using traces rather than retries.</li>
+      <li>Sharding, blob reports and report merging at scale.</li>
+      <li>Network interception and mocking as a test-design tool.</li>
+      <li>Newer surface area: aria snapshots, clock control, test locks, Playwright
+        test agents.</li>
+    </ul>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 5. MENTAL MODEL ============ -->
+  <section id="model">
+    <h2>5. The interviewer's mental model</h2>
+    <p>An engineer with two solid Playwright years answers differently from a
+      beginner in five specific ways. Aim every answer at these.</p>
+    <ol>
+      <li>They talk about <strong>locators and auto-waiting as a design
+        contract</strong> with developers, not as syntax.</li>
+      <li>They reach for <strong>fixtures and projects</strong> when asked about
+        structure, not for base classes and inheritance.</li>
+      <li>They treat <strong>flakiness as a diagnosable defect</strong>, name the
+        category, and open the trace before touching the retry count.</li>
+      <li>They can explain <strong>CI economics</strong>: workers, shards, browser
+        downloads, run time, artifact size, and what they cut when the pipeline got
+        slow.</li>
+      <li>They hold <strong>opinions with trade-offs</strong>. "It depends" followed
+        by the actual deciding factor is a senior answer; "it depends" alone is
+        not.</li>
+    </ol>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 6. TRACKS ============ -->
+  <section id="tracks">
+    <h2>6. Strategic approach: four tracks</h2>
+    <p>Run these in parallel, not in sequence. Interview questions usually pull from
+      more than one at a time.</p>
+    <h3>Track A &mdash; language fluency</h3>
+    <p>TypeScript to the point where you can read an unfamiliar fixture file and
+      explain what the types are doing, and async semantics deeply enough to explain
+      why a missing <code>await</code> produces a silently passing test.</p>
+    <h3>Track B &mdash; framework craft</h3>
+    <p>Design, build and then <em>refactor</em> a real framework. The refactor
+      matters more than the build, because interviewers ask "what would you change"
+      and only someone who has already changed it answers well.</p>
+    <h3>Track C &mdash; failure forensics</h3>
+    <p>Deliberately create flaky and failing tests, then diagnose them with traces,
+      UI mode and reporter output. Build a personal taxonomy of causes.</p>
+    <h3>Track D &mdash; narrative and process</h3>
+    <p>Convert real Resurs Bank, Model N and Bookwow experience into short, specific,
+      honest stories. Pair test-management strength with Playwright so you are not
+      competing only on tool depth, where you are newer, but on quality ownership,
+      where you are strong.</p>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 7. PHASES ============ -->
+  <section id="phases">
+    <h2>7. Tactical plan: five phases with exit criteria</h2>
+    <p>Adjust the pace to your availability. Do not move on until the exit criterion
+      is met, because the exit criteria are what interviewers actually test.</p>
+
+    <h3>Phase 1 &mdash; TypeScript that survives follow-up questions</h3>
+    <p><strong>Study:</strong> structural typing; <code>interface</code> versus
+      <code>type</code>; generics and constraints; narrowing and discriminated
+      unions; <code>unknown</code> versus <code>any</code>; strict mode; promises and
+      floating promises; modules and path aliases; ESLint and
+      <code>tsc --noEmit</code>.</p>
+    <p><strong>Do:</strong> convert an existing JavaScript or Java helper into strict
+      TypeScript with no <code>any</code>; write a typed test-data builder using
+      generics and a union type for customer risk categories.</p>
+    <p><strong>Exit:</strong> explain unaided why <code>test.extend</code> takes two
+      type parameters, and what happens to types when you call
+      <code>mergeTests</code>.</p>
+
+    <h3>Phase 2 &mdash; Playwright fundamentals with the "why"</h3>
+    <p><strong>Study:</strong> everything in section 1, plus locator operators,
+      <code>expect.poll</code>, <code>expect.toPass</code>, soft assertions,
+      <code>expect.configure</code> and custom matchers.</p>
+    <p><strong>Do:</strong> rewrite a Selenium test you know well in Playwright and
+      list every explicit wait you deleted and why. Break strict mode on purpose,
+      read the error, fix it three ways, and decide which you would defend.</p>
+    <p><strong>Exit:</strong> list the actionability checks unaided and explain what
+      "stable" means for an animating element.</p>
+
+    <h3>Phase 3 &mdash; framework architecture</h3>
+    <p><strong>Study:</strong> fixture scopes, <code>auto</code>,
+      <code>option</code>, fixture timeouts, <code>box</code>, teardown order,
+      <code>mergeTests</code>; page objects as fixture-supplied collaborators;
+      projects, dependencies and teardown; storage-state authentication; timeouts;
+      test-data strategy; tags and annotations mapped to Xray.</p>
+    <p><strong>Do:</strong> build the proof project in section 8.</p>
+    <p><strong>Exit:</strong> draw the framework layering on a whiteboard in under
+      two minutes and justify each seam.</p>
+
+    <h3>Phase 4 &mdash; reliability, CI and forensics</h3>
+    <p><strong>Study:</strong> the parallelism model; worker and parallel index;
+      retries and retry strategy; <code>maxFailures</code>; trace modes; trace
+      viewer; UI mode; reporters including blob and merge; sharding; Docker and OS
+      consistency.</p>
+    <p><strong>Do:</strong> introduce five flaky tests deliberately &mdash; a
+      re-render race, a shared backend record, an animation, a time-dependent
+      assertion and an unmocked third-party call &mdash; and fix each properly. Then
+      run the suite sharded across a matrix, merge blob reports into one HTML report
+      and publish it as an artifact.</p>
+    <p><strong>Exit:</strong> given a failing trace, narrate the diagnosis out loud
+      in senior order: what the test intended, what the DOM showed at the failing
+      action, what the network did, then the fix.</p>
+
+    <h3>Phase 5 &mdash; breadth, depth and rehearsal</h3>
+    <p><strong>Study:</strong> routing and HAR replay; the request fixture versus
+      <code>page.request</code>; axe-core accessibility and aria snapshots; visual
+      comparison; clock control; emulation; component testing boundaries; and the
+      current release surface including test locks, visible-only locators, aria and
+      screen snapshots in traces, and the Playwright test agents.</p>
+    <p><strong>Do:</strong> at least three recorded mock interviews using section
+      2.</p>
+    <p><strong>Exit:</strong> no question in the bank produces a blank pause.</p>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 8. PROOF PROJECT ============ -->
+  <section id="project">
+    <h2>8. The proof project</h2>
+    <p>Build one framework you can open on a screen share and defend line by line.
+      Use a public application so nothing confidential is involved &mdash; the
+      Playwright TodoMVC demo, a public sandbox shop, or a small app you host
+      yourself.</p>
+
+    <pre><code>playwright-demo/
+  playwright.config.ts
+  tsconfig.json
+  eslint.config.js
+  src/
+    fixtures/
+      base.fixtures.ts      # merges app, api and a11y fixtures
+      auth.fixtures.ts      # worker-scoped account, storageState
+      a11y.fixtures.ts      # axe wrapper as an auto fixture
+    pages/
+      login.page.ts
+      onboarding.page.ts
+      components/
+        data-table.component.ts
+    api/
+      client.ts             # typed APIRequestContext wrapper
+      builders/customer.ts  # generic, typed test-data builders
+    utils/
+      env.ts                # typed config loading, no secrets in repo
+  tests/
+    auth.setup.ts
+    smoke/
+    regression/
+    a11y/
+  .github/workflows/e2e.yml</code></pre>
+
+    <h3>Layering to be able to draw</h3>
+    <div class="layers">
+      <div class="layer"><b>Spec files</b> &mdash; intent only, no selectors, no setup</div>
+      <div class="layer"><b>Fixtures</b> &mdash; environment and collaborators, scoped and torn down</div>
+      <div class="layer"><b>Page and component objects</b> &mdash; user-facing interactions &nbsp;|&nbsp; <b>API client and data builders</b> &mdash; arrange state</div>
+      <div class="layer"><b>Playwright locators and web-first assertions</b></div>
+      <div class="layer"><b>CI</b> &mdash; projects, shards, traces, merged report</div>
+    </div>
+
+    <h3>Deliberate decisions, because each one is an interview question</h3>
+    <ul>
+      <li>Assertions in specs, not page objects, so a failing test reads as intent.
+        Be ready to argue the opposite too.</li>
+      <li>Data setup through the API, never the UI, except when the signup UI is
+        itself under test.</li>
+      <li>A setup project producing <code>storageState</code>, with worker-scoped
+        accounts for tests that mutate profile data.</li>
+      <li>Test ids agreed with developers as a contract, role-based locators
+        preferred where the accessible name is stable.</li>
+      <li><code>fullyParallel</code> on, serial mode nowhere, a named lock only for a
+        genuinely shared resource.</li>
+      <li>Traces on first retry, video off by default, screenshots only on
+        failure.</li>
+      <li>Smoke tagged and run on every pull request; full regression sharded
+        nightly.</li>
+      <li><code>tsc --noEmit</code> and ESLint as pipeline gates before tests
+        run.</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>Do the part most candidates skip.</strong> Write a short
+        <code>DECISIONS.md</code> in that project listing each choice, the
+        alternative you rejected, and why. Interview answers fall out of that file
+        almost verbatim.</p>
+    </div>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 9. RED FLAGS ============ -->
+  <section id="redflags">
+    <h2>9. Answers that cost interviews</h2>
+    <div class="callout avoid">
+      <p>Eliminate these, and correct yourself if one slips out.</p>
+    </div>
+    <ul>
+      <li><strong>"I add <code>waitForTimeout</code> when the page is slow."</strong>
+        Say auto-waiting, web-first assertions, <code>expect.poll</code> and route
+        waiting instead.</li>
+      <li><strong>"I mostly use XPath because it is more powerful."</strong> This
+        dates you and signals brittle suites.</li>
+      <li><strong>"We just increase retries when tests are flaky."</strong></li>
+      <li><strong>"Playwright is faster than Selenium."</strong> Say <em>why</em>:
+        fewer round trips, cheap contexts, built-in waiting, parallel workers by
+        default.</li>
+      <li><strong>"Our automation gives us full coverage."</strong> Coverage claims
+        without a basis are the fastest way to lose a senior interviewer.</li>
+      <li><strong>Inflating your Playwright history.</strong> Give the real answer
+        and pivot immediately to depth.</li>
+    </ul>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 10. GAP ============ -->
+  <section id="gap">
+    <h2>10. Handling the experience gap honestly</h2>
+    <p>You will be asked how long you have used Playwright. Prepare one calm,
+      truthful sentence followed by evidence of depth.</p>
+    <ol>
+      <li>State the real scope of your Playwright work plainly.</li>
+      <li>Immediately give a concrete artefact: the framework, what it covers, how it
+        runs in the pipeline, and one hard problem you solved in it.</li>
+      <li>Bridge to the longer arc: nine years of test design, risk analysis, test
+        management and API testing, plus Selenium and Cypress, which is why the
+        tooling transfer was fast.</li>
+      <li>Close with current learning, named specifically &mdash; aria snapshots,
+        sharded reporting. Specific curiosity reads as genuine; "I love learning new
+        things" does not.</li>
+    </ol>
+    <div class="callout">
+      <p>Never claim a tool, version or feature you have not touched. If you have
+        read about it but not used it, say exactly that and then describe how you
+        would apply it. Interviewers respect that far more than a bluff that
+        collapses on the follow-up question.</p>
+    </div>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 11. STORIES ============ -->
+  <section id="stories">
+    <h2>11. Story bank</h2>
+    <p>Prepare five stories, each under two minutes, each anchored in something that
+      actually happened. Draft them in a private file, one per heading.</p>
+    <ol>
+      <li><strong>Building the Playwright and TypeScript suite.</strong> Why it was
+        needed, how you structured it, the hardest technical problem, the
+        outcome.</li>
+      <li><strong>Adopting an unfamiliar tool under delivery pressure.</strong> The
+        k6 performance framework is a ready-made example.</li>
+      <li><strong>A defect you caught that mattered.</strong> Preferably in a
+        screening, onboarding or identity flow, described without exposing
+        confidential detail.</li>
+      <li><strong>A disagreement you resolved with evidence.</strong> The
+        developer-and-flaky-test pattern, or a scope disagreement settled with risk
+        analysis.</li>
+      <li><strong>Improving a process, not just a test.</strong> The quality metrics
+        matrix, the Xray workflow, or the CI integration of automation results.</li>
+    </ol>
+    <p>Shape for each: situation, your specific action, the result, and one sentence
+      on what you would do differently. Keep numbers only where you can support
+      them.</p>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 12. RUBRIC ============ -->
+  <section id="rubric">
+    <h2>12. Self-assessment rubric</h2>
+    <p>Score yourself honestly before each mock interview. Anything below three needs
+      another pass.</p>
+    <table>
+      <thead>
+        <tr><th>Area</th><th>1</th><th>3</th><th>5</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>TypeScript</td><td>Reads code</td><td>Writes typed fixtures</td><td>Explains generics and narrowing</td></tr>
+        <tr><td>Locators</td><td>Uses them</td><td>Chooses by priority</td><td>Negotiates a locator contract</td></tr>
+        <tr><td>Waiting</td><td>Knows auto-wait</td><td>Never writes sleeps</td><td>Explains actionability checks</td></tr>
+        <tr><td>Fixtures</td><td>Uses built-ins</td><td>Writes custom ones</td><td>Designs scopes and teardown order</td></tr>
+        <tr><td>Config</td><td>Edits it</td><td>Sets projects and dependencies</td><td>Justifies every option</td></tr>
+        <tr><td>Flakiness</td><td>Retries</td><td>Diagnoses with traces</td><td>Names causes and prevents them</td></tr>
+        <tr><td>CI</td><td>Runs a pipeline</td><td>Shards and merges reports</td><td>Tunes cost and run time</td></tr>
+        <tr><td>Network</td><td>Knows routing</td><td>Mocks confidently</td><td>Designs isolation around it</td></tr>
+        <tr><td>Strategy</td><td>Follows a plan</td><td>Applies risk-based selection</td><td>Leads the quality conversation</td></tr>
+      </tbody>
+    </table>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 13. RESOURCES ============ -->
+  <section id="resources">
+    <h2>13. Resources</h2>
+    <p>Primary source first. The official documentation is the best preparation
+      material and is also what interviewers themselves read.</p>
+
+    <h3>Playwright core reading</h3>
+    <ul>
+      <li><a href="https://playwright.dev/docs/intro">Getting started</a></li>
+      <li><a href="https://playwright.dev/docs/best-practices">Best practices</a></li>
+      <li><a href="https://playwright.dev/docs/locators">Locators</a></li>
+      <li><a href="https://playwright.dev/docs/actionability">Auto-waiting and actionability</a></li>
+      <li><a href="https://playwright.dev/docs/test-assertions">Assertions</a></li>
+      <li><a href="https://playwright.dev/docs/browser-contexts">Isolation and browser contexts</a></li>
+      <li><a href="https://playwright.dev/docs/test-fixtures">Fixtures</a></li>
+      <li><a href="https://playwright.dev/docs/pom">Page object model</a></li>
+      <li><a href="https://playwright.dev/docs/test-projects">Projects</a></li>
+      <li><a href="https://playwright.dev/docs/test-configuration">Configuration</a></li>
+      <li><a href="https://playwright.dev/docs/test-global-setup-teardown">Global setup and teardown</a></li>
+      <li><a href="https://playwright.dev/docs/test-parameterize">Parameterising tests</a></li>
+      <li><a href="https://playwright.dev/docs/auth">Authentication</a></li>
+      <li><a href="https://playwright.dev/docs/test-annotations">Annotations and tags</a></li>
+      <li><a href="https://playwright.dev/docs/test-typescript">TypeScript support</a></li>
+    </ul>
+
+    <h3>Reliability, scale and diagnostics</h3>
+    <ul>
+      <li><a href="https://playwright.dev/docs/test-parallel">Parallelism</a></li>
+      <li><a href="https://playwright.dev/docs/test-sharding">Sharding</a></li>
+      <li><a href="https://playwright.dev/docs/test-retries">Retries</a></li>
+      <li><a href="https://playwright.dev/docs/test-reporters">Reporters</a></li>
+      <li><a href="https://playwright.dev/docs/trace-viewer">Trace viewer</a></li>
+      <li><a href="https://playwright.dev/docs/test-ui-mode">UI mode</a></li>
+      <li><a href="https://playwright.dev/docs/debug">Debugging</a></li>
+      <li><a href="https://playwright.dev/docs/codegen">Test generator</a></li>
+      <li><a href="https://playwright.dev/docs/ci-intro">Continuous integration</a></li>
+      <li><a href="https://playwright.dev/docs/docker">Docker</a></li>
+    </ul>
+
+    <h3>Breadth topics</h3>
+    <ul>
+      <li><a href="https://playwright.dev/docs/network">Network</a></li>
+      <li><a href="https://playwright.dev/docs/mock">Mock APIs</a></li>
+      <li><a href="https://playwright.dev/docs/api-testing">API testing</a></li>
+      <li><a href="https://playwright.dev/docs/clock">Clock</a></li>
+      <li><a href="https://playwright.dev/docs/emulation">Emulation</a></li>
+      <li><a href="https://playwright.dev/docs/accessibility-testing">Accessibility testing</a></li>
+      <li><a href="https://playwright.dev/docs/aria-snapshots">Aria snapshots</a></li>
+      <li><a href="https://playwright.dev/docs/test-snapshots">Visual comparisons</a></li>
+      <li><a href="https://playwright.dev/docs/test-components">Component testing</a></li>
+      <li><a href="https://playwright.dev/docs/test-agents">Test agents</a></li>
+      <li><a href="https://playwright.dev/docs/release-notes">Release notes</a></li>
+    </ul>
+
+    <h3>TypeScript</h3>
+    <ul>
+      <li><a href="https://www.typescriptlang.org/docs/handbook/intro.html">TypeScript handbook</a></li>
+      <li><a href="https://www.typescriptlang.org/tsconfig">tsconfig reference</a></li>
+      <li><a href="https://typescript-eslint.io/rules/no-floating-promises/">no-floating-promises rule</a></li>
+    </ul>
+
+    <h3>Structured learning and community</h3>
+    <ul>
+      <li><a href="https://learn.microsoft.com/en-us/training/modules/build-with-playwright/">Microsoft Learn Playwright training</a></li>
+      <li><a href="https://playwright.dev/community/learn-videos">Playwright learn videos</a></li>
+      <li><a href="https://playwright.dev/community/feature-videos">Playwright feature videos</a></li>
+      <li><a href="https://github.com/microsoft/playwright">Playwright on GitHub</a></li>
+      <li><a href="https://stackoverflow.com/questions/tagged/playwright">Playwright on Stack Overflow</a></li>
+      <li><a href="https://www.deque.com/axe/">axe accessibility tooling</a></li>
+    </ul>
+
+    <h3>Practice targets</h3>
+    <ul>
+      <li><a href="https://demo.playwright.dev/todomvc">Playwright TodoMVC demo</a></li>
+      <li><a href="https://www.saucedemo.com/">Sauce Labs demo site</a></li>
+      <li>Any small application you host yourself &mdash; the best option, because
+        you control the backend and can practise API-based data setup.</li>
+    </ul>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <!-- ============ 14. TRACKER ============ -->
+  <section id="tracker">
+    <h2>14. Progress tracker</h2>
+    <p>Print this page or copy the list into a private working file. An untracked
+      plan turns into passive reading, which is the failure mode this plan exists to
+      prevent.</p>
+    <ul class="checklist">
+      <li>Basics checkpoint: actionability checks, locator staleness, context
+        isolation, trace modes</li>
+      <li>Phase 1 exit: explain <code>test.extend</code> type parameters unaided</li>
+      <li>Phase 2 exit: list the actionability checks unaided</li>
+      <li>Phase 3 exit: draw the framework layering in two minutes</li>
+      <li>Phase 4 exit: narrate a trace-based diagnosis unaided</li>
+      <li>Phase 5 exit: no blank pauses in the question bank</li>
+      <li>Proof project pushed, with <code>DECISIONS.md</code> written</li>
+      <li>Sharded CI run producing one merged HTML report</li>
+      <li>Five flakiness categories reproduced and fixed</li>
+      <li>Five stories drafted and timed</li>
+      <li>Three recorded mock interviews completed and reviewed</li>
+    </ul>
+    <a class="backlink" href="#contents">&uarr; Contents</a>
+  </section>
+
+  <footer>
+    <p>Compiled from the official Playwright documentation and the approved base
+      resume. Applicant claims are not independently verified.</p>
+  </footer>
+
+</div>
+</body>
+</html>
