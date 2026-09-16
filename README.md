@@ -26,9 +26,10 @@ The approved base is under `base/v01/`:
 - `Akhila_Gopisetti.html`: generated HTML preview
 - `Akhila_Gopisetti.render.json`: technical integrity record
 
-The previous snapshot is preserved under `base/backup-v01/`. Keep the approved
-base unchanged while preparing applications. A base revision is a separate
-request and requires separate approval.
+Historical snapshots are preserved under `base/archive/backup-v01/` and
+`base/archive/backup-v02/`. Keep the approved base unchanged while preparing
+applications. A base revision is a separate request and requires separate
+approval.
 
 ## New Job Workflow
 
