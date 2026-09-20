@@ -3,7 +3,7 @@
 *
 !.gitignore
 !pages/
-!pages/*.html
+!pages/**
 !learn/
 !learn/*.html
 !learn/*.md
