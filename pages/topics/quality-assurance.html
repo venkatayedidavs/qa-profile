@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Quality Assurance learning notes.">
+  <meta name="description" content="A self-paced 30-step course for manual QA engineers learning TypeScript, Playwright UI and API automation, and responsible AI-assisted testing.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
   <link rel="stylesheet" href="../assets/topic.css">
   <title>Quality Assurance | Learning Website</title>
@@ -22,15 +22,1161 @@
       <h2>Workspace</h2>
       <nav><a href="../index.html#profile">Profile</a><a href="../index.html#jobs">Jobs</a></nav>
     </aside>
-    <main>
+    <main data-progress-key="qa-ai-playwright-foundations-v2">
       <p class="eyebrow">Learning / Main topics</p>
       <h1>Quality Assurance</h1>
-      <p class="lead">A space for testing practices, automation, tools, and quality engineering notes.</p>
-      <section class="topic-section" id="overview"><h2>Overview</h2><p>Quality principles and testing foundations will be collected here.</p><div class="placeholder">Content will be added later.</div></section>
-      <section class="topic-section" id="learning-path"><h2>Learning path</h2><p>Testing techniques, frameworks, and projects can be organized here.</p><div class="placeholder">Content will be added later.</div></section>
+      <p class="lead">From manual QA to AI-assisted automation. Learn TypeScript, test a website and its APIs with Playwright, and build a GitHub portfolio with evidence you can explain.</p>
+
+      <section class="topic-section" id="overview">
+        <h2>Overview</h2>
+        <p>This course is for a QA engineer who can investigate requirements, write manual tests, and report defects, but is new to programming and automation. No Java, Selenium, TypeScript, API automation, or AI-tool experience is assumed. Your testing judgment is the starting point; programming is the new skill.</p>
+        <p><strong>Target capability:</strong> QA Automation Engineer with AI-assisted UI and API testing skills. Using AI to test ordinary software is different from testing an AI product. The latter is an optional extension, not a claim earned by completing this course.</p>
+        <h3>Learning outcomes</h3>
+        <ul>
+          <li>Translate requirements into risk-based manual cases and independently checked automated tests.</li>
+          <li>Write and explain typed, asynchronous code; diagnose failures with errors, traces, and server logs.</li>
+          <li>Test browser behavior, HTTP contracts, business totals, ownership, and state with isolated synthetic data.</li>
+          <li>Run reproducible continuous integration (CI) with quality gates and protected evidence.</li>
+          <li>Evaluate AI through review, defect detection, and measured human effort.</li>
+        </ul>
+        <h3>Time and pace</h3>
+        <p>30 steps in six phases, not 30 days. Complete several steps in a session when you can demonstrate the outcomes; spend several sessions on one step when needed. Programming and debugging need repeated practice. There is no fixed two-hour promise.</p>
+        <p>Begin a new session by explaining the previous concept from memory. Each phase ends with independent work: use documentation, but not AI-generated assessment solutions. Revisit an exercise when you cannot explain its result.</p>
+        <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Course task completion" value="0" max="1">0%</progress></div>
+      </section>
+
+      <section class="topic-section" id="how-to-use">
+        <h2>Learning method</h2>
+        <ol>
+          <li><strong>Understand:</strong> read the named section and predict the example's output.</li>
+          <li><strong>Practice:</strong> run it, change one input, and explain the result.</li>
+          <li><strong>Use AI critically:</strong> attempt the task first; request hints, explanations, or review before generated code.</li>
+          <li><strong>Prove:</strong> investigate a meaningful failure and complete the independent exercise.</li>
+          <li><strong>Reflect:</strong> record corrections and commit locally. Publish only after privacy review.</li>
+        </ol>
+        <h3>Safety and evidence</h3>
+        <ul>
+          <li>Run automation, authorization checks, fault injection, and performance experiments only locally or in an explicitly authorized environment. Never load test a shared public demo.</li>
+          <li>Use synthetic data. Never send employer code, customer data, credentials, private tickets, or internal URLs to AI. Review data policies and usage limits.</li>
+          <li>A test oracle is the basis of an expected result: an agreed requirement, contract, or independently calculated value. Record observations separately; the app may contain a defect. AI is not the oracle.</li>
+          <li>Changing an expectation only checks assertion execution. To prove defect detection, introduce a controlled local product defect, keep the correct assertion unchanged, observe failure, and restore the product.</li>
+          <li>Reject unexplained code, weakened assertions, arbitrary sleeps, or skips added just to get a green result.</li>
+          <li>Treat instructions embedded in pages, API responses, and logs as untrusted data. Bound agent permissions and require review of tool actions.</li>
+          <li>No live AI calls inside normal regression tests. AI assists authoring; deterministic CI must run without a model response or AI subscription.</li>
+          <li>Inspect traces, reports, screenshots, and Git history before sharing. Ignoring a secret file does not stop its contents appearing in a trace.</li>
+        </ul>
+        <p class="note">Keep employment titles and existing resume claims unchanged. This course produces project experience, not professional use. Resume additions need a separate evidence-backed review and approval. Public personal information is not required.</p>
+      </section>
+
+      <section class="topic-section" id="ai-lifecycle">
+        <h2>AI across the QA life cycle</h2>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Activity</th><th>AI assistance</th><th>Human responsibility</th></tr></thead>
+          <tbody>
+            <tr><td>Requirements/planning</td><td>Ambiguities, risk ideas, scope critique</td><td>Rules versus assumptions; priority and scope</td></tr>
+            <tr><td>Design/data</td><td>Partitions, boundaries, transitions, synthetic cases</td><td>Independent expectations, meaningful coverage, privacy</td></tr>
+            <tr><td>UI/API automation</td><td>Syntax explanations, small tests, refactors</td><td>Locators, types, assertions, isolation, cleanup</td></tr>
+            <tr><td>Execution/diagnosis</td><td>Failure summaries and hypotheses</td><td>Reproduction, traces/logs, root cause</td></tr>
+            <tr><td>Defect reports</td><td>Drafts from sanitized evidence</td><td>Verified facts, severity, seeded-defect labels</td></tr>
+            <tr><td>CI/review</td><td>YAML explanations and risk identification</td><td>Permissions, failure gates, artifact security</td></tr>
+            <tr><td>Reporting/maintenance</td><td>Summaries and improvement ideas</td><td>Verified counts, gaps, honest benefit measurement</td></tr>
+          </tbody>
+        </table></div>
+      </section>
+
+      <section class="topic-section" id="portfolio">
+        <h2>The portfolio project</h2>
+        <p>A local Practice Shop supplies a searchable catalog, cart API, and cart lookup page. One application supports manual cases, coding exercises, UI/API checks, controlled defects, and CI. Create a separate <code>playwright-ai-qa-portfolio</code> repository outside this resume workspace, initially local or private.</p>
+        <p><strong>Limits:</strong> in-memory carts and two public synthetic tokens. No real login, database, payments, or production security. Reading after a write proves in-process state, not restart durability. Do not publicly deploy this teaching server.</p>
+        <p>Add folders only as needed: <code>lab/</code>, <code>exercises/</code>, <code>src/pages/</code>, <code>src/fixtures/</code>, <code>src/schemas/</code>, <code>tests/ui/</code>, <code>tests/api/</code>, <code>tests/e2e/</code>, <code>specs/</code>, and <code>docs/</code>. Keep requirements, strategy, traceability, decisions, AI evidence, and results alongside the code.</p>
+      </section>
+
+      <section class="topic-section" id="lab-contract">
+        <h2>Practice Shop contract</h2>
+        <p>These are agreed teaching requirements, not expectations inferred from implementation. Keep them unchanged while testing deliberate defects.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ID</th><th>Required behavior</th><th>Independent example</th></tr></thead>
+          <tbody>
+            <tr><td>CAT-01</td><td>Three products; API prices are integer minor units.</td><td>p1: Notebook, 1200, in stock. p2: Pen, 300, in stock. p3: Bag, 4900, out of stock.</td></tr>
+            <tr><td>CAT-02</td><td><code>GET /api/products?q=...</code> trims spaces and matches a case-insensitive name substring. Blank/missing query returns all in seed order. Status 200; body <code>{ products: [...] }</code>.</td><td>NOTEBOOK and spaced notebook return p1 only; zzzz returns an empty array.</td></tr>
+            <tr><td>UI-01</td><td>Show names, SEK prices, and count. Failed requests show an error instead of stale results.</td><td>Notebook: SEK 12.00. Empty: 0 products found. Failure: Products unavailable. Try again.</td></tr>
+            <tr><td>CART-01</td><td><code>POST /api/carts</code> creates an empty owned cart: new ID, 201. GET by ID reads it; DELETE removes it with 204. Missing cart: 404.</td><td>Two creates yield different IDs; reading after deletion returns 404.</td></tr>
+            <tr><td>CART-02</td><td><code>PUT /api/carts/:id/items/:productId</code> accepts JSON integer quantity 1 to 5 inclusive. Sets, not increments, quantity; returns cart with 200.</td><td>Two identical writes of two notebooks leave one line, quantity 2, total 2400. Invalid quantity: 400; unknown product: 404; unavailable stock: 409.</td></tr>
+            <tr><td>AUTH-01</td><td>Cart operations need a recognized bearer token. Missing/unknown: 401. Wrong owner on an existing cart: 403.</td><td>Bearer learner-alex and Bearer learner-sam are distinct synthetic users, never real credentials.</td></tr>
+            <tr><td>UI-02</td><td>The cart lookup uses synthetic Alex and displays the server total.</td><td>Two notebooks: Cart total: SEK 24.00. Failure: Cart unavailable.</td></tr>
+          </tbody>
+        </table></div>
+        <p><strong>Reasoning example:</strong> quantities 0, 1, 5, 6 cover boundaries; string "2" checks the JSON type. Calculate totals independently. Two screens agreeing is weak evidence if both use the same faulty calculation.</p>
+      </section>
+
+      <section class="topic-section" id="lab-setup">
+        <h2>Worked setup</h2>
+        <p>Use these six supplied files in Step 2. You do not need to write a server before learning your first test. Use Node.js 22 LTS, version 22.18 or later, Git, and VS Code. The same Node major runs in CI; tsx executes TypeScript while a separate compiler checks types.</p>
+        <p><strong>package.json</strong>, before dependency installation. After installing, keep npm's added dependency lists and lockfile. The private flag prevents npm publication, not GitHub visibility.</p>
+        <pre data-file="package.json"><code>{
+  "name": "playwright-ai-qa-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start:lab": "tsx lab/server.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint \"tests/**/*.ts\"",
+    "test": "playwright test",
+    "test:ui": "playwright test --project=ui-chromium",
+    "test:api": "playwright test --project=api",
+    "report": "playwright show-report"
+  }
+}</code></pre>
+        <p>Run from the new repository directory:</p>
+        <pre><code>npm install --save-exact express@5 zod@4
+npm install --save-dev --save-exact @playwright/test typescript@5 tsx@4 @types/node@22 @types/express@5 eslint@10 typescript-eslint@8 eslint-plugin-playwright@2
+npx playwright install chromium</code></pre>
+        <p><strong>tsconfig.json</strong></p><pre data-file="tsconfig.json"><code>{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["lab/**/*.ts", "exercises/**/*.ts", "src/**/*.ts", "tests/**/*.ts", "playwright.config.ts"]
+}</code></pre>
+        <p><strong>.gitignore</strong></p><pre data-file=".gitignore"><code>node_modules/
+test-results/
+playwright-report/
+blob-report/
+.auth/
+.env
+.env.*
+.DS_Store</code></pre>
+        <details class="day" id="lab-source">
+          <summary>Supplied server and browser files</summary>
+          <div class="day-body">
+            <p><strong>lab/server.ts</strong>. Loopback only; each start resets carts. Logs include method, path, status, and request ID, not bodies or authorization headers.</p>
+            <pre data-file="lab/server.ts"><code>import express, { type Request, type Response, type NextFunction } from 'express';
+import { randomUUID } from 'node:crypto';
+import { z } from 'zod';
+
+const app = express();
+const products = [
+  { id: 'p1', name: 'Notebook', priceCents: 1200, inStock: true },
+  { id: 'p2', name: 'Pen', priceCents: 300, inStock: true },
+  { id: 'p3', name: 'Bag', priceCents: 4900, inStock: false },
+];
+type Item = { productId: string; quantity: number; unitPriceCents: number };
+type Cart = { id: string; owner: string; items: Item[] };
+const carts = new Map&lt;string, Cart&gt;();
+const accounts = new Map([
+  ['Bearer learner-alex', 'alex'],
+  ['Bearer learner-sam', 'sam'],
+]);
+const quantitySchema = z.object({ quantity: z.number().int().min(1).max(5) });
+
+app.disable('x-powered-by');
+app.use((request, response, next) =&gt; {
+  const requestId = randomUUID();
+  response.setHeader('x-request-id', requestId);
+  response.once('finish', () =&gt; {
+    console.log(JSON.stringify({ requestId, method: request.method,
+      path: request.path, status: response.statusCode }));
+  });
+  next();
+});
+app.use(express.json({ limit: '10kb' }));
+
+function cartView(cart: Cart) {
+  const totalCents = cart.items.reduce(
+    (sum, item) =&gt; sum + item.unitPriceCents * item.quantity, 0,
+  );
+  return { ...cart, totalCents };
+}
+
+function ownedCart(request: Request, response: Response): Cart | undefined {
+  const owner = accounts.get(request.get('authorization') ?? '');
+  if (!owner) {
+    response.status(401).json({ error: 'Authentication required' });
+    return;
+  }
+  const cart = carts.get(String(request.params.cartId));
+  if (!cart) {
+    response.status(404).json({ error: 'Cart not found' });
+    return;
+  }
+  if (cart.owner !== owner) {
+    response.status(403).json({ error: 'Access denied' });
+    return;
+  }
+  return cart;
+}
+
+app.get('/health', (_request, response) =&gt; {
+  response.json({ status: 'ready' });
+});
+app.get('/api/products', (request, response) =&gt; {
+  const query = String(request.query.q ?? '').trim().toLowerCase();
+  const matches = products.filter((product) =&gt;
+    product.name.toLowerCase().includes(query));
+  response.json({ products: matches });
+});
+app.post('/api/carts', (request, response) =&gt; {
+  const owner = accounts.get(request.get('authorization') ?? '');
+  if (!owner) {
+    response.status(401).json({ error: 'Authentication required' });
+    return;
+  }
+  const cart: Cart = { id: randomUUID(), owner, items: [] };
+  carts.set(cart.id, cart);
+  response.status(201).json(cartView(cart));
+});
+app.get('/api/carts/:cartId', (request, response) =&gt; {
+  const cart = ownedCart(request, response);
+  if (cart) response.json(cartView(cart));
+});
+app.put('/api/carts/:cartId/items/:productId', (request, response) =&gt; {
+  const cart = ownedCart(request, response);
+  if (!cart) return;
+  const payload = quantitySchema.safeParse(request.body);
+  if (!payload.success) {
+    response.status(400).json({ error: 'Quantity must be an integer from 1 to 5' });
+    return;
+  }
+  const product = products.find((candidate) =&gt; candidate.id === request.params.productId);
+  if (!product) {
+    response.status(404).json({ error: 'Product not found' });
+    return;
+  }
+  if (!product.inStock) {
+    response.status(409).json({ error: 'Product out of stock' });
+    return;
+  }
+  cart.items = cart.items.filter((item) =&gt; item.productId !== product.id);
+  cart.items.push({ productId: product.id, quantity: payload.data.quantity,
+    unitPriceCents: product.priceCents });
+  response.json(cartView(cart));
+});
+app.delete('/api/carts/:cartId', (request, response) =&gt; {
+  const cart = ownedCart(request, response);
+  if (!cart) return;
+  carts.delete(cart.id);
+  response.status(204).end();
+});
+app.use(express.static('lab/public'));
+app.use((error: unknown, _request: Request, response: Response, _next: NextFunction) =&gt; {
+  response.status(error instanceof SyntaxError ? 400 : 500)
+    .json({ error: 'Request could not be processed' });
+});
+app.listen(3100, '127.0.0.1', () =&gt; {
+  console.log('Practice Shop: http://127.0.0.1:3100');
+});</code></pre>
+            <p><strong>lab/public/index.html</strong></p><pre data-file="lab/public/index.html"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Practice Shop&lt;/title&gt;
+  &lt;style&gt;
+    body { margin: 2rem auto; padding: 0 1rem; max-width: 48rem; font: 1rem/1.5 sans-serif; }
+    section { margin-top: 2rem; border-top: 1px solid #777; }
+    input, button { font: inherit; padding: 0.5rem; max-width: 100%; box-sizing: border-box; }
+    label { display: block; }
+    li { padding-bottom: 1rem; }
+  &lt;/style&gt;
+  &lt;script src="/app.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;main&gt;
+    &lt;h1&gt;Practice Shop&lt;/h1&gt;
+    &lt;section aria-labelledby="catalog-title"&gt;
+      &lt;h2 id="catalog-title"&gt;Catalog&lt;/h2&gt;
+      &lt;form id="search-form"&gt;
+        &lt;label for="search"&gt;Search products&lt;/label&gt;
+        &lt;input id="search" name="search" type="search"&gt;
+        &lt;button id="search-button"&gt;Search&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;p id="catalog-status" role="status"&gt;&lt;/p&gt;
+      &lt;p id="catalog-error" role="alert"&gt;&lt;/p&gt;
+      &lt;ul id="products" aria-label="Products"&gt;&lt;/ul&gt;
+    &lt;/section&gt;
+    &lt;section aria-labelledby="cart-title"&gt;
+      &lt;h2 id="cart-title"&gt;Cart&lt;/h2&gt;
+      &lt;form id="cart-form"&gt;
+        &lt;label for="cart-id"&gt;Cart ID&lt;/label&gt;
+        &lt;input id="cart-id" name="cart-id" required&gt;
+        &lt;button&gt;Load cart&lt;/button&gt;
+      &lt;/form&gt;
+      &lt;p id="cart-status" role="status"&gt;&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            <p><strong>lab/public/app.js</strong></p><pre data-file="lab/public/app.js"><code>const productList = document.querySelector('#products');
+const catalogStatus = document.querySelector('#catalog-status');
+const catalogError = document.querySelector('#catalog-error');
+const searchButton = document.querySelector('#search-button');
+
+async function loadProducts(query) {
+  searchButton.disabled = true;
+  productList.replaceChildren();
+  catalogError.textContent = '';
+  catalogStatus.textContent = 'Loading products...';
+  try {
+    const response = await fetch(`/api/products?q=${encodeURIComponent(query)}`);
+    if (!response.ok) throw new Error('Catalog request failed');
+    const body = await response.json();
+    for (const product of body.products) {
+      const item = document.createElement('li');
+      const heading = document.createElement('h3');
+      heading.textContent = product.name;
+      const price = document.createElement('p');
+      price.textContent = `SEK ${(product.priceCents / 100).toFixed(2)}`;
+      const stock = document.createElement('p');
+      stock.textContent = product.inStock ? 'In stock' : 'Out of stock';
+      item.append(heading, price, stock);
+      productList.append(item);
+    }
+    catalogStatus.textContent = `${body.products.length} products found`;
+  } catch {
+    catalogStatus.textContent = '';
+    catalogError.textContent = 'Products unavailable. Try again.';
+  } finally {
+    searchButton.disabled = false;
+  }
+}
+
+document.querySelector('#search-form').addEventListener('submit', (event) =&gt; {
+  event.preventDefault();
+  void loadProducts(document.querySelector('#search').value);
+});
+document.querySelector('#cart-form').addEventListener('submit', async (event) =&gt; {
+  event.preventDefault();
+  const status = document.querySelector('#cart-status');
+  status.textContent = 'Loading cart...';
+  try {
+    const cartId = document.querySelector('#cart-id').value;
+    const response = await fetch(`/api/carts/${encodeURIComponent(cartId)}`, {
+      headers: { Authorization: 'Bearer learner-alex' },
+    });
+    if (!response.ok) throw new Error('Cart request failed');
+    const cart = await response.json();
+    status.textContent = `Cart total: SEK ${(cart.totalCents / 100).toFixed(2)}`;
+  } catch {
+    status.textContent = 'Cart unavailable.';
+  }
+});
+void loadProducts('');</code></pre>
+          </div>
+        </details>
+        <p><strong>Verify:</strong> run <code>npm run typecheck</code> then <code>npm run start:lab</code>. Open <code>http://127.0.0.1:3100</code>, search NOTEBOOK, expect one result and SEK 12.00. Stop this manual server before Playwright; its config starts a fresh one.</p>
+        <p><strong>If blocked:</strong> stop your previous server if the port is occupied, or change both server and test config to the same free port. Check Node/npm and configured registry when installation fails; do not bypass organization policies. Install missing browsers with <code>npx playwright install chromium</code>.</p>
+      </section>
+
+      <section class="topic-section" id="phase-1">
+        <h2>Phase 1 (Steps 1 to 5): Programming foundations</h2>
+        <p>Prerequisite: manual testing and basic computer use. Outcome: explain/run small programs, check types, understand asynchronous work.</p>
+        <details class="day" id="step-01" data-day>
+          <summary>Step 1: Connect manual QA to automation <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> distinguish idea, procedure, action, assertion, and evidence. Automation does not replace exploration.</p>
+            <p><strong>Study:</strong> <a href="#lab-contract">the contract</a> and <a href="https://playwright.dev/docs/writing-tests">actions/assertions</a>, concepts before syntax.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s01-1"><span>Write a manual NOTEBOOK case with preconditions, expected name/count/price, and contract IDs.</span></label></li>
+              <li><label><input type="checkbox" data-task="s01-2"><span>Label setup, action, assertion. Explain why "page opens" does not verify search.</span></label></li>
+              <li><label><input type="checkbox" data-task="s01-3"><span>Choose one AI tool, review privacy and limits, ask for one missing negative case. The lab runs without an AI subscription.</span></label></li>
+              <li><label><input type="checkbox" data-task="s01-4"><span>Log your attempt, prompt, model/tool when known, suggestion, correction, check/result, total work/review time. Do not invent mistakes.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> independently explain an assertion and one risk still needing exploration.</p>
+          </div>
+        </details>
+        <details class="day" id="step-02" data-day>
+          <summary>Step 2: Local setup and Git <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> distinguish editor, terminal, runtime, packages, Git. Commit is local; push sends data remotely.</p>
+            <p><strong>Study:</strong> <a href="https://nodejs.org/en/download">Node installation</a>, <a href="https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository">Git basics</a>, <a href="#lab-setup">setup</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s02-1"><span>Install Node, Git, VS Code, Playwright extension. Record node/npm/git --version output.</span></label></li>
+              <li><label><input type="checkbox" data-task="s02-2"><span>Create a separate empty folder; run <code>git init -b main</code>. Create the six setup files and install dependencies there.</span></label></li>
+              <li><label><input type="checkbox" data-task="s02-3"><span>Type-check, start the lab, perform your manual test, stop with Ctrl+C, restart.</span></label></li>
+              <li><label><input type="checkbox" data-task="s02-4"><span>Inspect git status/diff; stage only source and lockfile, not private/generated files; commit locally.</span></label></li>
+            </ul>
+            <p><strong>AI practice:</strong> request one diagnostic check for a sanitized error, not an unrestricted reinstall.</p>
+            <p class="output"><strong>Pass when:</strong> start/stop the app and explain why the lockfile is tracked but dependencies are not.</p>
+          </div>
+        </details>
+        <details class="day" id="step-03" data-day>
+          <summary>Step 3: Values and functions <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> read JavaScript before types. String "2" differs from number 2; === does not convert types.</p>
+            <p><strong>Study:</strong> MDN <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Variables">variables</a> and <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Functions">functions</a>.</p>
+            <p><strong>exercises/total.js</strong></p><pre data-file="exercises/total.js"><code>function lineTotal(priceCents, quantity) {
+  return priceCents * quantity;
+}
+
+const total = lineTotal(1200, 2);
+console.log(total);
+console.log(total === 2400);
+console.log('2' === 2);</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s03-1"><span>Predict outputs, run <code>node exercises/total.js</code>, explain 2400, true, false.</span></label></li>
+              <li><label><input type="checkbox" data-task="s03-2"><span>Change to three pens; add an if condition rejecting negative quantities.</span></label></li>
+              <li><label><input type="checkbox" data-task="s03-3"><span>Ask AI for a hint about your first mistake; explain and run the correction.</span></label></li>
+              <li><label><input type="checkbox" data-task="s03-4"><span>Without AI, write a function converting 1200 to displayed price 12.00; also check 300.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> explain inputs, return values, booleans, and an error yourself.</p>
+          </div>
+        </details>
+        <details class="day" id="step-04" data-day>
+          <summary>Step 4: TypeScript and test data <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> objects, arrays, loops, compiler errors versus runtime. Types do not automatically validate server JSON.</p>
+            <p><strong>Study:</strong> <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html">everyday types</a>; advanced generics can wait.</p>
+            <p><strong>exercises/cart-data.ts</strong></p><pre data-file="exercises/cart-data.ts"><code>type Product = { name: string; priceCents: number };
+
+function lineTotal(product: Product, quantity: number): number {
+  return product.priceCents * quantity;
+}
+
+const notebook: Product = { name: 'Notebook', priceCents: 1200 };
+const quantities: number[] = [1, 2, 5];
+for (const quantity of quantities) {
+  console.log(lineTotal(notebook, quantity));
+}</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s04-1"><span>Type-check; run <code>npx tsx exercises/cart-data.ts</code>. Expect 1200, 2400, 6000.</span></label></li>
+              <li><label><input type="checkbox" data-task="s04-2"><span>Make price a string, observe compiler failure, restore it. No any or type assertion to hide the problem.</span></label></li>
+              <li><label><input type="checkbox" data-task="s04-3"><span>Ask AI why typed code may receive invalid JSON; verify compile-time versus runtime.</span></label></li>
+              <li><label><input type="checkbox" data-task="s04-4"><span>Without AI, add Pen and calculate totals with the same function; explain reuse.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> create typed data and interpret the first relevant compiler error.</p>
+          </div>
+        </details>
+        <details class="day" id="step-05" data-day>
+          <summary>Step 5: Async code and phase gate <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> explain Promise and await. A Promise represents work with a result not immediately available.</p>
+            <p><strong>Study:</strong> <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS/Introducing">async JavaScript</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function">async functions</a>.</p>
+            <p><strong>exercises/inspect-api.ts</strong></p><pre data-file="exercises/inspect-api.ts"><code>async function readCatalog(): Promise&lt;unknown&gt; {
+  const response = await fetch('http://127.0.0.1:3100/api/products?q=NOTEBOOK');
+  if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+  const body: unknown = await response.json();
+  return body;
+}
+
+const pending = readCatalog();
+console.log(pending instanceof Promise);
+console.log(await pending);</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s05-1"><span>Start the lab in one terminal; run <code>npx tsx exercises/inspect-api.ts</code> in another. Expect true then only Notebook in the response.</span></label></li>
+              <li><label><input type="checkbox" data-task="s05-2"><span>Stop server, rerun, distinguish connection failure from HTTP error; restore and check.</span></label></li>
+              <li><label><input type="checkbox" data-task="s05-3"><span>Ask AI for an explanation and question about one unclear concept, not replacement code.</span></label></li>
+              <li><label><input type="checkbox" data-task="s05-4"><span>Phase gate without AI: request Pen, predict price, explain awaits, type-check. Revisit earlier exercises if needed.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> connect request, Promise, resolved value, and failure in your own words.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="topic-section" id="phase-2">
+        <h2>Phase 2 (Steps 6 to 10): First UI tests</h2>
+        <p>Prerequisite: Phase 1 gate. Outcome: independent browser tests and evidence-based AI review.</p>
+        <details class="day" id="step-06" data-day>
+          <summary>Step 6: Requirements and oracles <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> select checks by risk, not AI-generated quantity.</p>
+            <p><strong>Study:</strong> <a href="#lab-contract">contract</a>; partitions/boundaries in the <a href="https://www.istqb.org/">ISTQB Foundation syllabus</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s06-1"><span>Create case columns: ID, requirement, risk, input, precondition, expected result, oracle, level. Start with casing, empty results, quantity, ownership.</span></label></li>
+              <li><label><input type="checkbox" data-task="s06-2"><span>Separate required, observed, assumed behavior. Investigate differences; never silently make expectations fit the app.</span></label></li>
+              <li><label><input type="checkbox" data-task="s06-3"><span>Ask AI for gaps/duplicates, require contract IDs, reject invented rules.</span></label></li>
+              <li><label><input type="checkbox" data-task="s06-4"><span>Without AI, prioritize one UI/API case each and explain risks. No case-count quota.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> expectations have independent sources and assumptions remain unconfirmed.</p>
+          </div>
+        </details>
+        <details class="day" id="step-07" data-day>
+          <summary>Step 7: Explore page and network <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> connect controls to HTML/HTTP. DOM represents the page; accessible names identify controls.</p>
+            <p><strong>Study:</strong> <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Web_form_structure">forms</a> and <a href="https://playwright.dev/docs/locators">locators</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s07-1"><span>Explore blank/mixed-case/unmatched queries; write a charter and record observations.</span></label></li>
+              <li><label><input type="checkbox" data-task="s07-2"><span>In developer tools find label, Search button, Products list, catalog HTTP request.</span></label></li>
+              <li><label><input type="checkbox" data-task="s07-3"><span>Ask AI for one exploration idea and evaluate what it missed or helped discover.</span></label></li>
+              <li><label><input type="checkbox" data-task="s07-4"><span>Without AI, explain HTML versus JSON and perform keyboard-only search.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> identify action and server request implementing your case.</p>
+          </div>
+        </details>
+        <details class="day" id="step-08" data-day>
+          <summary>Step 8: First Playwright browser test <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> translate setup/actions/assertions. Playwright supplies isolated pages and retries web assertions until success or timeout.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/writing-tests">writing tests</a>, <a href="https://playwright.dev/docs/test-webserver">webServer</a>.</p>
+            <p><strong>playwright.config.ts</strong>. Non-overlapping projects prevent duplicate API execution across browsers. Request-only tests launch no browser. Stop your manual server; this config starts a fresh one.</p>
+            <pre data-file="playwright.config.ts"><code>import { defineConfig, devices } from '@playwright/test';
+
+const baseURL = 'http://127.0.0.1:3100';
+
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  forbidOnly: Boolean(process.env.CI),
+  retries: 0,
+  workers: 2,
+  reporter: [
+    ['list'],
+    ['html', { open: 'never' }],
+    ['json', { outputFile: 'test-results/results.json' }],
+  ],
+  use: { baseURL, trace: 'retain-on-failure', screenshot: 'only-on-failure' },
+  webServer: {
+    command: 'npm run start:lab',
+    url: `${baseURL}/health`,
+    reuseExistingServer: false,
+    stdout: 'pipe',
+  },
+  projects: [
+    { name: 'api', testMatch: '**/api/**/*.spec.ts' },
+    { name: 'ui-chromium', testMatch: '**/ui/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'] } },
+    { name: 'e2e', testMatch: '**/e2e/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'] } },
+  ],
+});</code></pre>
+            <p><strong>tests/ui/search.spec.ts</strong>. Expected count and price come from the contract.</p>
+            <pre data-file="tests/ui/search.spec.ts"><code>import { test, expect } from '@playwright/test';
+
+test('CAT-02: search ignores case', { tag: ['@ui', '@smoke'] }, async ({ page }) =&gt; {
+  await page.goto('/');
+  const catalog = page.getByRole('region', { name: 'Catalog' });
+  await expect(catalog.getByRole('status')).toHaveText('3 products found');
+  await page.getByLabel('Search products').fill('NOTEBOOK');
+  await page.getByRole('button', { name: 'Search', exact: true }).click();
+  await expect(catalog.getByRole('status')).toHaveText('1 products found');
+  const results = catalog.getByRole('listitem');
+  await expect(results).toHaveCount(1);
+  await expect(results.getByRole('heading')).toHaveText('Notebook');
+  await expect(results.getByText('SEK 12.00', { exact: true })).toBeVisible();
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s08-1"><span>Create config/test, type-check, run <code>npm run test:ui</code>; initially expect one pass.</span></label></li>
+              <li><label><input type="checkbox" data-task="s08-2"><span>Run <code>npm run test:ui -- --headed</code> and <code>npm run report</code>. Match actions to code.</span></label></li>
+              <li><label><input type="checkbox" data-task="s08-3"><span>Ask AI to explain one expression and verify the docs. Distinguish locator versus element.</span></label></li>
+              <li><label><input type="checkbox" data-task="s08-4"><span>Without AI, add Pen search with independent price and select it with --grep.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> explain every assertion. No tests found often means path/project mismatch.</p>
+          </div>
+        </details>
+        <details class="day" id="step-09" data-day>
+          <summary>Step 9: Meaningful failures <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> choose stable locators and distinguish test versus product defects. Explicit test IDs are valid when roles/labels are insufficient.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/locators">locators</a>, <a href="https://playwright.dev/docs/actionability">auto-waiting</a>, <a href="https://playwright.dev/docs/test-assertions">assertions</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s09-1"><span>Temporarily use a wrong accessible name, inspect failure, restore. Explain why timeout increases cannot fix it.</span></label></li>
+              <li><label><input type="checkbox" data-task="s09-2"><span>Change server search to <code>product.name.includes(query)</code>. Keep correct uppercase assertions, run against fresh server, observe failure, restore.</span></label></li>
+              <li><label><input type="checkbox" data-task="s09-3"><span>Ask AI to classify both failures using contract/diff/error. Reject sleeps and weaker assertions.</span></label></li>
+              <li><label><input type="checkbox" data-task="s09-4"><span>Without AI, add unmatched search asserting zero count and empty list. Label seeded evidence honestly.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> explain assertion execution versus actual defect detection.</p>
+          </div>
+        </details>
+        <details class="day" id="step-10" data-day>
+          <summary>Step 10: AI review and early guardrails <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> supervise AI and catch common mistakes early. Lint cannot prove correctness.</p>
+            <p><strong>Study:</strong> <a href="https://typescript-eslint.io/rules/no-floating-promises/">unhandled Promises</a>, <a href="https://github.com/playwright-community/eslint-plugin-playwright">Playwright lint</a>.</p>
+            <p><strong>eslint.config.mjs</strong>, checking test files:</p><pre data-file="eslint.config.mjs"><code>import tseslint from 'typescript-eslint';
+import playwright from 'eslint-plugin-playwright';
+
+export default [{
+  files: ['tests/**/*.ts'],
+  languageOptions: {
+    parser: tseslint.parser,
+    parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
+  },
+  plugins: { '@typescript-eslint': tseslint.plugin, playwright },
+  rules: {
+    '@typescript-eslint/no-floating-promises': 'error',
+    'playwright/no-wait-for-timeout': 'error',
+    'playwright/prefer-web-first-assertions': 'error',
+  },
+}];</code></pre>
+            <p><strong>Prompt:</strong> "Use only this contract, manual case, and markup. Identify the oracle first. Propose one small test with awaited actions/web assertions. No invented selectors, fixed sleeps, or guessed rules. List questions. I will review and execute it."</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s10-1"><span>Run lint; remove an await temporarily; confirm detection; restore and rerun.</span></label></li>
+              <li><label><input type="checkbox" data-task="s10-2"><span>Try the prompt for an unimplemented case; review every locator and expectation before execution.</span></label></li>
+              <li><label><input type="checkbox" data-task="s10-3"><span>Log corrections/results. Add concise repository instructions for local tests/oracles/no weakened assertions and verify actual use.</span></label></li>
+              <li><label><input type="checkbox" data-task="s10-4"><span>Phase gate without AI: blank-query test, type-check, lint, UI run; explain one remaining gap.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> tests need no runtime AI and you defend their assertions.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="topic-section" id="phase-3">
+        <h2>Phase 3 (Steps 11 to 15): HTTP and APIs</h2>
+        <p>Prerequisite: Phase 2 gate. Outcome: contracts, business rules, and state transitions before abstractions.</p>
+        <details class="day" id="step-11" data-day>
+          <summary>Step 11: Read HTTP conversations <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> methods, URLs, queries, headers, JSON, status. HTTP success is not business correctness.</p>
+            <p><strong>Study:</strong> MDN <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP overview</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">status codes</a>.</p>
+            <pre><code>curl -i 'http://127.0.0.1:3100/api/products?q=NOTEBOOK'
+curl -i -X POST 'http://127.0.0.1:3100/api/carts'
+curl -i -X POST 'http://127.0.0.1:3100/api/carts' -H 'Authorization: Bearer learner-alex'</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s11-1"><span>Start lab; predict and verify 200, 401, 201 from the contract.</span></label></li>
+              <li><label><input type="checkbox" data-task="s11-2"><span>Identify cart ID, content type, request ID and correlated server log.</span></label></li>
+              <li><label><input type="checkbox" data-task="s11-3"><span>Ask AI to label request/response fields and explain a status; verify it.</span></label></li>
+              <li><label><input type="checkbox" data-task="s11-4"><span>Without AI, explain 401 versus 403; delete your cart as Alex and stop the manual server.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> explain a full HTTP exchange and each side's fields.</p>
+          </div>
+        </details>
+        <details class="day" id="step-12" data-day>
+          <summary>Step 12: First API contract test <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> verify API behavior independently of UI. Request is an HTTP fixture; params encodes the query.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/api-testing">API testing</a>, <a href="https://playwright.dev/docs/api/class-apirequestcontext">APIRequestContext</a>.</p>
+            <p><strong>tests/api/catalog.spec.ts</strong></p><pre data-file="tests/api/catalog.spec.ts"><code>import { test, expect } from '@playwright/test';
+
+test('CAT-02: API search ignores case', { tag: '@api' }, async ({ request }) =&gt; {
+  const response = await request.get('/api/products', { params: { q: 'NOTEBOOK' } });
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('application/json');
+  const body: unknown = await response.json();
+  expect(body).toEqual({
+    products: [{ id: 'p1', name: 'Notebook', priceCents: 1200, inStock: true }],
+  });
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s12-1"><span>Run <code>npm run test:api</code>; explain why no page or locator is needed.</span></label></li>
+              <li><label><input type="checkbox" data-task="s12-2"><span>Compare UI/API detection strengths and blind spots.</span></label></li>
+              <li><label><input type="checkbox" data-task="s12-3"><span>Ask AI to review assertions; keep expectations independent of the response.</span></label></li>
+              <li><label><input type="checkbox" data-task="s12-4"><span>Without AI, add unmatched-query coverage and explain empty-array success.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> wrong prices fail despite HTTP 200.</p>
+          </div>
+        </details>
+        <details class="day" id="step-13" data-day>
+          <summary>Step 13: Negative cases and data <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> partitions become independently named tests, not hidden checks in one scenario.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/test-parameterize">parameterization</a>, <a href="#lab-contract">AUTH-01</a>.</p>
+            <p><strong>tests/api/access.spec.ts</strong></p><pre data-file="tests/api/access.spec.ts"><code>import { test, expect } from '@playwright/test';
+
+const cases: { name: string; headers: Record&lt;string, string&gt; }[] = [
+  { name: 'missing token', headers: {} },
+  { name: 'unknown token', headers: { Authorization: 'Bearer not-a-user' } },
+];
+
+for (const scenario of cases) {
+  test(`AUTH-01: rejects ${scenario.name}`, async ({ request }) =&gt; {
+    const response = await request.post('/api/carts', { headers: scenario.headers });
+    expect(response.status()).toBe(401);
+    expect(await response.json()).toEqual({ error: 'Authentication required' });
+  });
+}</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s13-1"><span>Run both cases, inspect separate report results, explain why no cart is created.</span></label></li>
+              <li><label><input type="checkbox" data-task="s13-2"><span>Design quantity cases 0, 1, 5, 6, 1.5, missing, string "2"; implement after Step 15.</span></label></li>
+              <li><label><input type="checkbox" data-task="s13-3"><span>Ask AI to critique partitions; reject invented limits or out-of-scope payloads.</span></label></li>
+              <li><label><input type="checkbox" data-task="s13-4"><span>Without AI, add empty bearer-value coverage with a clear name.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> distinguish empty success, invalid input, unauthorized access.</p>
+          </div>
+        </details>
+        <details class="day" id="step-14" data-day>
+          <summary>Step 14: Schemas versus business rules <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> validate runtime JSON. A schema-valid price can be wrong; derive schemas from the contract, not app code.</p>
+            <p><strong>Study:</strong> <a href="https://zod.dev/basics">Zod parse and safeParse</a>.</p>
+            <p><strong>src/schemas/shop.ts</strong></p><pre data-file="src/schemas/shop.ts"><code>import { z } from 'zod';
+
+export const catalogSchema = z.object({
+  products: z.array(z.object({
+    id: z.string(),
+    name: z.string().min(1),
+    priceCents: z.number().int().nonnegative(),
+    inStock: z.boolean(),
+  })),
+});
+
+export const cartSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.enum(['alex', 'sam']),
+  items: z.array(z.object({
+    productId: z.string(),
+    quantity: z.number().int().min(1).max(5),
+    unitPriceCents: z.number().int().nonnegative(),
+  })),
+  totalCents: z.number().int().nonnegative(),
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s14-1"><span>safeParse synthetic JSON with a string price; inspect issues.</span></label></li>
+              <li><label><input type="checkbox" data-task="s14-2"><span>Try positive but wrong price 9999; explain schema success/business failure.</span></label></li>
+              <li><label><input type="checkbox" data-task="s14-3"><span>Ask AI to compare types, schemas, consumer/provider contracts; verify distinctions.</span></label></li>
+              <li><label><input type="checkbox" data-task="s14-4"><span>Without AI, parse a real response and retain independent business expectations.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> demonstrate both schema and business failures.</p>
+          </div>
+        </details>
+        <details class="day" id="step-15" data-day>
+          <summary>Step 15: State, idempotency, cleanup <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> create, change, read afresh, clean up despite failure. Repeating this PUT must not duplicate/increment quantity.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/api-testing#setup-and-teardown">setup/teardown</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT">PUT</a>. The .js import extension is intentional with NodeNext TypeScript.</p>
+            <p><strong>tests/api/cart.spec.ts</strong></p><pre data-file="tests/api/cart.spec.ts"><code>import { test, expect } from '@playwright/test';
+import { cartSchema } from '../../src/schemas/shop.js';
+
+test('CART-02: setting quantity is idempotent', async ({ request }) =&gt; {
+  const headers = { Authorization: 'Bearer learner-alex' };
+  const created = await request.post('/api/carts', { headers });
+  expect(created.status()).toBe(201);
+  const cart = cartSchema.parse(await created.json());
+  try {
+    for (const quantity of [2, 2]) {
+      const updated = await request.put(`/api/carts/${cart.id}/items/p1`, {
+        headers, data: { quantity },
+      });
+      expect(updated.status()).toBe(200);
+      expect(cartSchema.parse(await updated.json()).totalCents).toBe(2400);
+    }
+    const read = await request.get(`/api/carts/${cart.id}`, { headers });
+    expect(read.status()).toBe(200);
+    const saved = cartSchema.parse(await read.json());
+    expect(saved.items).toEqual([
+      { productId: 'p1', quantity: 2, unitPriceCents: 1200 },
+    ]);
+    expect(saved.totalCents).toBe(2400);
+  } finally {
+    const removed = await request.delete(`/api/carts/${cart.id}`, { headers });
+    expect(removed.status()).toBe(204);
+  }
+  const missing = await request.get(`/api/carts/${cart.id}`, { headers });
+  expect(missing.status()).toBe(404);
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s15-1"><span>Run it, draw absent/empty/populated/unchanged/deleted states, explain finally.</span></label></li>
+              <li><label><input type="checkbox" data-task="s15-2"><span>Implement quantity matrix using new carts; after rejected writes, read and assert unchanged state.</span></label></li>
+              <li><label><input type="checkbox" data-task="s15-3"><span>Ask AI about cleanup/false positives; never import app calculations as test expectations.</span></label></li>
+              <li><label><input type="checkbox" data-task="s15-4"><span>Phase gate without AI: valid Pen, out-of-stock Bag, unknown product; assert 200/409/404 and state.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> independent tests and unchanged rejected state; distinguish read-after-write from database durability.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="topic-section" id="phase-4">
+        <h2>Phase 4 (Steps 16 to 20): Reuse and integration</h2>
+        <p>Prerequisite: Phase 3 gate. Outcome: refactor repetition, isolate data, verify ownership, diagnose across layers.</p>
+        <details class="day" id="step-16" data-day>
+          <summary>Step 16: A test-scoped fixture <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> before use prepares; afterward cleans up. Each test gets a unique cart despite shared synthetic identity.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/test-fixtures">fixtures</a>. Add wrappers only for real repetition.</p>
+            <p><strong>src/fixtures/shop.ts</strong></p><pre data-file="src/fixtures/shop.ts"><code>import { test as base, expect, type APIRequestContext } from '@playwright/test';
+import { cartSchema } from '../schemas/shop.js';
+
+type CartFixture = { client: APIRequestContext; id: string };
+
+export const test = base.extend&lt;{ cart: CartFixture }&gt;({
+  cart: async ({ playwright, baseURL }, use) =&gt; {
+    if (!baseURL) throw new Error('The lab baseURL must be configured');
+    const client = await playwright.request.newContext({
+      baseURL, extraHTTPHeaders: { Authorization: 'Bearer learner-alex' },
+    });
+    let cartId: string | undefined;
+    try {
+      const created = await client.post('/api/carts');
+      expect(created.status()).toBe(201);
+      cartId = cartSchema.parse(await created.json()).id;
+      await use({ client, id: cartId });
+    } finally {
+      try {
+        if (cartId) {
+          const removed = await client.delete(`/api/carts/${cartId}`);
+          expect([204, 404]).toContain(removed.status());
+        }
+      } finally {
+        await client.dispose();
+      }
+    }
+  },
+});
+
+export { expect } from '@playwright/test';</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s16-1"><span>Refactor a quantity case with this test/expect, cart.client/id; keep business assertions visible.</span></label></li>
+              <li><label><input type="checkbox" data-task="s16-2"><span>Use two tests, verify different IDs, run --workers=2 --repeat-each=3. Browser contexts do not isolate server data.</span></label></li>
+              <li><label><input type="checkbox" data-task="s16-3"><span>Ask AI why shared mutable carts in beforeAll are risky; verify execution order.</span></label></li>
+              <li><label><input type="checkbox" data-task="s16-4"><span>Without AI, explain cleanup's 404 allowance after deletion and HTTP-client disposal.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> same assertions pass independently in either order.</p>
+          </div>
+        </details>
+        <details class="day" id="step-17" data-day>
+          <summary>Step 17: A small page object <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> extract repeated actions, keep assertions in tests. A class groups behavior/data; constructor receives the page.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/pom">page objects</a>, not a large inheritance framework.</p>
+            <p><strong>src/pages/catalog-page.ts</strong></p><pre data-file="src/pages/catalog-page.ts"><code>import type { Locator, Page } from '@playwright/test';
+
+export class CatalogPage {
+  readonly searchInput: Locator;
+  readonly searchButton: Locator;
+
+  constructor(page: Page) {
+    this.searchInput = page.getByLabel('Search products');
+    this.searchButton = page.getByRole('button', { name: 'Search', exact: true });
+  }
+
+  async search(query: string): Promise&lt;void&gt; {
+    await this.searchInput.fill(query);
+    await this.searchButton.click();
+  }
+}</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s17-1"><span>Refactor two searches using new CatalogPage(page) and search; compare before/after results.</span></label></li>
+              <li><label><input type="checkbox" data-task="s17-2"><span>Keep expected names/prices visible in tests.</span></label></li>
+              <li><label><input type="checkbox" data-task="s17-3"><span>Ask AI to review the small change; reject abstractions without a concrete benefit.</span></label></li>
+              <li><label><input type="checkbox" data-task="s17-4"><span>Without AI, record duplication, decision, alternative, maintenance trade-off.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> organization changes without weakening tests.</p>
+          </div>
+        </details>
+        <details class="day" id="step-18" data-day>
+          <summary>Step 18: Ownership and identity isolation <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> authorization with controlled identities. Fixed tokens do not cover login, JWT verification, expiry, MFA, OAuth.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/auth">authentication</a>. Reuse login state only without interfering server state; login tests themselves start unauthenticated.</p>
+            <p><strong>tests/api/ownership.spec.ts</strong></p><pre data-file="tests/api/ownership.spec.ts"><code>import { test, expect } from '../../src/fixtures/shop.js';
+
+test('AUTH-01: Sam cannot read Alex cart', async ({ cart, playwright, baseURL }) =&gt; {
+  const otherUser = await playwright.request.newContext({
+    baseURL, extraHTTPHeaders: { Authorization: 'Bearer learner-sam' },
+  });
+  try {
+    const response = await otherUser.get(`/api/carts/${cart.id}`);
+    expect(response.status()).toBe(403);
+    expect(await response.json()).toEqual({ error: 'Access denied' });
+  } finally {
+    await otherUser.dispose();
+  }
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s18-1"><span>Run this plus missing-token cases; identify headers distinguishing 401/403.</span></label></li>
+              <li><label><input type="checkbox" data-task="s18-2"><span>Make an access matrix for Alex/Sam/unauthenticated against local owned resources only.</span></label></li>
+              <li><label><input type="checkbox" data-task="s18-3"><span>Ask AI to find accidental reuse of Alex's client in Sam's tests.</span></label></li>
+              <li><label><input type="checkbox" data-task="s18-4"><span>Without AI, test Sam's forbidden update and unchanged state as Alex.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> demonstrate rejected access and preserved state, not comprehensive security claims.</p>
+          </div>
+        </details>
+        <details class="day" id="step-19" data-day>
+          <summary>Step 19: Combine API and UI <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> follow real data across layers and distinguish mocked UI errors from real integration.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/api-testing#sending-api-requests-from-ui-tests">API plus UI</a>, <a href="https://playwright.dev/docs/mock">mocking</a>.</p>
+            <p><strong>tests/e2e/cart.spec.ts</strong></p><pre data-file="tests/e2e/cart.spec.ts"><code>import { test, expect } from '../../src/fixtures/shop.js';
+
+test('UI-02: cart shows the independently calculated total', async ({ page, cart }) =&gt; {
+  const updated = await cart.client.put(`/api/carts/${cart.id}/items/p1`, {
+    data: { quantity: 2 },
+  });
+  expect(updated.status()).toBe(200);
+  await page.goto('/');
+  await page.getByLabel('Cart ID').fill(cart.id);
+  await page.getByRole('button', { name: 'Load cart' }).click();
+  const cartSection = page.getByRole('region', { name: 'Cart' });
+  await expect(cartSection.getByRole('status')).toHaveText('Cart total: SEK 24.00');
+});</code></pre>
+            <p><strong>tests/ui/catalog-error.spec.ts</strong> checks UI reaction, not the real API's outage handling.</p><pre data-file="tests/ui/catalog-error.spec.ts"><code>import { test, expect } from '@playwright/test';
+
+test('UI-01: reports an unavailable catalog', { tag: '@mocked' }, async ({ page }) =&gt; {
+  await page.route('**/api/products?*', (route) =&gt; route.fulfill({
+    status: 503, contentType: 'application/json',
+    body: JSON.stringify({ error: 'Unavailable' }),
+  }));
+  await page.goto('/');
+  const catalog = page.getByRole('region', { name: 'Catalog' });
+  await expect(catalog.getByRole('alert')).toHaveText('Products unavailable. Try again.');
+  await expect(catalog.getByRole('listitem')).toHaveCount(0);
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s19-1"><span>Run npm test -- --project=e2e; explain setup/write/read/cleanup and source of 24.00.</span></label></li>
+              <li><label><input type="checkbox" data-task="s19-2"><span>Run the mock case, inspect trace, label separately from real-service coverage.</span></label></li>
+              <li><label><input type="checkbox" data-task="s19-3"><span>Ask AI whether mocks bypass an integration the tests claim to cover.</span></label></li>
+              <li><label><input type="checkbox" data-task="s19-4"><span>Without AI, create three pens through API; verify Cart total: SEK 9.00 in UI.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> independently calculated expectations, not just two matching outputs.</p>
+          </div>
+        </details>
+        <details class="day" id="step-20" data-day>
+          <summary>Step 20: Diagnose across layers <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> distinguish product/test/data/environment failures. Failure location is not necessarily root cause.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/trace-viewer">Trace Viewer</a>, request-ID logs.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s20-1"><span>Remove * item.quantity from local total calculation temporarily; retain correct API/UI expectations.</span></label></li>
+              <li><label><input type="checkbox" data-task="s20-2"><span>Inspect failure/trace/log, state a hypothesis and one disproving check.</span></label></li>
+              <li><label><input type="checkbox" data-task="s20-3"><span>Ask AI after your diagnosis; separate evidence/hypotheses. Restore and rerun.</span></label></li>
+              <li><label><input type="checkbox" data-task="s20-4"><span>Phase gate without AI: defect report with contract, repro, expected/actual, evidence; label seeded training defect.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> unchanged correct tests fail on defect and pass after repair.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="topic-section" id="phase-5">
+        <h2>Phase 5 (Steps 21 to 25): Quality and CI</h2>
+        <p>Prerequisite: Phase 4 gate. Outcome: accessibility/browser evidence, stability, reproducible CI.</p>
+        <details class="day" id="step-21" data-day>
+          <summary>Step 21: Keyboard, mobile, browsers <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> beyond desktop happy paths. Automated scans do not prove accessibility or replace manual evaluation.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/accessibility-testing">accessibility</a>, <a href="https://playwright.dev/docs/emulation">emulation</a>, <a href="https://playwright.dev/docs/test-projects">projects</a>.</p>
+            <p>Install <code>npm install --save-dev --save-exact @axe-core/playwright</code>; create <strong>tests/ui/accessibility.spec.ts</strong>.</p><pre data-file="tests/ui/accessibility.spec.ts"><code>import { AxeBuilder } from '@axe-core/playwright';
+import { test, expect } from '@playwright/test';
+
+test('UI-01: catalog has no detected axe violations', { tag: '@a11y' }, async ({ page }) =&gt; {
+  await page.goto('/');
+  const catalog = page.getByRole('region', { name: 'Catalog' });
+  await expect(catalog.getByRole('status')).toHaveText('3 products found');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s21-1"><span>Run scan, investigate findings. Exceptions need reason/review; never disable rules just for green.</span></label></li>
+              <li><label><input type="checkbox" data-task="s21-2"><span>Tab to search, type, Enter; check visible focus/results, then automate keyboard flow.</span></label></li>
+              <li><label><input type="checkbox" data-task="s21-3"><span>Install Firefox/WebKit; add entries below; run each project and inspect narrow-screen clipping/overflow.</span></label></li>
+              <li><label><input type="checkbox" data-task="s21-4"><span>Ask AI to explain findings; verify rules. Record that emulation is not physical-device testing.</span></label></li>
+            </ul>
+            <p>Run <code>npx playwright install firefox webkit</code>. Add these entries inside the existing projects array:</p>
+            <pre data-example="browser-projects"><code>{ name: 'ui-firefox', testMatch: '**/ui/**/*.spec.ts',
+  use: { ...devices['Desktop Firefox'] } },
+{ name: 'ui-mobile-webkit', testMatch: '**/ui/**/*.spec.ts',
+  use: { ...devices['iPhone 13'] } },</code></pre>
+            <p class="output"><strong>Pass when:</strong> named browser/device results, keyboard evidence, scan limits. Visual snapshots are optional; review baselines on a consistent OS.</p>
+          </div>
+        </details>
+        <details class="day" id="step-22" data-day>
+          <summary>Step 22: Stability and selection <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> diagnose intermittent failures; a retry pass does not erase initial failure.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/test-retries">retries</a>, <a href="https://playwright.dev/docs/test-parallel">parallelism</a>, <a href="https://playwright.dev/docs/test-annotations">tags</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s22-1"><span>Run npm test -- --repeat-each=3 --workers=2 with zero retries; limited evidence, not a guarantee.</span></label></li>
+              <li><label><input type="checkbox" data-task="s22-2"><span>Inspect isolation, awaits, locators, readiness before timeouts. Failure traces are retained without retry.</span></label></li>
+              <li><label><input type="checkbox" data-task="s22-3"><span>Ask AI for hypotheses, choose a discriminating check yourself.</span></label></li>
+              <li><label><input type="checkbox" data-task="s22-4"><span>Without AI, tag critical UI/API smoke cases; verify grep selection. Keep full small suite on PRs.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> separate passed/failed/skipped/flaky; quarantine requires issue, owner, expiry, risk decision.</p>
+          </div>
+        </details>
+        <details class="day" id="step-23" data-day>
+          <summary>Step 23: GitHub Actions CI <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> same gates on a clean runner. CI is not deployment.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/ci-intro">Playwright CI</a>, <a href="https://docs.github.com/en/actions/get-started/understand-github-actions">Actions</a>.</p>
+            <p><strong>.github/workflows/playwright.yml</strong>. webServer starts the local app without real secrets or model calls. Action versions match the checked official example.</p><pre data-file=".github/workflows/playwright.yml"><code>name: QA checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npx playwright install --with-deps
+      - run: npm test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s23-1"><span>Review practice repository privacy, connect to GitHub, commit workflow/lockfile, open a small PR there.</span></label></li>
+              <li><label><input type="checkbox" data-task="s23-2"><span>Match job steps to local commands; explain npm ci and separate type checking versus transpilation.</span></label></li>
+              <li><label><input type="checkbox" data-task="s23-3"><span>Ask AI to review triggers/permissions/dependencies/failure behavior; inspect YAML like code.</span></label></li>
+              <li><label><input type="checkbox" data-task="s23-4"><span>Without AI, demonstrate a failing practice-branch check, inspect report, restore and rerun green. Never merge deliberately broken code.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> same revision passes locally/CI, a known failure fails the job. Local execution alone does not prove GitHub runner success.</p>
+          </div>
+        </details>
+        <details class="day" id="step-24" data-day>
+          <summary>Step 24: Evidence and release decisions <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> protect evidence; green tests cover selected risks only.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/ci-intro#properly-handling-secrets">artifact privacy</a>, <a href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/security-hardening-for-github-actions">Actions security</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s24-1"><span>Inspect logs/traces/screenshots; control full-report access and publish only sanitized summaries.</span></label></li>
+              <li><label><input type="checkbox" data-task="s24-2"><span>Require quality checks where supported. Read-only permissions; never combine untrusted PR code with privileged secrets through pull_request_target.</span></label></li>
+              <li><label><input type="checkbox" data-task="s24-3"><span>Ask AI about ignored secrets in traces. For long-lived workflows use reviewed action commit pins and an update process.</span></label></li>
+              <li><label><input type="checkbox" data-task="s24-4"><span>Without AI, recommend release using checks, failures, gaps, limits; report upload is not deployment.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> safe evidence and explicit untested risks. No cloud deployment required in the core.</p>
+          </div>
+        </details>
+        <details class="day" id="step-25" data-day>
+          <summary>Step 25: Evaluate AI's contribution <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> fault detection and human effort, not generated count. This is a learning experiment, not a universal productivity study.</p>
+            <p><strong>Study:</strong> your red/green evidence and <a href="https://docs.github.com/en/copilot/responsible-use/copilot-chat-in-your-ide">responsible use</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s25-1"><span>Use correct app, case-sensitive search, ignored quantity, locally disabled ownership check. Introduce/restore one defect at a time.</span></label></li>
+              <li><label><input type="checkbox" data-task="s25-2"><span>Ask AI for tests from contract without revealing seeded faults; review and record detections/misses/false alarms.</span></label></li>
+              <li><label><input type="checkbox" data-task="s25-3"><span>Record authoring/review/debug effort and versions. Note learning/order effects, no universal saving claims.</span></label></li>
+              <li><label><input type="checkbox" data-task="s25-4"><span>Phase gate without AI: explain one accepted/rejected suggestion, evidence, blind spot; restore and rerun gates.</span></label></li>
+            </ul>
+            <p>Evidence columns: variant, expected fault, result, detected/missed/false alarm, correction, effort, commit. A compile failure in the injected change is not business-defect detection.</p>
+            <p class="output"><strong>Pass when:</strong> demonstrated detection and critical review, not merely green tests.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="topic-section" id="phase-6">
+        <h2>Phase 6 (Steps 26 to 30): Assessment and portfolio</h2>
+        <p>Prerequisite: Phase 5 gate. Outcome: independent skill and reproducible, honest evidence.</p>
+        <details class="day" id="step-26" data-day>
+          <summary>Step 26: Reusable AI workflows <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> reuse without unlimited authority. Prompts give task context; instructions give conventions; agents need tool boundaries.</p>
+            <p><strong>Study:</strong> <a href="https://code.visualstudio.com/docs/agent-customization/custom-instructions">instructions</a>, <a href="https://code.visualstudio.com/docs/agent-customization/agent-skills">skills</a>, <a href="https://playwright.dev/docs/test-agents">test agents</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s26-1"><span>Two reusable workflows: case design, failure triage; define inputs, evidence, steps, output, human review.</span></label></li>
+              <li><label><input type="checkbox" data-task="s26-2"><span>Keep plain prompts if skills unavailable; otherwise package one and verify discovery and actual behavior.</span></label></li>
+              <li><label><input type="checkbox" data-task="s26-3"><span>Ask AI for injection/data/permission risks; require review before edits/external access/publishing.</span></label></li>
+              <li><label><input type="checkbox" data-task="s26-4"><span>Without AI, review an unfamiliar case and explain when clarification is necessary.</span></label></li>
+            </ul>
+            <p><strong>Workflow template:</strong> list inputs; separate facts/observations/hypotheses; identify oracle and missing evidence; propose one discriminating check; stop for human review. No assertion weakening, skips, arbitrary sleeps, or publication.</p>
+            <p><strong>Optional:</strong> separate branch, compatible versions, <code>npx playwright init-agents --loop=vscode</code>. Review plans before generation, then every diff. Healers may suggest skips: reject those as repairs. Local-only access, bounded attempts; regenerate definitions after upgrades.</p>
+            <p class="output"><strong>Pass when:</strong> reviewed reuse, not merely installed agents/files.</p>
+          </div>
+        </details>
+        <details class="day" id="step-27" data-day>
+          <summary>Step 27: Traceability and reporting <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> communicate gaps; one case on three browsers means three executions, not requirements.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/test-reporters">reporters</a>, cases, same-commit results.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s27-1"><span>Trace requirements to assertions, not titles. Mark manual/mocked/integration/missing coverage.</span></label></li>
+              <li><label><input type="checkbox" data-task="s27-2"><span>Write strategy/summary: scope, risks, exclusions, environment, results, defects, recommendation.</span></label></li>
+              <li><label><input type="checkbox" data-task="s27-3"><span>Ask AI for a draft from sanitized evidence; verify all counts/conclusions. Label seeded faults; zero genuine bugs is valid.</span></label></li>
+              <li><label><input type="checkbox" data-task="s27-4"><span>Without AI, explain gap/impact; record commit, commands, versions, environment.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> another tester traces results to assertions and sees limitations.</p>
+          </div>
+        </details>
+        <details class="day" id="step-28" data-day>
+          <summary>Step 28: Independent assessment <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> transfer learning. Docs allowed, no AI-designed solutions. After hints, practise and retry different cases.</p>
+            <p><strong>Study:</strong> recall concepts then consult <a href="#lab-contract">contract</a> and <a href="#capstone">criteria</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s28-1"><span>Implement whitespace-only search; mixed cart two notebooks/three pens; independently calculate 3300 and verify SEK 33.00 in UI.</span></label></li>
+              <li><label><input type="checkbox" data-task="s28-2"><span>Prove Sam cannot delete Alex's cart, Alex reads unchanged state, cleanup works.</span></label></li>
+              <li><label><input type="checkbox" data-task="s28-3"><span>Introduce local defect, detect with unchanged correct test, diagnose/restore/rerun.</span></label></li>
+              <li><label><input type="checkbox" data-task="s28-4"><span>Explain levels, locators, schemas, fixtures, cleanup to a peer or recording; identify practice gaps.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> independent oracles, meaningful failures, restoration, your own explanations; seek peer review.</p>
+          </div>
+        </details>
+        <details class="day" id="step-29" data-day>
+          <summary>Step 29: Portfolio explanation <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> reproducible engineering evidence, not a toy lab presented as production experience.</p>
+            <p><strong>Study:</strong> <a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes">README guidance</a> and evidence log.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s29-1"><span>Document prerequisites/install/run, architecture, strategy, CI, AI help, limits including fixed tokens and in-memory state.</span></label></li>
+              <li><label><input type="checkbox" data-task="s29-2"><span>Clean clone/peer: npm ci, browser install, type-check, lint, tests; fix undocumented assumptions.</span></label></li>
+              <li><label><input type="checkbox" data-task="s29-3"><span>Ask AI for clarity review; verify every suggested claim, no invented impact.</span></label></li>
+              <li><label><input type="checkbox" data-task="s29-4"><span>Review files/history/artifacts/licenses before deliberate publication. Badge only after CI exists; no employer data or real credentials.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> someone reproduces results and distinguishes your work, AI, supplied code.</p>
+          </div>
+        </details>
+        <details class="day" id="step-30" data-day>
+          <summary>Step 30: Demonstrate and reflect <span class="day-status" data-day-status></span></summary>
+          <div class="day-body">
+            <p><strong>Outcome:</strong> defensible transition from manual QA to AI-assisted automation.</p>
+            <p><strong>Study:</strong> <a href="#capstone">evidence</a> and <a href="#next">extensions</a>.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s30-1"><span>Demo reasoning, UI/API checks, detected defect, CI, critically reviewed AI suggestion.</span></label></li>
+              <li><label><input type="checkbox" data-task="s30-2"><span>Without AI, implement a small peer-requested change; explain tests versus contract changes.</span></label></li>
+              <li><label><input type="checkbox" data-task="s30-3"><span>Complete evidence criteria; revisit needs-practice items. Elapsed time/checkmarks alone are not competence.</span></label></li>
+              <li><label><input type="checkbox" data-task="s30-4"><span>Choose a next project; seek separate approval for evidence-backed resume additions. This is project experience.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> independently build, explain, debug, maintain UI/API tests with critical AI use, not yet AI-system-testing expertise.</p>
+          </div>
+        </details>
+      </section>
+
+      <section class="topic-section" id="capstone">
+        <h2>Capstone evidence</h2>
+        <p>Attach evidence: <strong>demonstrated independently</strong> or <strong>needs practice</strong>. Unexplained AI rewrites do not pass. This is not certification or an employment guarantee.</p>
+        <ul class="checklist">
+          <li><label><input type="checkbox" data-task="final-reasoning"><span>Traceable risks, boundaries, independent oracles; observations/assumptions separated.</span></label></li>
+          <li><label><input type="checkbox" data-task="final-code"><span>Explain typed data, async/await, assertions, fixtures, errors; pass type/lint gates without suppression.</span></label></li>
+          <li><label><input type="checkbox" data-task="final-ui"><span>Search/cart, keyboard, browser/mobile-emulation, accessibility evidence with limits.</span></label></li>
+          <li><label><input type="checkbox" data-task="final-api"><span>API contracts, totals, invalid writes, ownership, idempotency, state, isolation, cleanup.</span></label></li>
+          <li><label><input type="checkbox" data-task="final-debug"><span>Unchanged correct tests detect controlled defects; explain via traces/logs; restoration passes.</span></label></li>
+          <li><label><input type="checkbox" data-task="final-ai"><span>Reviewed AI suggestions, measured human effort, independent solutions; no runtime model requirement.</span></label></li>
+          <li><label><input type="checkbox" data-task="final-ci"><span>Clean local/CI execution, failure gates, protected evidence. Deployment only if separately demonstrated.</span></label></li>
+          <li><label><input type="checkbox" data-task="final-portfolio"><span>Reproducible README, honest decisions/summary; distinguish learning, supplied code, AI, professional work.</span></label></li>
+        </ul>
+      </section>
+      <section class="topic-section" id="resources">
+        <h2>Resource guide</h2>
+        <p>Use each step's Study links first. Read, practise, return with concrete questions; reading everything is not a prerequisite to writing a test.</p>
+        <ul>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting">MDN JavaScript</a> and <a href="https://www.typescriptlang.org/docs/handbook/intro.html">TypeScript Handbook</a>: programming foundations.</li>
+          <li><a href="https://learn.microsoft.com/en-us/training/modules/build-with-playwright/">Microsoft Learn Playwright</a> and <a href="https://playwright.dev/docs/best-practices">best practices</a>: guided automation.</li>
+          <li><a href="https://playwright.dev/docs/test-webserver">webServer</a>, <a href="https://playwright.dev/docs/test-typescript">type checking</a>, <a href="https://playwright.dev/docs/ci-intro">CI/artifact privacy</a>, <a href="https://expressjs.com/en/starter/installing.html">Express</a>: setup references checked 2026-09-30.</li>
+          <li><a href="https://docs.github.com/en/copilot/responsible-use/copilot-chat-in-your-ide">Copilot responsible use</a>, <a href="https://code.visualstudio.com/docs/agent-customization/custom-instructions">instructions</a>, <a href="https://genai.owasp.org/llm-top-10/">OWASP LLM risks</a>: responsible assistance.</li>
+        </ul>
+        <p>Record versions, retain lockfile, review upgrades. Features, subscriptions, policies vary; deterministic exercises work without AI access.</p>
+      </section>
+      <section class="topic-section" id="next">
+        <h2>Optional extensions</h2>
+        <p>Separate projects after assessment, not hidden prerequisites.</p>
+        <ul>
+          <li><strong>Larger app:</strong> run <a href="https://github.com/testsmith-io/practice-software-testing">Toolshop</a> locally using current instructions. Pin revision, document services/seed data, test unfamiliar features with your accounts. No write-heavy CI/load tests on its public demo.</li>
+          <li><strong>Backend depth:</strong> owned database-backed app for persisted values/restart durability. Add real authentication/expiry, pagination, consumer/provider contracts. For asynchronous flows define consistency deadlines, bounded polling, correlated logs. Do not claim these from this lab.</li>
+          <li><strong>Resilience/performance:</strong> define timeout/retry/duplicate-request expectations first. <a href="https://grafana.com/docs/k6/latest/">k6</a> only on local or explicitly authorized isolated services, capped workload, thresholds, stop conditions.</li>
+          <li><strong>Continuous delivery:</strong> deploy a suitable app's versioned artifact to an authorized isolated preview; smoke-test; document promotion/rollback/cleanup. Do not publicly deploy this simplified teaching server.</li>
+          <li><strong>Testing AI products:</strong> separate chatbot/retrieval evaluation project with versioned synthetic questions/reference answers. Check grounding, unsupported answers, privacy, injection, latency, cost across repeats. Use <a href="https://www.promptfoo.dev/docs/intro/">promptfoo</a> or another framework; calibrate judges with human review. Distinct from using AI to author UI/API tests.</li>
+        </ul>
+      </section>
       <footer>Learning Website</footer>
     </main>
-    <aside class="toc" aria-label="Table of contents"><h2>Table of contents</h2><a href="#overview">Overview</a><a href="#learning-path">Learning path</a></aside>
+    <aside class="toc" aria-label="Table of contents">
+      <h2>Table of contents</h2>
+      <a href="#overview">Overview</a><a href="#how-to-use">Learning method</a><a href="#ai-lifecycle">AI in the QA life cycle</a>
+      <a href="#portfolio">Portfolio project</a><a href="#lab-contract">Lab contract</a><a href="#lab-setup">Worked setup</a>
+      <a href="#phase-1">Phase 1: Programming</a><a href="#phase-2">Phase 2: UI tests</a><a href="#phase-3">Phase 3: APIs</a>
+      <a href="#phase-4">Phase 4: Integration</a><a href="#phase-5">Phase 5: Quality and CI</a><a href="#phase-6">Phase 6: Assessment</a>
+      <a href="#capstone">Capstone evidence</a><a href="#resources">Resources</a><a href="#next">Optional extensions</a>
+    </aside>
   </div>
   <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
   <script src="../assets/site.js"></script>
