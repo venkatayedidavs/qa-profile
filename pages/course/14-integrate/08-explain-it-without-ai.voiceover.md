@@ -1,0 +1,1 @@
+Answer first: Is a skill a trained model? Can a hook replace a test? Does read-only mean private? Is every tool MCP? Does a discovered skill always run? Is testing a model the same as asking it to write tests?

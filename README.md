@@ -14,7 +14,7 @@ post_date: "2026-09-12"
 
 ## Course
 
-The GitHub Pages site includes a lesson-by-lesson course, QA Automation with AI, built from the notes already in this repository. Open `pages/course/index.html`. The original single-file notes remain under `pages/topics/` and `learn/`.
+The GitHub Pages site includes a lesson-by-lesson course, QA Automation with AI, split from `pages/topics/quality-assurance.html` and `pages/topics/ai-in-software.html`. Open `pages/course/index.html`. Those original single-file pages remain published.
 
 ## Purpose
 

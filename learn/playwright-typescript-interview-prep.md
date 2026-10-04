@@ -24,8 +24,6 @@ This Markdown file is the source. Two HTML renderings sit beside it in
 - [playwright-typescript-interview-prep-plan.html](playwright-typescript-interview-prep-plan.html)
   is this plan rendered exactly as written, with no added sections and no
   reordering.
-- The study version and this plan are also published as individual lessons,
-  in order, under `pages/course/` (Part 3 of the course).
 
 ## How to use this plan
 
