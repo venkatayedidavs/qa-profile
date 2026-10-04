@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Stateful cart writes come after single-call contracts. Cleanup is the phase gate.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 15: State, idempotency, cleanup · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-11-read-http-conversations.html">Step 11: Read HTTP conversations</a><a href="02-step-12-first-api-contract-test.html">Step 12: First API contract test</a><a href="03-step-13-negative-cases-and-data.html">Step 13: Negative cases and data</a><a href="04-step-14-schemas-versus-business-rules.html">Step 14: Schemas versus business rules</a><a href="05-step-15-state-idempotency-cleanup.html" aria-current="page">Step 15: State, idempotency, cleanup</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 4 of 19 · Lesson 5 of 5</p>
+      <h1>Step 15: State, idempotency, cleanup</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Stateful cart writes come after single-call contracts. Cleanup is the phase gate.</p></div>
+<article class="lesson-body" id="step-15">
+<p><strong>Outcome:</strong> create, change, read afresh, clean up despite failure. Repeating this PUT must not duplicate/increment quantity.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/api-testing#setup-and-teardown">setup/teardown</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PUT">PUT</a>. The .js import extension is intentional with NodeNext TypeScript.</p>
+            <p><strong>tests/api/cart.spec.ts</strong></p><pre data-file="tests/api/cart.spec.ts"><code>import { test, expect } from '@playwright/test';
+import { cartSchema } from '../../src/schemas/shop.js';
+
+test('CART-02: setting quantity is idempotent', async ({ request }) =&gt; {
+  const headers = { Authorization: 'Bearer learner-alex' };
+  const created = await request.post('/api/carts', { headers });
+  expect(created.status()).toBe(201);
+  const cart = cartSchema.parse(await created.json());
+  try {
+    for (const quantity of [2, 2]) {
+      const updated = await request.put(`/api/carts/${cart.id}/items/p1`, {
+        headers, data: { quantity },
+      });
+      expect(updated.status()).toBe(200);
+      expect(cartSchema.parse(await updated.json()).totalCents).toBe(2400);
+    }
+    const read = await request.get(`/api/carts/${cart.id}`, { headers });
+    expect(read.status()).toBe(200);
+    const saved = cartSchema.parse(await read.json());
+    expect(saved.items).toEqual([
+      { productId: 'p1', quantity: 2, unitPriceCents: 1200 },
+    ]);
+    expect(saved.totalCents).toBe(2400);
+  } finally {
+    const removed = await request.delete(`/api/carts/${cart.id}`, { headers });
+    expect(removed.status()).toBe(204);
+  }
+  const missing = await request.get(`/api/carts/${cart.id}`, { headers });
+  expect(missing.status()).toBe(404);
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s15-1"><span>Run it, draw absent/empty/populated/unchanged/deleted states, explain finally.</span></label></li>
+              <li><label><input type="checkbox" data-task="s15-2"><span>Implement quantity matrix using new carts; after rejected writes, read and assert unchanged state.</span></label></li>
+              <li><label><input type="checkbox" data-task="s15-3"><span>Ask AI about cleanup/false positives; never import app calculations as test expectations.</span></label></li>
+              <li><label><input type="checkbox" data-task="s15-4"><span>Phase gate without AI: valid Pen, out-of-stock Bag, unknown product; assert 200/409/404 and state.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> independent tests and unchanged rejected state; distinguish read-after-write from database durability.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="04-step-14-schemas-versus-business-rules.html"><span>Previous</span><strong>Step 14: Schemas versus business rules</strong></a><a class="next" href="../05-reuse/index.html"><span>Next</span><strong>Reuse and integration</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html" aria-current="page">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

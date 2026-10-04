@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The page says to read the first group now and return to the others as later lessons introduce them.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>The vocabulary, in plain language · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-ai-basics-start-here.html">AI basics: start here</a><a href="02-learning-method.html">Learning method</a><a href="03-the-vocabulary-in-plain-language.html" aria-current="page">The vocabulary, in plain language</a><a href="04-rag-threat-modeling-and-two-kinds-of-software.html">RAG, threat modeling, and two kinds of software</a><a href="05-which-feature-should-i-use.html">Which feature should I use?</a><a href="06-your-practice-lab.html">Your practice lab</a></nav>
+    </aside>
+    <main>
+      <p class="eyebrow">Module 8 of 19 · Lesson 3 of 6</p>
+      <h1>The vocabulary, in plain language</h1>
+      
+      
+      <div class="path"><p><strong>Why this lesson is here.</strong> The page says to read the first group now and return to the others as later lessons introduce them.</p></div>
+<article class="lesson-body" id="glossary">
+<p>Read the first group now. Return to the others as the lessons introduce them. The example throughout is a shopping-cart quantity rule, not a production AI system.</p>
+        <details class="day" id="terms-models" open>
+          <summary>Models and conversations</summary>
+          <div class="day-body">
+            <dl>
+              <dt><strong>Artificial intelligence (AI)</strong></dt><dd>The broad field of computer systems performing tasks such as prediction, language processing, and decision-making. Not all AI generates text.</dd>
+              <dt><strong>Machine learning (ML)</strong></dt><dd>Learning patterns from data instead of specifying every decision as a handwritten rule. A spam classifier is one example.</dd>
+              <dt><strong>Generative AI / LLM</strong></dt><dd>Generative AI produces content. A large language model (LLM) is a model trained on large amounts of language data that can generate text and code. Some models also process images or other inputs.</dd>
+              <dt><strong>Model / product / harness</strong></dt><dd>The model produces responses; the product supplies the experience; the harness runs the agent loop, tools, and permissions. Changing the model does not change a hook's runtime format.</dd>
+              <dt><strong>Session target / Agent Host</strong></dt><dd>The session target selects the agent implementation, separately from the model. Local uses VS Code's extension-host agent; Copilot uses the shared Copilot runtime on Agent Host, the process that hosts that runtime. The same editor can therefore have different tool and hook behavior.</dd>
+              <dt><strong>Training / inference / fine-tuning</strong></dt><dd>Training learns model parameters. Inference uses a trained model. Fine-tuning further trains it on examples. Writing a skill or attaching a file supplies context; it does not fine-tune the model.</dd>
+              <dt><strong>Prompt / prompt engineering</strong></dt><dd>A request and its guidance; the practice of making them clear. Specify the task, relevant evidence, constraints, and expected output, then evaluate the result.</dd>
+              <dt><strong>Token / context window</strong></dt><dd>A token is a unit the model processes, often part of a word. The context window limits the information a model can handle in one request. A long chat is not unlimited memory.</dd>
+              <dt><strong>Context engineering / compaction</strong></dt><dd>Selecting useful instructions, files, history, and tool results for the current task. Compaction summarizes older context to make room; details can be lost. Keep important requirements in files.</dd>
+              <dt><strong>Temperature / nondeterminism</strong></dt><dd>Temperature controls sampling variation where supported. Lower temperature is not a truth switch or a guarantee of identical results. Some products do not expose this setting.</dd>
+              <dt><strong>Latency / usage cost</strong></dt><dd>How long a response takes and what model and tool usage consumes. Long context, retries, and subagents can add time and cost. Check the product's current allowance rather than assuming a fixed price per prompt.</dd>
+            </dl>
+          </div>
+        </details>
+        <details class="day" id="terms-workflows">
+          <summary>Workflows and customization</summary>
+          <div class="day-body">
+            <dl>
+              <dt><strong>Tool / function calling</strong></dt><dd>A capability exposed to an agent, such as reading a file or running a test. The model requests a call; the application validates and executes it subject to permissions. A sentence saying "I ran it" is not a tool result.</dd>
+              <dt><strong>Agent / agentic workflow</strong></dt><dd>A model-driven loop that chooses actions, uses tools, observes results, and continues toward a goal. More autonomy needs clearer boundaries, not more trust.</dd>
+              <dt><strong>Custom agent / subagent / handoff</strong></dt><dd>A custom agent is a reusable role and tool configuration. A subagent performs a delegated task in a separate context. A handoff switches the active role with relevant context; it is not the same as delegation.</dd>
+              <dt><strong>Instructions / prompt file</strong></dt><dd>Instructions supply persistent project or task guidance. A prompt file is a saved task request invoked manually in supporting clients. In current VS Code docs, prompt files are Local-only compatibility material; skills are the forward path.</dd>
+              <dt><strong>Agent Skill</strong></dt><dd>A folder with a <code>SKILL.md</code> workflow and optional supporting files. It supplies a repeatable procedure, not a new model, a permission grant, or proof that the procedure was followed.</dd>
+              <dt><strong>Hook</strong></dt><dd>Code run by the harness at an event such as before a tool call. The code can make a predictable decision, but only if that hook is loaded and invoked. An agent hook is different from a Git pre-commit hook or a test framework's beforeEach.</dd>
+              <dt><strong>MCP</strong></dt><dd>Model Context Protocol: a standard for an AI application to communicate with servers offering tools, resources, and prompts. It is an integration protocol, not an AI model or an automatic security boundary.</dd>
+              <dt><strong>Agent plugin / editor extension</strong></dt><dd>An agent plugin packages supported customizations for reuse. A VS Code extension extends the editor and may contribute AI tools too. The terms overlap in purpose but describe different packaging systems.</dd>
+            </dl>
+            <p><strong>Read:</strong> <a href="https://code.visualstudio.com/docs/agent-customization/overview">VS Code customization guide</a> and <a href="https://modelcontextprotocol.io/docs/learn/architecture">MCP architecture</a>.</p>
+          </div>
+        </details>
+        <details class="day" id="terms-evidence">
+          <summary>Grounding, safety, and QA</summary>
+          <div class="day-body">
+            <dl>
+              <dt><strong>Grounding / RAG</strong></dt><dd>Grounding connects an answer to supplied evidence. Retrieval-augmented generation (RAG) retrieves relevant material and uses it during generation. Retrieval can miss the right rule or return an obsolete one; citations still need checking.</dd>
+              <dt><strong>Embedding / vector search</strong></dt><dd>An embedding represents data as numbers for tasks such as similarity search. Similar meaning is not the same as factual correctness, authorization, or the latest version.</dd>
+              <dt><strong>Hallucination</strong></dt><dd>An unsupported or false generated claim. In QA, it might be an invented requirement, package API, or test result. Ask for evidence and verify it independently.</dd>
+              <dt><strong>Prompt injection</strong></dt><dd>Input attempts to redirect the assistant away from its intended task. Instructions hidden in a page, ticket, or tool result are still untrusted content. Delimiters and warnings help but do not guarantee protection.</dd>
+              <dt><strong>Least privilege / human approval</strong></dt><dd>Expose only the capabilities and data needed. Review a consequential action before it runs. A "read-only" role can still send read content to a remote model; read-only is not private.</dd>
+              <dt><strong>Test oracle / synthetic data</strong></dt><dd>An oracle is the independent basis of an expected result, such as an agreed rule. Synthetic data is invented practice data with no real customer identity. The model's answer is not the oracle.</dd>
+              <dt><strong>Evaluation (eval) / regression</strong></dt><dd>An eval measures AI behavior against representative tasks and explicit criteria. A regression is a loss of previously acceptable behavior. Keep deterministic code tests as well as AI evals; they answer different questions.</dd>
+              <dt><strong>False positive / false negative</strong></dt><dd>A reviewer reporting a nonexistent bug is a false positive; missing a real bug is a false negative. Measure both rather than rewarding the longest list of findings.</dd>
+              <dt><strong>AI-assisted testing / testing AI</strong></dt><dd>Using an assistant to help test a normal function is AI-assisted testing. Evaluating a model-powered feature tests AI behavior itself. This course starts with the former.</dd>
+            </dl>
+            <p><strong>Read:</strong> <a href="https://learn.microsoft.com/en-us/azure/search/retrieval-augmented-generation-overview">Microsoft on RAG</a>, <a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP on prompt injection</a>, and <a href="https://developers.openai.com/api/docs/guides/evaluation-best-practices">evaluation principles</a>.</p>
+          </div>
+        </details>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="02-learning-method.html"><span>Previous</span><strong>Learning method</strong></a><a class="next" href="04-rag-threat-modeling-and-two-kinds-of-software.html"><span>Next</span><strong>RAG, threat modeling, and two kinds of software</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html" aria-current="page">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

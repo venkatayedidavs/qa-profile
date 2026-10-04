@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Keyboard, mobile, and a second browser come after the core journey already passes.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 21: Keyboard, mobile, browsers · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-21-keyboard-mobile-browsers.html" aria-current="page">Step 21: Keyboard, mobile, browsers</a><a href="02-step-22-stability-and-selection.html">Step 22: Stability and selection</a><a href="03-step-23-github-actions-ci.html">Step 23: GitHub Actions CI</a><a href="04-step-24-evidence-and-release-decisions.html">Step 24: Evidence and release decisions</a><a href="05-step-25-evaluate-ai-s-contribution.html">Step 25: Evaluate AI&#x27;s contribution</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 6 of 19 · Lesson 1 of 5</p>
+      <h1>Step 21: Keyboard, mobile, browsers</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Keyboard, mobile, and a second browser come after the core journey already passes.</p></div>
+<article class="lesson-body" id="step-21">
+<p><strong>Outcome:</strong> beyond desktop happy paths. Automated scans do not prove accessibility or replace manual evaluation.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/accessibility-testing">accessibility</a>, <a href="https://playwright.dev/docs/emulation">emulation</a>, <a href="https://playwright.dev/docs/test-projects">projects</a>.</p>
+            <p>Install <code>npm install --save-dev --save-exact @axe-core/playwright</code>; create <strong>tests/ui/accessibility.spec.ts</strong>.</p><pre data-file="tests/ui/accessibility.spec.ts"><code>import { AxeBuilder } from '@axe-core/playwright';
+import { test, expect } from '@playwright/test';
+
+test('UI-01: catalog has no detected axe violations', { tag: '@a11y' }, async ({ page }) =&gt; {
+  await page.goto('/');
+  const catalog = page.getByRole('region', { name: 'Catalog' });
+  await expect(catalog.getByRole('status')).toHaveText('3 products found');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toEqual([]);
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s21-1"><span>Run scan, investigate findings. Exceptions need reason/review; never disable rules just for green.</span></label></li>
+              <li><label><input type="checkbox" data-task="s21-2"><span>Tab to search, type, Enter; check visible focus/results, then automate keyboard flow.</span></label></li>
+              <li><label><input type="checkbox" data-task="s21-3"><span>Install Firefox/WebKit; add entries below; run each project and inspect narrow-screen clipping/overflow.</span></label></li>
+              <li><label><input type="checkbox" data-task="s21-4"><span>Ask AI to explain findings; verify rules. Record that emulation is not physical-device testing.</span></label></li>
+            </ul>
+            <p>Run <code>npx playwright install firefox webkit</code>. Add these entries inside the existing projects array:</p>
+            <pre data-example="browser-projects"><code>{ name: 'ui-firefox', testMatch: '**/ui/**/*.spec.ts',
+  use: { ...devices['Desktop Firefox'] } },
+{ name: 'ui-mobile-webkit', testMatch: '**/ui/**/*.spec.ts',
+  use: { ...devices['iPhone 13'] } },</code></pre>
+            <p class="output"><strong>Pass when:</strong> named browser/device results, keyboard evidence, scan limits. Visual snapshots are optional; review baselines on a consistent OS.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="index.html"><span>Previous</span><strong>Quality and CI</strong></a><a class="next" href="02-step-22-stability-and-selection.html"><span>Next</span><strong>Step 22: Stability and selection</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html" aria-current="page">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

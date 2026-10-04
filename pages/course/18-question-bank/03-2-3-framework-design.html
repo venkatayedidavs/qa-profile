@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Framework design follows fundamentals, matching phase 3.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>2.3 Framework design · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-2-1-typescript.html">2.1 TypeScript</a><a href="02-2-2-playwright-fundamentals.html">2.2 Playwright fundamentals</a><a href="03-2-3-framework-design.html" aria-current="page">2.3 Framework design</a><a href="04-2-4-reliability-and-flakiness.html">2.4 Reliability and flakiness</a><a href="05-2-5-ci-scale-and-reporting.html">2.5 CI, scale and reporting</a><a href="06-2-6-api-network-and-data.html">2.6 API, network and data</a><a href="07-2-7-accessibility-visual-and-emulation.html">2.7 Accessibility, visual and emulation</a><a href="08-2-8-process-leadership-and-collaboration.html">2.8 Process, leadership and collaboration</a><a href="09-2-9-scenario-and-whiteboard.html">2.9 Scenario and whiteboard</a><a href="10-2-10-live-coding-drills.html">2.10 Live coding drills</a><a href="11-2-11-questions-to-ask-them.html">2.11 Questions to ask them</a></nav>
+    </aside>
+    <main>
+      <p class="eyebrow">Module 18 of 19 · Lesson 3 of 11</p>
+      <h1>2.3 Framework design</h1>
+      
+      
+      <div class="path"><p><strong>Why this lesson is here.</strong> Framework design follows fundamentals, matching phase 3.</p></div>
+<article class="lesson-body">
+<details>
+      <summary>Walk me through the structure of your Playwright framework.</summary>
+      <p class="probe"><strong>Tested:</strong> whether the structure is reasoned or copied.</p>
+      <p>Specs express intent only; fixtures supply the environment and
+        collaborators; page and component objects hold interaction knowledge; an API
+        client arranges state; config holds the project matrix and timeouts. Finish
+        by naming one thing you would change today and why &mdash; that sentence is
+        what separates a builder from a user.</p>
+    </details>
+
+    <details>
+      <summary>Fixtures or <code>beforeEach</code> hooks?</summary>
+      <p>Fixtures keep setup and teardown in one place, are reusable across files,
+        are created only when a test asks for them, compose with each other, and are
+        type safe. Hooks are fine for trivial shared navigation. Worker fixtures
+        exist for anything expensive enough to create once per worker.</p>
+    </details>
+
+    <details>
+      <summary>Give an example of a worker-scoped fixture.</summary>
+      <p>A per-worker test account derived from the worker index, created in setup
+        and deleted in teardown, so parallel tests never fight over the same
+        customer record. Note that a worker fixture has its own timeout and that
+        workers are restarted after a failure to guarantee a clean environment.</p>
+    </details>
+
+    <details>
+      <summary>How do you handle authentication?</summary>
+      <p>A setup project logs in once, saves <code>storageState</code> to a file,
+        and is declared as a dependency of the browser projects, so every test
+        starts authenticated. Where tokens live in IndexedDB rather than cookies,
+        save that too. For tests that mutate account state, use a per-worker account
+        instead of one shared login. Keep a small number of tests that exercise the
+        real login UI, because storage state bypasses it.</p>
+    </details>
+
+    <details>
+      <summary>Do page objects contain assertions?</summary>
+      <p>State a position and the trade-off. Assertions in specs make failures read
+        as violated intent and keep page objects reusable; assertions inside page
+        objects reduce duplication for repeated compound checks. A common middle
+        ground is exposing locators and small query methods, asserting in the spec,
+        with a few named verification helpers for heavily repeated checks.</p>
+    </details>
+
+    <details>
+      <summary>How do you keep a large suite maintainable?</summary>
+      <p>A shared locator contract with developers; component objects for repeated
+        widgets; fixtures instead of inheritance; tags for selection; a naming
+        convention tied to requirements so coverage maps back to Jira and Xray; a
+        review rule that every new test declares its level and its data needs; and a
+        recurring pass on the slowest and flakiest tests.</p>
+    </details>
+
+    <details>
+      <summary>How do you decide what belongs in an end-to-end test at all?</summary>
+      <p>Risk, expressed as the classic test-shape argument. End-to-end tests cover
+        journeys that cross services and carry business or regulatory consequence,
+        such as onboarding with screening. Field validation, edge cases and
+        permutations belong at API or component level where they run in a fraction
+        of the time. This is where your test-management background is the
+        differentiator &mdash; do not answer it as a tool user.</p>
+    </details>
+
+    <p class="hint">Quick-fire: <code>test.use</code> for per-file options; option
+      fixtures with <code>option: true</code> for parameterised projects;
+      <code>mergeTests</code> and <code>mergeExpects</code>; <code>box: true</code>
+      to hide helper noise in reports; auto fixtures as global before and after
+      hooks; project <code>dependencies</code> and <code>teardown</code>;
+      <code>snapshotPathTemplate</code>.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="02-2-2-playwright-fundamentals.html"><span>Previous</span><strong>2.2 Playwright fundamentals</strong></a><a class="next" href="04-2-4-reliability-and-flakiness.html"><span>Next</span><strong>2.4 Reliability and flakiness</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html" aria-current="page">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

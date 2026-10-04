@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The checks every action from the previous lesson actually performs.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>1.7 Auto-waiting and actionability · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-1-1-what-playwright-is-and-how-it-drives-a-browser.html">1.1 What Playwright is and how it drives a browser</a><a href="02-1-2-setting-up-a-project.html">1.2 Setting up a project</a><a href="03-1-3-anatomy-of-a-test.html">1.3 Anatomy of a test</a><a href="04-1-4-browser-context-and-page.html">1.4 Browser, context and page</a><a href="05-1-5-locators.html">1.5 Locators</a><a href="06-1-6-actions.html">1.6 Actions</a><a href="07-1-7-auto-waiting-and-actionability.html" aria-current="page">1.7 Auto-waiting and actionability</a><a href="08-1-8-assertions.html">1.8 Assertions</a><a href="09-1-9-organising-tests-hooks-describe-tags.html">1.9 Organising tests: hooks, describe, tags</a><a href="10-1-10-the-configuration-file.html">1.10 The configuration file</a><a href="11-1-11-running-tests-from-the-cli.html">1.11 Running tests from the CLI</a><a href="12-1-12-debugging-tooling.html">1.12 Debugging tooling</a><a href="13-1-13-reporters-and-artifacts.html">1.13 Reporters and artifacts</a><a href="14-1-14-typescript-you-need-on-day-one.html">1.14 TypeScript you need on day one</a></nav>
+    </aside>
+    <main>
+      <p class="eyebrow">Module 16 of 19 · Lesson 7 of 14</p>
+      <h1>1.7 Auto-waiting and actionability</h1>
+      
+      
+      <div class="path"><p><strong>Why this lesson is here.</strong> The checks every action from the previous lesson actually performs.</p></div>
+<article class="lesson-body">
+<p>Playwright performs actionability checks before acting and retries until they
+      pass or the action times out. Knowing this list by name is a strong signal in
+      interviews.</p>
+    <ul>
+      <li><strong>Attached</strong> &mdash; present in the DOM.</li>
+      <li><strong>Visible</strong> &mdash; non-empty bounding box, not
+        <code>visibility: hidden</code>.</li>
+      <li><strong>Stable</strong> &mdash; has stopped moving between animation
+        frames.</li>
+      <li><strong>Receives events</strong> &mdash; nothing else overlays the
+        hit point.</li>
+      <li><strong>Enabled</strong> &mdash; not disabled.</li>
+      <li><strong>Editable</strong> &mdash; additionally required for typing.</li>
+    </ul>
+    <p>Consequence: explicit sleeps are unnecessary and harmful.
+      <code>page.waitForTimeout()</code> exists for debugging only.</p>
+
+    <details>
+      <summary>Why does an action still fail even though the element is on screen?</summary>
+      <p>Usually because an actionability check other than visibility is failing:
+        an overlay, a cookie banner or a toast intercepting the click point, or an
+        animation still running so the element is not stable. The timeout error
+        includes an actionability log naming the check that blocked, and the trace
+        shows the DOM at that moment.</p>
+    </details>
+
+    <details>
+      <summary>What do you do about a cookie banner that appears unpredictably?</summary>
+      <p><code>page.addLocatorHandler()</code> registers a dismissal handler that
+        fires whenever the interstitial appears, with a <code>times</code> limit.
+        Better still, suppress it at source with a pre-set cookie or a route stub so
+        no test spends time on it.</p>
+    </details>
+</article>
+<aside class="voiceover">
+  <h2>Voiceover script</h2>
+  <p>Read this aloud if you want the spoken pass. The course does not include a recording. The same words are in <a href="07-1-7-auto-waiting-and-actionability.voiceover.md">the script file next to this lesson</a>.</p>
+  <pre class="script">Before Playwright clicks, it does not trust that the element is merely on the page. It retries a list of actionability checks until they pass, or until the action times out.
+
+Attached means the element is in the DOM.
+Visible means it has a non-empty box and is not hidden.
+Stable means it has stopped moving between animation frames. If a control is still sliding, the click waits. That is what stable means for an animating element.
+Receives events means nothing else covers the point you are clicking. An overlay, a toast, or a cookie banner fails this check even when you can see the button.
+Enabled means it is not disabled.
+Editable is an extra check, required when the action types.
+
+If a check fails, the timeout error names the check that blocked. That log is the diagnosis. Do not add waitForTimeout to hide it. That call is for debugging, not for a test you keep.
+
+You should be able to say this list without notes. That is the exit this part of the plan asks for.</pre>
+</aside>
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="06-1-6-actions.html"><span>Previous</span><strong>1.6 Actions</strong></a><a class="next" href="08-1-8-assertions.html"><span>Next</span><strong>1.8 Assertions</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html" aria-current="page">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

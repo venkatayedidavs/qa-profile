@@ -12,6 +12,10 @@ summary: "Two-step workflow for reviewing a base QA resume and tailoring it to j
 post_date: "2026-09-12"
 ---
 
+## Course
+
+The GitHub Pages site includes a lesson-by-lesson course, QA Automation with AI, built from the notes already in this repository. Open `pages/course/index.html`. The original single-file notes remain under `pages/topics/` and `learn/`.
+
 ## Purpose
 
 This workspace keeps one approved base resume and creates a separate application

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Two users come after shared setup, because a browser context does not isolate server-side carts.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 18: Ownership and identity isolation · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-16-a-test-scoped-fixture.html">Step 16: A test-scoped fixture</a><a href="02-step-17-a-small-page-object.html">Step 17: A small page object</a><a href="03-step-18-ownership-and-identity-isolation.html" aria-current="page">Step 18: Ownership and identity isolation</a><a href="04-step-19-combine-api-and-ui.html">Step 19: Combine API and UI</a><a href="05-step-20-diagnose-across-layers.html">Step 20: Diagnose across layers</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 5 of 19 · Lesson 3 of 5</p>
+      <h1>Step 18: Ownership and identity isolation</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Two users come after shared setup, because a browser context does not isolate server-side carts.</p></div>
+<article class="lesson-body" id="step-18">
+<p><strong>Outcome:</strong> authorization with controlled identities. Fixed tokens do not cover login, JWT verification, expiry, MFA, OAuth.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/auth">authentication</a>. Reuse login state only without interfering server state; login tests themselves start unauthenticated.</p>
+            <p><strong>tests/api/ownership.spec.ts</strong></p><pre data-file="tests/api/ownership.spec.ts"><code>import { test, expect } from '../../src/fixtures/shop.js';
+
+test('AUTH-01: Sam cannot read Alex cart', async ({ cart, playwright, baseURL }) =&gt; {
+  const otherUser = await playwright.request.newContext({
+    baseURL, extraHTTPHeaders: { Authorization: 'Bearer learner-sam' },
+  });
+  try {
+    const response = await otherUser.get(`/api/carts/${cart.id}`);
+    expect(response.status()).toBe(403);
+    expect(await response.json()).toEqual({ error: 'Access denied' });
+  } finally {
+    await otherUser.dispose();
+  }
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s18-1"><span>Run this plus missing-token cases; identify headers distinguishing 401/403.</span></label></li>
+              <li><label><input type="checkbox" data-task="s18-2"><span>Make an access matrix for Alex/Sam/unauthenticated against local owned resources only.</span></label></li>
+              <li><label><input type="checkbox" data-task="s18-3"><span>Ask AI to find accidental reuse of Alex's client in Sam's tests.</span></label></li>
+              <li><label><input type="checkbox" data-task="s18-4"><span>Without AI, test Sam's forbidden update and unchanged state as Alex.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> demonstrate rejected access and preserved state, not comprehensive security claims.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="02-step-17-a-small-page-object.html"><span>Previous</span><strong>Step 17: A small page object</strong></a><a class="next" href="04-step-19-combine-api-and-ui.html"><span>Next</span><strong>Step 19: Combine API and UI</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html" aria-current="page">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

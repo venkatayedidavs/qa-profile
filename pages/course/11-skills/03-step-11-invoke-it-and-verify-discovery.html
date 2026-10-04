@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Discovery is evidence the files are wired, which you cannot check before they exist.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 11: Invoke it and verify discovery · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-9-write-the-skill-s-procedure.html">Step 9: Write the skill&#x27;s procedure</a><a href="02-step-10-add-one-useful-supporting-resource.html">Step 10: Add one useful supporting resource</a><a href="03-step-11-invoke-it-and-verify-discovery.html" aria-current="page">Step 11: Invoke it and verify discovery</a><a href="04-step-12-evaluate-the-skill-including-failures.html">Step 12: Evaluate the skill, including failures</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 11 of 19 · Lesson 3 of 4</p>
+      <h1>Step 11: Invoke it and verify discovery</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Discovery is evidence the files are wired, which you cannot check before they exist.</p></div>
+<article class="lesson-body" id="step-11">
+<p><strong>Do:</strong> inspect Skills in Chat: Open Customizations, then start a fresh chat with read/search tools only. Type <code>/qa-case-review</code> and select it from the menu. Supply the contract path explicitly:</p>
+            <pre><code>/qa-case-review Use specs/quantity.md as the requirement file.
+Propose the cases in chat only; do not edit files or run commands.</code></pre>
+            <p>Then try a natural-language request in a separate chat: "Review specs/quantity.md for boundary cases and invalid input types." Automatic discovery makes a skill available, not guaranteed to be chosen. Inspect References and available debug logs for the actual skill and checklist reads, then inspect the answer.</p>
+            <p><strong>Invocation controls:</strong> by default the skill can be chosen automatically or invoked manually. <code>disable-model-invocation: true</code> makes invocation manual in supporting clients; <code>user-invocable: false</code> hides the slash command. Leave both out in this example. A hidden command is not a permission boundary.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="ai-s11-1"><span>Confirm discovery, explicit invocation, and use of the linked checklist as separate observations.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s11-2"><span>Try the natural-language request; record whether the skill loaded. Do not infer invocation from a similar-looking answer.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s11-3"><span>Without AI, diagnose a missing skill by checking session target, folder/name match, YAML, invocation flags, and logs.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> you can distinguish a discovery problem from a loaded skill that produced a poor answer.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="02-step-10-add-one-useful-supporting-resource.html"><span>Previous</span><strong>Step 10: Add one useful supporting resource</strong></a><a class="next" href="04-step-12-evaluate-the-skill-including-failures.html"><span>Next</span><strong>Step 12: Evaluate the skill, including failures</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html" aria-current="page">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

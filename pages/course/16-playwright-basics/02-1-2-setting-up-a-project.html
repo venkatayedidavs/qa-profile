@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A project has to exist before a test file does.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>1.2 Setting up a project · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-1-1-what-playwright-is-and-how-it-drives-a-browser.html">1.1 What Playwright is and how it drives a browser</a><a href="02-1-2-setting-up-a-project.html" aria-current="page">1.2 Setting up a project</a><a href="03-1-3-anatomy-of-a-test.html">1.3 Anatomy of a test</a><a href="04-1-4-browser-context-and-page.html">1.4 Browser, context and page</a><a href="05-1-5-locators.html">1.5 Locators</a><a href="06-1-6-actions.html">1.6 Actions</a><a href="07-1-7-auto-waiting-and-actionability.html">1.7 Auto-waiting and actionability</a><a href="08-1-8-assertions.html">1.8 Assertions</a><a href="09-1-9-organising-tests-hooks-describe-tags.html">1.9 Organising tests: hooks, describe, tags</a><a href="10-1-10-the-configuration-file.html">1.10 The configuration file</a><a href="11-1-11-running-tests-from-the-cli.html">1.11 Running tests from the CLI</a><a href="12-1-12-debugging-tooling.html">1.12 Debugging tooling</a><a href="13-1-13-reporters-and-artifacts.html">1.13 Reporters and artifacts</a><a href="14-1-14-typescript-you-need-on-day-one.html">1.14 TypeScript you need on day one</a></nav>
+    </aside>
+    <main>
+      <p class="eyebrow">Module 16 of 19 · Lesson 2 of 14</p>
+      <h1>1.2 Setting up a project</h1>
+      
+      
+      <div class="path"><p><strong>Why this lesson is here.</strong> A project has to exist before a test file does.</p></div>
+<article class="lesson-body">
+<pre><code>npm init playwright@latest        # scaffolds config, example test, CI workflow
+npx playwright install            # download browsers
+npx playwright install chromium --with-deps   # CI: only what you need</code></pre>
+    <p>Scaffolding produces <code>playwright.config.ts</code>, a <code>tests/</code>
+      folder and optionally a GitHub Actions workflow. TypeScript works with no
+      build step: name a file <code>.spec.ts</code> and the runner transpiles it.
+      That is a genuine differentiator worth mentioning, because it removes the
+      Babel or ts-node plumbing older stacks needed.</p>
+
+    <details>
+      <summary>Do you need to compile TypeScript before running Playwright tests?</summary>
+      <p>No. The runner transpiles test files on the fly and respects
+        <code>tsconfig.json</code> for <code>baseUrl</code> and <code>paths</code>
+        aliases. It does <em>not</em> type-check as it runs, which is why a mature
+        pipeline adds <code>tsc --noEmit</code> as a separate gate.</p>
+    </details>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="01-1-1-what-playwright-is-and-how-it-drives-a-browser.html"><span>Previous</span><strong>1.1 What Playwright is and how it drives a browser</strong></a><a class="next" href="03-1-3-anatomy-of-a-test.html"><span>Next</span><strong>1.3 Anatomy of a test</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html" aria-current="page">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

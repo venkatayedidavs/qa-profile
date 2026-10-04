@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The bank follows the plan&#x27;s phase order. Language is the first block, matching the first exit criterion.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>2.1 TypeScript · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-2-1-typescript.html" aria-current="page">2.1 TypeScript</a><a href="02-2-2-playwright-fundamentals.html">2.2 Playwright fundamentals</a><a href="03-2-3-framework-design.html">2.3 Framework design</a><a href="04-2-4-reliability-and-flakiness.html">2.4 Reliability and flakiness</a><a href="05-2-5-ci-scale-and-reporting.html">2.5 CI, scale and reporting</a><a href="06-2-6-api-network-and-data.html">2.6 API, network and data</a><a href="07-2-7-accessibility-visual-and-emulation.html">2.7 Accessibility, visual and emulation</a><a href="08-2-8-process-leadership-and-collaboration.html">2.8 Process, leadership and collaboration</a><a href="09-2-9-scenario-and-whiteboard.html">2.9 Scenario and whiteboard</a><a href="10-2-10-live-coding-drills.html">2.10 Live coding drills</a><a href="11-2-11-questions-to-ask-them.html">2.11 Questions to ask them</a></nav>
+    </aside>
+    <main>
+      <p class="eyebrow">Module 18 of 19 · Lesson 1 of 11</p>
+      <h1>2.1 TypeScript</h1>
+      
+      
+      <div class="path"><p><strong>Why this lesson is here.</strong> The bank follows the plan&#x27;s phase order. Language is the first block, matching the first exit criterion.</p></div>
+<article class="lesson-body">
+<details>
+      <summary>Why TypeScript for test automation rather than plain JavaScript?</summary>
+      <p class="probe"><strong>Tested:</strong> whether you chose the language or inherited it.</p>
+      <p>Compile-time feedback on page-object and fixture contracts, IDE
+        discoverability of a large API, safe refactoring across a big suite, and
+        typed test data that prevents invalid states being constructed. Name the
+        cost honestly: build configuration, and a learning curve for manual testers
+        joining the suite.</p>
+    </details>
+
+    <details>
+      <summary>What is the difference between <code>interface</code> and <code>type</code>?</summary>
+      <p>Interfaces are open to declaration merging and read naturally for object
+        shapes; type aliases express unions, intersections, mapped and conditional
+        types. The distinction matters less than consistency &mdash; say which
+        convention your team picked and why.</p>
+    </details>
+
+    <details>
+      <summary>Where have you used generics in a test framework?</summary>
+      <p>A typed API client where the response type is a parameter; typed data
+        builders; and <code>test.extend&lt;TestFixtures, WorkerFixtures&gt;</code>,
+        where the two parameters separate test-scoped from worker-scoped fixture
+        types so the runner knows which lifetime to give each.</p>
+    </details>
+
+    <details>
+      <summary>What goes wrong if you forget an <code>await</code>?</summary>
+      <p>The promise floats. The action or assertion never completes within the
+        test, so a test can pass while doing nothing, and the failure surfaces later
+        as an unhandled rejection attributed to an unrelated test. Prevention is
+        tooling, not discipline: the
+        <code>@typescript-eslint/no-floating-promises</code> rule plus
+        <code>tsc --noEmit</code> as a pipeline gate.</p>
+    </details>
+
+    <details>
+      <summary><code>unknown</code> versus <code>any</code>?</summary>
+      <p><code>any</code> disables checking and spreads through the codebase;
+        <code>unknown</code> forces you to narrow before use. Parse API responses
+        into <code>unknown</code> and narrow, or type the request call generically
+        so the response is typed at the call site.</p>
+    </details>
+
+    <p class="hint">Quick-fire: optional chaining and nullish coalescing;
+      <code>readonly</code> and <code>as const</code>; enum versus union of string
+      literals; <code>Partial</code>, <code>Pick</code>, <code>Omit</code>,
+      <code>Record</code>; why <code>Promise.all</code> on locator actions is
+      usually wrong; how <code>tsconfig</code> path aliases are resolved by the
+      runner.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="index.html"><span>Previous</span><strong>Interview question bank</strong></a><a class="next" href="02-2-2-playwright-fundamentals.html"><span>Next</span><strong>2.2 Playwright fundamentals</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance notes, the AI in Software notes, and the Playwright and TypeScript interview plan. The original files remain in the repository.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-start/index.html">1. Start here</a><a href="../02-programming/index.html">2. Programming foundations</a><a href="../03-ui-tests/index.html">3. First UI tests</a><a href="../04-http-apis/index.html">4. HTTP and APIs</a><a href="../05-reuse/index.html">5. Reuse and integration</a><a href="../06-quality-ci/index.html">6. Quality and CI</a><a href="../07-assessment/index.html">7. Assessment and portfolio</a><a href="../08-ai-basics/index.html">8. AI basics, before you customize</a><a href="../09-understand-ai/index.html">9. Understand AI</a><a href="../10-context/index.html">10. Context and instructions</a><a href="../11-skills/index.html">11. Build a skill</a><a href="../12-agents/index.html">12. Build a custom agent</a><a href="../13-hooks/index.html">13. Build and test a hook</a><a href="../14-integrate/index.html">14. Integrate and evaluate</a><a href="../15-how-to-prepare/index.html">15. How to prepare</a><a href="../16-playwright-basics/index.html">16. Playwright basics you can say out loud</a><a href="../17-five-phases/index.html">17. Five phases with exit criteria</a><a href="../18-question-bank/index.html" aria-current="page">18. Interview question bank</a><a href="../19-rehearsal/index.html">19. Proof project and rehearsal</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>
