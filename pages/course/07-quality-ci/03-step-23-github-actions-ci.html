@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GitHub Actions runs the suite you can already run locally, with the same Node major.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 23: GitHub Actions CI · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-21-keyboard-mobile-browsers.html">Step 21: Keyboard, mobile, browsers</a><a href="02-step-22-stability-and-selection.html">Step 22: Stability and selection</a><a href="03-step-23-github-actions-ci.html" aria-current="page">Step 23: GitHub Actions CI</a><a href="04-step-24-evidence-and-release-decisions.html">Step 24: Evidence and release decisions</a><a href="05-step-25-evaluate-ai-s-contribution.html">Step 25: Evaluate AI&#x27;s contribution</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 7 of 9 · Lesson 3 of 5</p>
+      <h1>Step 23: GitHub Actions CI</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> GitHub Actions runs the suite you can already run locally, with the same Node major.</p></div>
+<article class="lesson-body" id="step-23">
+<p><strong>Outcome:</strong> same gates on a clean runner. CI is not deployment.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/ci-intro">Playwright CI</a>, <a href="https://docs.github.com/en/actions/get-started/understand-github-actions">Actions</a>.</p>
+            <p><strong>.github/workflows/playwright.yml</strong>. webServer starts the local app without real secrets or model calls. Action versions match the checked official example.</p><pre data-file=".github/workflows/playwright.yml"><code>name: QA checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npx playwright install --with-deps
+      - run: npm test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s23-1"><span>Review practice repository privacy, connect to GitHub, commit workflow/lockfile, open a small PR there.</span></label></li>
+              <li><label><input type="checkbox" data-task="s23-2"><span>Match job steps to local commands; explain npm ci and separate type checking versus transpilation.</span></label></li>
+              <li><label><input type="checkbox" data-task="s23-3"><span>Ask AI to review triggers/permissions/dependencies/failure behavior; inspect YAML like code.</span></label></li>
+              <li><label><input type="checkbox" data-task="s23-4"><span>Without AI, demonstrate a failing practice-branch check, inspect report, restore and rerun green. Never merge deliberately broken code.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> same revision passes locally/CI, a known failure fails the job. Local execution alone does not prove GitHub runner success.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="02-step-22-stability-and-selection.html"><span>Previous</span><strong>Step 22: Stability and selection</strong></a><a class="next" href="04-step-24-evidence-and-release-decisions.html"><span>Next</span><strong>Step 24: Evidence and release decisions</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html" aria-current="page">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

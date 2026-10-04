@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Packaging uses the skill you already evaluated. It does not add a new capability.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 23: Package your own skill-only plugin · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-21-understand-mcp-before-connecting-anything.html">Step 21: Understand MCP before connecting anything</a><a href="02-step-22-inspect-a-plugin-before-trusting-it.html">Step 22: Inspect a plugin before trusting it</a><a href="03-step-23-package-your-own-skill-only-plugin.html" aria-current="page">Step 23: Package your own skill-only plugin</a><a href="04-step-24-build-a-workflow-you-can-defend.html">Step 24: Build a workflow you can defend</a><a href="05-step-26-reusable-ai-workflows.html">Step 26: Reusable AI workflows</a><a href="06-step-27-traceability-and-reporting.html">Step 27: Traceability and reporting</a><a href="07-step-28-independent-assessment.html">Step 28: Independent assessment</a><a href="08-step-29-portfolio-explanation.html">Step 29: Portfolio explanation</a><a href="09-step-30-demonstrate-and-reflect.html">Step 30: Demonstrate and reflect</a><a href="10-capstone-evidence.html">Capstone evidence</a><a href="11-resource-guide.html">Resource guide</a><a href="12-optional-extensions.html">Optional extensions</a><a href="13-use-it-in-everyday-engineering.html">Use it in everyday engineering</a><a href="14-next-testing-an-ai-feature.html">Next: testing an AI feature</a><a href="15-when-something-does-not-work.html">When something does not work</a><a href="16-explain-it-without-ai.html">Explain it without AI</a><a href="17-official-sources-and-verification.html">Official sources and verification</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 9 of 9 · Lesson 3 of 17</p>
+      <h1>Step 23: Package your own skill-only plugin</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Packaging uses the skill you already evaluated. It does not add a new capability.</p></div>
+<article class="lesson-body" id="step-23">
+<p><strong>Create:</strong> <code>qa-learning-plugin/plugin.json</code> in the practice lab. This declares the documented Agent Plugins 1.0 format; it does not publish anything.</p>
+            <pre data-file="qa-learning-plugin/plugin.json"><code>{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "qa-learning",
+  "description": "A synthetic practice-lab QA review skill.",
+  "version": "0.1.0"
+}</code></pre>
+            <p>Copy the already-reviewed <code>qa-case-review</code> folder, including its reference, into this package's <code>skills/</code> folder. Keep the skill's <code>name</code> unchanged; the client supplies the plugin prefix. The finished package has these three files:</p>
+            <pre><code>qa-learning-plugin/
+  plugin.json
+  skills/
+    qa-case-review/
+      SKILL.md
+      references/
+        review-checklist.md</code></pre>
+            <p><strong>Optional local activation in a supporting VS Code version:</strong> review these three files, then merge the following into the lab's workspace settings. Replace the example path with the real absolute path to your package; use forward slashes. Preserve existing settings. Do not register this as a user-wide plugin.</p>
+            <pre><code>{
+  "chat.pluginLocations": {
+    "/absolute/path/to/ai-workflow-lab/qa-learning-plugin": true
+  }
+}</code></pre>
+            <p>Check <code>chat.plugins.enabled</code> and organization policy if unavailable. Inspect the plugin in the Customizations editor, then select its namespaced command from the slash menu, normally <code>/qa-learning:qa-case-review</code>. Supply the contract path and verify which copy was used. The workspace skill remains separate; avoid relying on ambiguous automatic selection.</p>
+            <p>Disable or unregister this local package after the trial and verify that its namespaced command disappears in a fresh session while the workspace skill remains. Treat the packaged copy as a versioned snapshot; later skill edits do not automatically update both copies. No marketplace, upload, secret, hook, or MCP server is needed.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="ai-s23-1"><span>Create and inspect the three-file package, including the relative reference from its copied skill.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s23-2"><span>If local plugins are supported, activate only this reviewed package, invoke it explicitly, and disable it. Otherwise record packaging as complete and runtime validation as blocked.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s23-3"><span>Without AI, explain which part is portable and why copying the workspace hook into a random plugin folder would not establish compatibility.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> the package has a clear origin, contents, and disable path; claim live success only after observing it.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="02-step-22-inspect-a-plugin-before-trusting-it.html"><span>Previous</span><strong>Step 22: Inspect a plugin before trusting it</strong></a><a class="next" href="04-step-24-build-a-workflow-you-can-defend.html"><span>Next</span><strong>Step 24: Build a workflow you can defend</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html" aria-current="page">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

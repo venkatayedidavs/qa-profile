@@ -2,19 +2,33 @@ name: Deploy profile pages
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - closed
   workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+  pull-requests: write
 
+# One Pages deployment at a time. A preview publishes main at the site root
+# and the pull request under pr-preview/pr-<number>/.
 concurrency:
   group: github-pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -36,3 +50,146 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  preview:
+    if: github.event_name == 'pull_request' && github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    environment:
+      name: pages-preview
+      url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-preview/pr-${{ github.event.pull_request.number }}/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out pull request head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+
+      - name: Fetch main
+        run: git fetch --depth=1 origin main
+
+      - name: Assemble preview without replacing the live root
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          rm -rf site /tmp/main-pages
+          mkdir -p /tmp/main-pages site
+          git archive origin/main pages | tar -x -C /tmp/main-pages
+          cp -a /tmp/main-pages/pages/. site/
+          mkdir -p "site/pr-preview/pr-${PR_NUMBER}"
+          cp -a pages/. "site/pr-preview/pr-${PR_NUMBER}/"
+          rm -rf "site/pr-preview/pr-${PR_NUMBER}/pr-preview"
+          cmp -s /tmp/main-pages/pages/index.html site/index.html
+          cmp -s pages/index.html "site/pr-preview/pr-${PR_NUMBER}/index.html"
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Comment with the preview URL
+        uses: actions/github-script@v7
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        with:
+          script: |
+            const marker = "<!-- pages-preview -->";
+            const root = (process.env.PAGE_URL || `https://${context.repo.owner}.github.io/${context.repo.repo}/`).replace(/\/?$/, "/");
+            const previewUrl = `${root}pr-preview/pr-${process.env.PR_NUMBER}/`;
+            const body = [
+              marker,
+              "Preview of this pull request's `pages/` site:",
+              "",
+              previewUrl,
+              "",
+              "The live site root stays the `main` pages. This preview is only under `pr-preview/`.",
+            ].join("\n");
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find((comment) => comment.body && comment.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
+  remove-preview:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+    environment:
+      name: pages-preview
+      url: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Note that the preview was removed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = "<!-- pages-preview -->";
+            const body = [
+              marker,
+              "The preview for this pull request was removed. The live site root is still the `main` pages.",
+            ].join("\n");
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find((comment) => comment.body && comment.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }

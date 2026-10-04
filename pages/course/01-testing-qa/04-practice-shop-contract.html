@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The lab is reading this contract and saying what done means. Later tests treat these IDs as the oracle.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Practice Shop contract · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-overview.html">Overview</a><a href="02-the-portfolio-project.html">The portfolio project</a><a href="03-learning-method.html">Learning method</a><a href="04-practice-shop-contract.html" aria-current="page">Practice Shop contract</a><a href="05-step-1-connect-manual-qa-to-automation.html">Step 1: Connect manual QA to automation</a><a href="06-step-6-requirements-and-oracles.html">Step 6: Requirements and oracles</a></nav>
+    </aside>
+    <main>
+      <p class="eyebrow">Module 1 of 9 · Lesson 4 of 6</p>
+      <h1>Practice Shop contract</h1>
+      
+      
+      <div class="path"><p><strong>Why this lesson is here.</strong> The lab is reading this contract and saying what done means. Later tests treat these IDs as the oracle.</p></div>
+<article class="lesson-body" id="lab-contract">
+<p>These are agreed teaching requirements, not expectations inferred from implementation. Keep them unchanged while testing deliberate defects.</p>
+        <div class="table-wrap"><table>
+          <thead><tr><th>ID</th><th>Required behavior</th><th>Independent example</th></tr></thead>
+          <tbody>
+            <tr><td>CAT-01</td><td>Three products; API prices are integer minor units.</td><td>p1: Notebook, 1200, in stock. p2: Pen, 300, in stock. p3: Bag, 4900, out of stock.</td></tr>
+            <tr><td>CAT-02</td><td><code>GET /api/products?q=...</code> trims spaces and matches a case-insensitive name substring. Blank/missing query returns all in seed order. Status 200; body <code>{ products: [...] }</code>.</td><td>NOTEBOOK and spaced notebook return p1 only; zzzz returns an empty array.</td></tr>
+            <tr><td>UI-01</td><td>Show names, SEK prices, and count. Failed requests show an error instead of stale results.</td><td>Notebook: SEK 12.00. Empty: 0 products found. Failure: Products unavailable. Try again.</td></tr>
+            <tr><td>CART-01</td><td><code>POST /api/carts</code> creates an empty owned cart: new ID, 201. GET by ID reads it; DELETE removes it with 204. Missing cart: 404.</td><td>Two creates yield different IDs; reading after deletion returns 404.</td></tr>
+            <tr><td>CART-02</td><td><code>PUT /api/carts/:id/items/:productId</code> accepts JSON integer quantity 1 to 5 inclusive. Sets, not increments, quantity; returns cart with 200.</td><td>Two identical writes of two notebooks leave one line, quantity 2, total 2400. Invalid quantity: 400; unknown product: 404; unavailable stock: 409.</td></tr>
+            <tr><td>AUTH-01</td><td>Cart operations need a recognized bearer token. Missing/unknown: 401. Wrong owner on an existing cart: 403.</td><td>Bearer learner-alex and Bearer learner-sam are distinct synthetic users, never real credentials.</td></tr>
+            <tr><td>UI-02</td><td>The cart lookup uses synthetic Alex and displays the server total.</td><td>Two notebooks: Cart total: SEK 24.00. Failure: Cart unavailable.</td></tr>
+          </tbody>
+        </table></div>
+        <p><strong>Reasoning example:</strong> quantities 0, 1, 5, 6 cover boundaries; string "2" checks the JSON type. Calculate totals independently. Two screens agreeing is weak evidence if both use the same faulty calculation.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="03-learning-method.html"><span>Previous</span><strong>Learning method</strong></a><a class="next" href="05-step-1-connect-manual-qa-to-automation.html"><span>Next</span><strong>Step 1: Connect manual QA to automation</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html" aria-current="page">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

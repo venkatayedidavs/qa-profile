@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A type. Types come after values. The page says advanced generics can wait.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 4: TypeScript and test data · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-worked-setup.html">Worked setup</a><a href="02-step-2-local-setup-and-git.html">Step 2: Local setup and Git</a><a href="03-ai-across-the-qa-life-cycle.html">AI across the QA life cycle</a><a href="04-step-3-values-and-functions.html">Step 3: Values and functions</a><a href="05-step-4-typescript-and-test-data.html" aria-current="page">Step 4: TypeScript and test data</a><a href="06-step-5-async-code-and-phase-gate.html">Step 5: Async code and phase gate</a><a href="07-step-7-explore-page-and-network.html">Step 7: Explore page and network</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 2 of 9 · Lesson 5 of 7</p>
+      <h1>Step 4: TypeScript and test data</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> A type. Types come after values. The page says advanced generics can wait.</p></div>
+<article class="lesson-body" id="step-04">
+<p><strong>Outcome:</strong> objects, arrays, loops, compiler errors versus runtime. Types do not automatically validate server JSON.</p>
+            <p><strong>Study:</strong> <a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html">everyday types</a>; advanced generics can wait.</p>
+            <p><strong>exercises/cart-data.ts</strong></p><pre data-file="exercises/cart-data.ts"><code>type Product = { name: string; priceCents: number };
+
+function lineTotal(product: Product, quantity: number): number {
+  return product.priceCents * quantity;
+}
+
+const notebook: Product = { name: 'Notebook', priceCents: 1200 };
+const quantities: number[] = [1, 2, 5];
+for (const quantity of quantities) {
+  console.log(lineTotal(notebook, quantity));
+}</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s04-1"><span>Type-check; run <code>npx tsx exercises/cart-data.ts</code>. Expect 1200, 2400, 6000.</span></label></li>
+              <li><label><input type="checkbox" data-task="s04-2"><span>Make price a string, observe compiler failure, restore it. No any or type assertion to hide the problem.</span></label></li>
+              <li><label><input type="checkbox" data-task="s04-3"><span>Ask AI why typed code may receive invalid JSON; verify compile-time versus runtime.</span></label></li>
+              <li><label><input type="checkbox" data-task="s04-4"><span>Without AI, add Pen and calculate totals with the same function; explain reuse.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> create typed data and interpret the first relevant compiler error.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="04-step-3-values-and-functions.html"><span>Previous</span><strong>Step 3: Values and functions</strong></a><a class="next" href="06-step-5-async-code-and-phase-gate.html"><span>Next</span><strong>Step 5: Async code and phase gate</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html" aria-current="page">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>
