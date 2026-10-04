@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A schema that accepts the negative cases from the previous step would be a false pass.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 14: Schemas versus business rules · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-11-read-http-conversations.html">Step 11: Read HTTP conversations</a><a href="02-step-12-first-api-contract-test.html">Step 12: First API contract test</a><a href="03-step-13-negative-cases-and-data.html">Step 13: Negative cases and data</a><a href="04-step-14-schemas-versus-business-rules.html" aria-current="page">Step 14: Schemas versus business rules</a><a href="05-step-15-state-idempotency-cleanup.html">Step 15: State, idempotency, cleanup</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 5 of 9 · Lesson 4 of 5</p>
+      <h1>Step 14: Schemas versus business rules</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> A schema that accepts the negative cases from the previous step would be a false pass.</p></div>
+<article class="lesson-body" id="step-14">
+<p><strong>Outcome:</strong> validate runtime JSON. A schema-valid price can be wrong; derive schemas from the contract, not app code.</p>
+            <p><strong>Study:</strong> <a href="https://zod.dev/basics">Zod parse and safeParse</a>.</p>
+            <p><strong>src/schemas/shop.ts</strong></p><pre data-file="src/schemas/shop.ts"><code>import { z } from 'zod';
+
+export const catalogSchema = z.object({
+  products: z.array(z.object({
+    id: z.string(),
+    name: z.string().min(1),
+    priceCents: z.number().int().nonnegative(),
+    inStock: z.boolean(),
+  })),
+});
+
+export const cartSchema = z.object({
+  id: z.string().uuid(),
+  owner: z.enum(['alex', 'sam']),
+  items: z.array(z.object({
+    productId: z.string(),
+    quantity: z.number().int().min(1).max(5),
+    unitPriceCents: z.number().int().nonnegative(),
+  })),
+  totalCents: z.number().int().nonnegative(),
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s14-1"><span>safeParse synthetic JSON with a string price; inspect issues.</span></label></li>
+              <li><label><input type="checkbox" data-task="s14-2"><span>Try positive but wrong price 9999; explain schema success/business failure.</span></label></li>
+              <li><label><input type="checkbox" data-task="s14-3"><span>Ask AI to compare types, schemas, consumer/provider contracts; verify distinctions.</span></label></li>
+              <li><label><input type="checkbox" data-task="s14-4"><span>Without AI, parse a real response and retain independent business expectations.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> demonstrate both schema and business failures.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="03-step-13-negative-cases-and-data.html"><span>Previous</span><strong>Step 13: Negative cases and data</strong></a><a class="next" href="05-step-15-state-idempotency-cleanup.html"><span>Next</span><strong>Step 15: State, idempotency, cleanup</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html" aria-current="page">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

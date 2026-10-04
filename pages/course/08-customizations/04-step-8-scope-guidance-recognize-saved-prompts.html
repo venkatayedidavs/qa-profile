@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="File-scoped guidance and saved prompts come after repository-wide instructions.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 8: Scope guidance; recognize saved prompts · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-5-establish-a-working-baseline.html">Step 5: Establish a working baseline</a><a href="02-step-6-review-an-ai-suggestion-like-a-tester.html">Step 6: Review an AI suggestion like a tester</a><a href="03-step-7-write-repository-instructions.html">Step 7: Write repository instructions</a><a href="04-step-8-scope-guidance-recognize-saved-prompts.html" aria-current="page">Step 8: Scope guidance; recognize saved prompts</a><a href="05-step-9-write-the-skill-s-procedure.html">Step 9: Write the skill&#x27;s procedure</a><a href="06-step-10-add-one-useful-supporting-resource.html">Step 10: Add one useful supporting resource</a><a href="07-step-11-invoke-it-and-verify-discovery.html">Step 11: Invoke it and verify discovery</a><a href="08-step-12-evaluate-the-skill-including-failures.html">Step 12: Evaluate the skill, including failures</a><a href="09-step-13-create-qa-reviewer.html">Step 13: Create QA Reviewer</a><a href="10-step-14-prove-the-read-only-boundary.html">Step 14: Prove the read-only boundary</a><a href="11-step-15-handoff-versus-subagent.html">Step 15: Handoff versus subagent</a><a href="12-step-16-connect-qa-review-to-development.html">Step 16: Connect QA review to development</a><a href="13-step-17-understand-events-input-and-decisions.html">Step 17: Understand events, input, and decisions</a><a href="14-step-18-create-the-approval-script.html">Step 18: Create the approval script</a><a href="15-step-19-test-before-enabling.html">Step 19: Test before enabling</a><a href="16-step-20-verify-live-approval-and-disable-cleanly.html">Step 20: Verify live approval and disable cleanly</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 8 of 9 · Lesson 4 of 16</p>
+      <h1>Step 8: Scope guidance; recognize saved prompts</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> File-scoped guidance and saved prompts come after repository-wide instructions.</p></div>
+<article class="lesson-body" id="step-08">
+<p><strong>Create:</strong> <code>.github/<wbr>instructions/<wbr>tests.instructions.md</code>. The glob is relative to the workspace root and applies when matching files are created or modified. A description also supports task-relevance discovery.</p>
+            <pre data-file=".github/instructions/tests.instructions.md"><code>---
+description: "Use when creating or reviewing quantity unit tests."
+applyTo: "test/**/*.test.mjs"
+---
+
+## Test conventions
+
+- Use node:test and node:assert/strict.
+- Name each case so the input is recognizable in failure output.
+- Derive expected values from the contract, not the function under test.
+- Include a relevant negative case when adding behavior coverage.</code></pre>
+            <p><strong>Optional Local-only compatibility example:</strong> <code>.github/prompts/explain-quantity.prompt.md</code>. Invoke <code>/explain-quantity</code> in a supporting Local chat. Current Agent Host sessions do not load prompt files; skip this example there and use the skill in Phase 3. This is not a required setup step.</p>
+            <p>The <code>agent: ask</code> field selects the Ask role for this explanation request. It is a role setting, not a model name.</p>
+            <pre data-file=".github/prompts/explain-quantity.prompt.md"><code>---
+description: "Explain the quantity contract without changing files."
+agent: ask
+---
+
+Read [the contract](../../specs/quantity.md).
+Explain accepted values, rejected types, and one boundary pair.
+Separate requirements from questions. Do not claim test execution.</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="ai-s08-1"><span>Create the scoped instructions; identify one matching test path and one nonmatching source path.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s08-2"><span>Try a test-edit request with a small approved scope. Check instruction loading and the resulting diff; run the quantity tests yourself.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s08-3"><span>Phase gate without AI: distinguish repository instructions, scoped instructions, a plain prompt, and a saved prompt; explain why the selected harness matters.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> guidance applies for the intended reason. A nonmatching glob does not mean the file is forbidden from being loaded by relevance or attachment.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="03-step-7-write-repository-instructions.html"><span>Previous</span><strong>Step 7: Write repository instructions</strong></a><a class="next" href="05-step-9-write-the-skill-s-procedure.html"><span>Next</span><strong>Step 9: Write the skill&#x27;s procedure</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html" aria-current="page">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

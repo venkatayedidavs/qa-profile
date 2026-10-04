@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The supplied script comes after the event model, so you can read its decisions.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 18: Create the approval script · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-5-establish-a-working-baseline.html">Step 5: Establish a working baseline</a><a href="02-step-6-review-an-ai-suggestion-like-a-tester.html">Step 6: Review an AI suggestion like a tester</a><a href="03-step-7-write-repository-instructions.html">Step 7: Write repository instructions</a><a href="04-step-8-scope-guidance-recognize-saved-prompts.html">Step 8: Scope guidance; recognize saved prompts</a><a href="05-step-9-write-the-skill-s-procedure.html">Step 9: Write the skill&#x27;s procedure</a><a href="06-step-10-add-one-useful-supporting-resource.html">Step 10: Add one useful supporting resource</a><a href="07-step-11-invoke-it-and-verify-discovery.html">Step 11: Invoke it and verify discovery</a><a href="08-step-12-evaluate-the-skill-including-failures.html">Step 12: Evaluate the skill, including failures</a><a href="09-step-13-create-qa-reviewer.html">Step 13: Create QA Reviewer</a><a href="10-step-14-prove-the-read-only-boundary.html">Step 14: Prove the read-only boundary</a><a href="11-step-15-handoff-versus-subagent.html">Step 15: Handoff versus subagent</a><a href="12-step-16-connect-qa-review-to-development.html">Step 16: Connect QA review to development</a><a href="13-step-17-understand-events-input-and-decisions.html">Step 17: Understand events, input, and decisions</a><a href="14-step-18-create-the-approval-script.html" aria-current="page">Step 18: Create the approval script</a><a href="15-step-19-test-before-enabling.html">Step 19: Test before enabling</a><a href="16-step-20-verify-live-approval-and-disable-cleanly.html">Step 20: Verify live approval and disable cleanly</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 8 of 9 · Lesson 14 of 16</p>
+      <h1>Step 18: Create the approval script</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> The supplied script comes after the event model, so you can read its decisions.</p></div>
+<article class="lesson-body" id="step-18">
+<p><strong>Create:</strong> <code>scripts/approval-hook.cjs</code>. The <code>.cjs</code> extension uses CommonJS modules. The explicit <code>copilot</code> or <code>local</code> argument selects the input and output format; it does not guess the runtime from untrusted data.</p>
+            <pre data-file="scripts/approval-hook.cjs"><code>const fs = require('node:fs');
+
+const harness = process.argv[2];
+if (!['copilot', 'local'].includes(harness)) {
+  process.stderr.write('Expected harness: copilot or local.\n');
+  process.exit(2);
+}
+
+let event;
+try {
+  event = JSON.parse(fs.readFileSync(0, 'utf8'));
+} catch {
+  event = null;
+}
+
+const isObject = event !== null &amp;&amp; typeof event === 'object';
+const isCopilotEvent = isObject
+  &amp;&amp; typeof event.toolName === 'string' &amp;&amp; event.toolName.trim() !== ''
+  &amp;&amp; Object.hasOwn(event, 'toolArgs');
+const isLocalEvent = isObject
+  &amp;&amp; event.hook_event_name === 'PreToolUse'
+  &amp;&amp; typeof event.tool_name === 'string' &amp;&amp; event.tool_name.trim() !== ''
+  &amp;&amp; event.tool_input !== null &amp;&amp; typeof event.tool_input === 'object'
+  &amp;&amp; !Array.isArray(event.tool_input);
+const valid = harness === 'copilot' ? isCopilotEvent : isLocalEvent;
+
+const decision = {
+  permissionDecision: valid ? 'ask' : 'deny',
+  permissionDecisionReason: valid
+    ? 'Practice lab: review this tool request before continuing.'
+    : 'Invalid tool event. Check the selected harness and hook config.',
+};
+
+const output = harness === 'local'
+  ? { hookSpecificOutput: { hookEventName: 'PreToolUse', ...decision } }
+  : decision;
+process.stdout.write(`${JSON.stringify(output)}\n`);</code></pre>
+            <p><strong>Read the program:</strong> validate the selected format, parse stdin as JSON, check the fields used by this exercise, choose ask or deny, serialize one response. It does not log arguments, read transcripts, run a shell, or call a model. This is a small teaching check, not a full event-schema validator or a production policy engine.</p>
+            <p><strong>Offline trial, macOS/Linux:</strong> this fixed sample describes a request; it does not run the named tool. On any supported OS, the test suite in Step 19 supplies input without needing shell piping.</p>
+            <pre><code>printf '%s' '{"toolName":"view","toolArgs":{}}' | node scripts/approval-hook.cjs copilot</code></pre>
+            <p>Expect one JSON object with <code>permissionDecision: "ask"</code>. No editor approval dialog appears in a standalone terminal trial because no harness is interpreting the result. Running the script without piped input waits for stdin; use the tests instead.</p>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="ai-s18-1"><span>Create and read the script before running it. Explain why untrusted tool arguments never become executable text.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s18-2"><span>Run the fixed offline trial or Step 19 tests; identify the output fields and selected format.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s18-3"><span>Without AI, predict what an empty input, malformed JSON, and an unsupported harness will do.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> you can explain the script without assuming that printing JSON already controls the editor.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="13-step-17-understand-events-input-and-decisions.html"><span>Previous</span><strong>Step 17: Understand events, input, and decisions</strong></a><a class="next" href="15-step-19-test-before-enabling.html"><span>Next</span><strong>Step 19: Test before enabling</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html" aria-current="page">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

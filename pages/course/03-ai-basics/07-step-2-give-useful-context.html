@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A specific prompt comes after you know a fluent answer is not evidence.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 2: Give useful context · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-ai-basics-start-here.html">AI basics: start here</a><a href="02-learning-method.html">Learning method</a><a href="03-the-vocabulary-in-plain-language.html">The vocabulary, in plain language</a><a href="04-which-feature-should-i-use.html">Which feature should I use?</a><a href="05-your-practice-lab.html">Your practice lab</a><a href="06-step-1-model-product-and-your-responsibility.html">Step 1: Model, product, and your responsibility</a><a href="07-step-2-give-useful-context.html" aria-current="page">Step 2: Give useful context</a><a href="08-step-3-ground-answers-and-spot-unsupported-claims.html">Step 3: Ground answers and spot unsupported claims</a><a href="09-step-4-choose-a-feature-and-a-safety-boundary.html">Step 4: Choose a feature and a safety boundary</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 3 of 9 · Lesson 7 of 9</p>
+      <h1>Step 2: Give useful context</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> A specific prompt comes after you know a fluent answer is not evidence.</p></div>
+<article class="lesson-body" id="step-02">
+<p><strong>Understand:</strong> "test my cart" omits the rule, scope, and expected output. A better prompt names all three. Files are not necessarily in context just because they exist in a repository.</p>
+            <pre><code>Task: propose tests, not code changes.
+Requirement: quantity must be a number that is an integer from 1 to 5.
+Reject other inputs without converting their type. Return a boolean.
+Scope: this function only; no UI, HTTP, stock, or discount assumptions.
+Output: input, expected boolean, requirement, and risk covered.
+List questions separately. Do not claim to have executed tests.</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="ai-s02-1"><span>Predict the results for 1, 5, 6, and string "2" before sending the prompt.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s02-2"><span>Try the vague and specific requests in separate chats with the same model. Compare assumptions, not answer length.</span></label></li>
+              <li><label><input type="checkbox" data-task="ai-s02-3"><span>Without AI, rewrite a request to explain a function: include its code, question, scope, and a checkable output.</span></label></li>
+            </ul>
+            <p><strong>Read:</strong> <a href="https://developers.openai.com/api/docs/guides/text">prompt engineering and output variability</a>. The principles apply here; no API setup is required.</p>
+            <p class="output"><strong>Pass when:</strong> you can explain why adding relevant context helps but does not guarantee a correct answer.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="06-step-1-model-product-and-your-responsibility.html"><span>Previous</span><strong>Step 1: Model, product, and your responsibility</strong></a><a class="next" href="08-step-3-ground-answers-and-spot-unsupported-claims.html"><span>Next</span><strong>Step 3: Ground answers and spot unsupported claims</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html" aria-current="page">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

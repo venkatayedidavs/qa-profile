@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Repetition is refactored only once the cart tests exist. This fixture is the first shared setup.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 16: A test-scoped fixture · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-16-a-test-scoped-fixture.html" aria-current="page">Step 16: A test-scoped fixture</a><a href="02-step-17-a-small-page-object.html">Step 17: A small page object</a><a href="03-step-18-ownership-and-identity-isolation.html">Step 18: Ownership and identity isolation</a><a href="04-step-19-combine-api-and-ui.html">Step 19: Combine API and UI</a><a href="05-step-20-diagnose-across-layers.html">Step 20: Diagnose across layers</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 6 of 9 · Lesson 1 of 5</p>
+      <h1>Step 16: A test-scoped fixture</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Repetition is refactored only once the cart tests exist. This fixture is the first shared setup.</p></div>
+<article class="lesson-body" id="step-16">
+<p><strong>Outcome:</strong> before use prepares; afterward cleans up. Each test gets a unique cart despite shared synthetic identity.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/test-fixtures">fixtures</a>. Add wrappers only for real repetition.</p>
+            <p><strong>src/fixtures/shop.ts</strong></p><pre data-file="src/fixtures/shop.ts"><code>import { test as base, expect, type APIRequestContext } from '@playwright/test';
+import { cartSchema } from '../schemas/shop.js';
+
+type CartFixture = { client: APIRequestContext; id: string };
+
+export const test = base.extend&lt;{ cart: CartFixture }&gt;({
+  cart: async ({ playwright, baseURL }, use) =&gt; {
+    if (!baseURL) throw new Error('The lab baseURL must be configured');
+    const client = await playwright.request.newContext({
+      baseURL, extraHTTPHeaders: { Authorization: 'Bearer learner-alex' },
+    });
+    let cartId: string | undefined;
+    try {
+      const created = await client.post('/api/carts');
+      expect(created.status()).toBe(201);
+      cartId = cartSchema.parse(await created.json()).id;
+      await use({ client, id: cartId });
+    } finally {
+      try {
+        if (cartId) {
+          const removed = await client.delete(`/api/carts/${cartId}`);
+          expect([204, 404]).toContain(removed.status());
+        }
+      } finally {
+        await client.dispose();
+      }
+    }
+  },
+});
+
+export { expect } from '@playwright/test';</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s16-1"><span>Refactor a quantity case with this test/expect, cart.client/id; keep business assertions visible.</span></label></li>
+              <li><label><input type="checkbox" data-task="s16-2"><span>Use two tests, verify different IDs, run --workers=2 --repeat-each=3. Browser contexts do not isolate server data.</span></label></li>
+              <li><label><input type="checkbox" data-task="s16-3"><span>Ask AI why shared mutable carts in beforeAll are risky; verify execution order.</span></label></li>
+              <li><label><input type="checkbox" data-task="s16-4"><span>Without AI, explain cleanup's 404 allowance after deletion and HTTP-client disposal.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> same assertions pass independently in either order.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="index.html"><span>Previous</span><strong>Reuse</strong></a><a class="next" href="02-step-17-a-small-page-object.html"><span>Next</span><strong>Step 17: A small page object</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html" aria-current="page">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

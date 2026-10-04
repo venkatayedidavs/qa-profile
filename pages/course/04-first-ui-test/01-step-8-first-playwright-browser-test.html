@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Write the first Playwright test from the case and the page notes. AI may suggest locators.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 8: First Playwright browser test · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-8-first-playwright-browser-test.html" aria-current="page">Step 8: First Playwright browser test</a><a href="02-step-9-meaningful-failures.html">Step 9: Meaningful failures</a><a href="03-step-10-ai-review-and-early-guardrails.html">Step 10: AI review and early guardrails</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 4 of 9 · Lesson 1 of 3</p>
+      <h1>Step 8: First Playwright browser test</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Write the first Playwright test from the case and the page notes. AI may suggest locators.</p></div>
+<article class="lesson-body" id="step-08">
+<p><strong>Outcome:</strong> translate setup/actions/assertions. Playwright supplies isolated pages and retries web assertions until success or timeout.</p>
+            <p><strong>Study:</strong> <a href="https://playwright.dev/docs/writing-tests">writing tests</a>, <a href="https://playwright.dev/docs/test-webserver">webServer</a>.</p>
+            <p><strong>playwright.config.ts</strong>. Non-overlapping projects prevent duplicate API execution across browsers. Request-only tests launch no browser. Stop your manual server; this config starts a fresh one.</p>
+            <pre data-file="playwright.config.ts"><code>import { defineConfig, devices } from '@playwright/test';
+
+const baseURL = 'http://127.0.0.1:3100';
+
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  forbidOnly: Boolean(process.env.CI),
+  retries: 0,
+  workers: 2,
+  reporter: [
+    ['list'],
+    ['html', { open: 'never' }],
+    ['json', { outputFile: 'test-results/results.json' }],
+  ],
+  use: { baseURL, trace: 'retain-on-failure', screenshot: 'only-on-failure' },
+  webServer: {
+    command: 'npm run start:lab',
+    url: `${baseURL}/health`,
+    reuseExistingServer: false,
+    stdout: 'pipe',
+  },
+  projects: [
+    { name: 'api', testMatch: '**/api/**/*.spec.ts' },
+    { name: 'ui-chromium', testMatch: '**/ui/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'] } },
+    { name: 'e2e', testMatch: '**/e2e/**/*.spec.ts',
+      use: { ...devices['Desktop Chrome'] } },
+  ],
+});</code></pre>
+            <p><strong>tests/ui/search.spec.ts</strong>. Expected count and price come from the contract.</p>
+            <pre data-file="tests/ui/search.spec.ts"><code>import { test, expect } from '@playwright/test';
+
+test('CAT-02: search ignores case', { tag: ['@ui', '@smoke'] }, async ({ page }) =&gt; {
+  await page.goto('/');
+  const catalog = page.getByRole('region', { name: 'Catalog' });
+  await expect(catalog.getByRole('status')).toHaveText('3 products found');
+  await page.getByLabel('Search products').fill('NOTEBOOK');
+  await page.getByRole('button', { name: 'Search', exact: true }).click();
+  await expect(catalog.getByRole('status')).toHaveText('1 products found');
+  const results = catalog.getByRole('listitem');
+  await expect(results).toHaveCount(1);
+  await expect(results.getByRole('heading')).toHaveText('Notebook');
+  await expect(results.getByText('SEK 12.00', { exact: true })).toBeVisible();
+});</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s08-1"><span>Create config/test, type-check, run <code>npm run test:ui</code>; initially expect one pass.</span></label></li>
+              <li><label><input type="checkbox" data-task="s08-2"><span>Run <code>npm run test:ui -- --headed</code> and <code>npm run report</code>. Match actions to code.</span></label></li>
+              <li><label><input type="checkbox" data-task="s08-3"><span>Ask AI to explain one expression and verify the docs. Distinguish locator versus element.</span></label></li>
+              <li><label><input type="checkbox" data-task="s08-4"><span>Without AI, add Pen search with independent price and select it with --grep.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> explain every assertion. No tests found often means path/project mismatch.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="index.html"><span>Previous</span><strong>First UI test written with AI</strong></a><a class="next" href="02-step-9-meaningful-failures.html"><span>Next</span><strong>Step 9: Meaningful failures</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html" aria-current="page">4. First UI test written with AI</a><a href="../05-http-apis/index.html">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>

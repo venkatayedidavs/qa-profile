@@ -14,7 +14,7 @@ post_date: "2026-09-12"
 
 ## Course
 
-The GitHub Pages site includes a lesson-by-lesson course, QA Automation with AI, split from `pages/topics/quality-assurance.html` and `pages/topics/ai-in-software.html`. Open `pages/course/index.html`. Those original single-file pages remain published.
+The GitHub Pages site includes a lesson-by-lesson course, QA Automation with AI, split from `pages/topics/quality-assurance.html` and `pages/topics/ai-in-software.html` into one path. Open `pages/course/index.html`. Those original single-file pages remain published. A pull request into `main` publishes a preview of that branch's `pages/` folder at `pr-preview/pr-<number>/` and leaves the live site root on `main`.
 
 ## Purpose
 

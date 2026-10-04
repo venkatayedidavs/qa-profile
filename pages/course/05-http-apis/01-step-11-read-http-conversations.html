@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Read methods, status codes, and headers before you assert them in a script.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+  <link rel="stylesheet" href="../../assets/topic.css">
+  <link rel="stylesheet" href="../../assets/course.css">
+  <title>Step 11: Read HTTP conversations · QA Automation with AI</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">L</span> Learning Website</div>
+    <div class="site-tools">
+      <div class="theme-switcher" aria-label="Color theme">
+        <button type="button" data-theme-choice="system" aria-label="Use system theme" title="Use system theme" aria-pressed="true"><span class="theme-icon" aria-hidden="true">&#9881;</span></button>
+        <button type="button" data-theme-choice="light" aria-label="Use light theme" title="Use light theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9728;</span></button>
+        <button type="button" data-theme-choice="dark" aria-label="Use dark theme" title="Use dark theme" aria-pressed="false"><span class="theme-icon" aria-hidden="true">&#9790;</span></button>
+      </div>
+    </div>
+  </header>
+  <nav class="sectionbar" aria-label="Primary navigation">
+    <a href="../index.html">Course</a>
+    <a href="../../index.html">Site</a>
+    <a href="../../index.html#profile">Profile</a>
+    <a href="../../index.html#jobs">Jobs</a>
+  </nav>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Course navigation">
+      <p class="sidebar-label"><a href="../index.html">Course</a></p>
+      <h2>This module</h2><nav><a href="01-step-11-read-http-conversations.html" aria-current="page">Step 11: Read HTTP conversations</a><a href="02-step-12-first-api-contract-test.html">Step 12: First API contract test</a><a href="03-step-13-negative-cases-and-data.html">Step 13: Negative cases and data</a><a href="04-step-14-schemas-versus-business-rules.html">Step 14: Schemas versus business rules</a><a href="05-step-15-state-idempotency-cleanup.html">Step 15: State, idempotency, cleanup</a></nav>
+    </aside>
+    <main data-progress-key="qa-automation-ai">
+      <p class="eyebrow">Module 5 of 9 · Lesson 1 of 5</p>
+      <h1>Step 11: Read HTTP conversations</h1>
+      
+      <div class="progress-panel"><p class="progress-label" data-progress-label>Progress is saved in this browser.</p><progress data-progress-bar aria-label="Lesson task completion" value="0" max="1">0%</progress></div>
+      <div class="path"><p><strong>Why this lesson is here.</strong> Read methods, status codes, and headers before you assert them in a script.</p></div>
+<article class="lesson-body" id="step-11">
+<p><strong>Outcome:</strong> methods, URLs, queries, headers, JSON, status. HTTP success is not business correctness.</p>
+            <p><strong>Study:</strong> MDN <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP overview</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">status codes</a>.</p>
+            <pre><code>curl -i 'http://127.0.0.1:3100/api/products?q=NOTEBOOK'
+curl -i -X POST 'http://127.0.0.1:3100/api/carts'
+curl -i -X POST 'http://127.0.0.1:3100/api/carts' -H 'Authorization: Bearer learner-alex'</code></pre>
+            <ul class="checklist">
+              <li><label><input type="checkbox" data-task="s11-1"><span>Start lab; predict and verify 200, 401, 201 from the contract.</span></label></li>
+              <li><label><input type="checkbox" data-task="s11-2"><span>Identify cart ID, content type, request ID and correlated server log.</span></label></li>
+              <li><label><input type="checkbox" data-task="s11-3"><span>Ask AI to label request/response fields and explain a status; verify it.</span></label></li>
+              <li><label><input type="checkbox" data-task="s11-4"><span>Without AI, explain 401 versus 403; delete your cart as Alex and stop the manual server.</span></label></li>
+            </ul>
+            <p class="output"><strong>Pass when:</strong> explain a full HTTP exchange and each side's fields.</p>
+</article>
+
+      <nav class="pager" aria-label="Lesson progression"><a class="prev" href="index.html"><span>Previous</span><strong>HTTP and API</strong></a><a class="next" href="02-step-12-first-api-contract-test.html"><span>Next</span><strong>Step 12: First API contract test</strong></a></nav>
+      <footer>Lesson text is taken from the Quality Assurance slides and the AI in Software slides. The original single-file pages remain published.</footer>
+    </main>
+    <aside class="toc" aria-label="Module list">
+      <h2>Modules</h2>
+      <a href="../01-testing-qa/index.html">1. Basics of testing and QA</a><a href="../02-automation/index.html">2. Basics of automation</a><a href="../03-ai-basics/index.html">3. Basics of AI</a><a href="../04-first-ui-test/index.html">4. First UI test written with AI</a><a href="../05-http-apis/index.html" aria-current="page">5. HTTP and API</a><a href="../06-reuse/index.html">6. Reuse</a><a href="../07-quality-ci/index.html">7. Quality and CI</a><a href="../08-customizations/index.html">8. Customizations</a><a href="../09-defend/index.html">9. Defend the work</a>
+    </aside>
+  </div>
+  <button class="scroll-top" type="button" data-scroll-top aria-label="Scroll to top" title="Scroll to top">&#8593;</button>
+  <script src="../../assets/site.js"></script>
+</body>
+</html>
